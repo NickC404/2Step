@@ -1,0 +1,21 @@
+{
+  "name": "2step",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "tailwindcss -i ./src/input.css -o ./popup/style.css",
+    "build:js": "node scripts/build.js",
+    "dev": "npm run build:js -- --dev && tailwindcss -i ./src/input.css -o ./popup/style.css --watch"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@tailwindcss/cli": "^4.1.18",
+    "esbuild-plugin-vue3": "^0.5.1",
+    "tailwindcss": "^4.1.18"
+  },
+  "dependencies": {
+    "esbuild": "^0.27.2",
+    "vue": "^3.5.25"
+  }
+}

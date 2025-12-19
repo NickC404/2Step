@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+    --color-brand: #4257AC;
+}
+
+html,
+body {
+    width: 380px;
+    height: 580px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--color-gray-50);
+}
+
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
