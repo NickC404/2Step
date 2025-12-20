@@ -19,9 +19,9 @@
         <div v-if="selectedDirectorySite" class="space-y-4">
           <button 
             @click="selectedDirectorySite = null"
-            class="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
+            class="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
           >
-            <div class="w-8 h-8 rounded-lg bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all">
+            <div class="w-8 h-8 rounded-md bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
             </div>
             Back to list
@@ -146,7 +146,7 @@
       .slice(0, 50)
       .map(([domain, data]) => ({
         domain,
-        has2FA: Object.keys(data).length > 0,
+        has2FA: !!(data.methods?.length || data.documentation),
         methods: data.methods || []
       }));
   });
@@ -156,22 +156,16 @@
     const cleanDomain = domain.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
     const siteData = sitesData[cleanDomain];
     
-    if (siteData) {
-      return {
-        domain: cleanDomain,
-        has2FA: true,
-        methods: siteData.methods || [],
-        documentation: siteData.documentation || '',
-        loading: false
-      };
-    } else {
-      return {
-        domain: cleanDomain,
-        has2FA: false,
-        methods: [],
-        loading: false
-      };
-    }
+    // Check if it really has 2FA info
+    const has2FA = !!(siteData && (siteData.methods?.length || siteData.documentation));
+
+    return {
+      domain: cleanDomain,
+      has2FA,
+      methods: siteData?.methods || [],
+      documentation: siteData?.documentation || '',
+      loading: false
+    };
   };
 
   const checkSite = (domain) => {

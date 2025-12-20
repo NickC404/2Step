@@ -6966,6 +6966,31 @@ function shouldSetAsProp(el, key, value, isSVG) {
   }
   return key in el;
 }
+var systemModifiers = ["ctrl", "shift", "alt", "meta"];
+var modifierGuards = {
+  stop: (e) => e.stopPropagation(),
+  prevent: (e) => e.preventDefault(),
+  self: (e) => e.target !== e.currentTarget,
+  ctrl: (e) => !e.ctrlKey,
+  shift: (e) => !e.shiftKey,
+  alt: (e) => !e.altKey,
+  meta: (e) => !e.metaKey,
+  left: (e) => "button" in e && e.button !== 0,
+  middle: (e) => "button" in e && e.button !== 1,
+  right: (e) => "button" in e && e.button !== 2,
+  exact: (e, modifiers) => systemModifiers.some((m) => e[`${m}Key`] && !modifiers.includes(m))
+};
+var withModifiers = (fn, modifiers) => {
+  const cache = fn._withMods || (fn._withMods = {});
+  const cacheKey = modifiers.join(".");
+  return cache[cacheKey] || (cache[cacheKey] = ((event, ...args) => {
+    for (let i = 0; i < modifiers.length; i++) {
+      const guard = modifierGuards[modifiers[i]];
+      if (guard && guard(event, modifiers)) return;
+    }
+    return fn(event, ...args);
+  }));
+};
 var rendererOptions = /* @__PURE__ */ extend({ patchProp }, nodeOps);
 var renderer;
 function ensureRenderer() {
@@ -7196,7 +7221,10 @@ var SiteDetails_default = {
   },
   setup(__props, { expose: __expose }) {
     __expose();
-    const __returned__ = {};
+    const openExternalUrl = (url) => {
+      window.parent.postMessage({ type: "OPEN_URL", url }, "*");
+    };
+    const __returned__ = { openExternalUrl };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
@@ -7238,8 +7266,7 @@ var _hoisted_9 = {
   key: 0,
   class: "mt-4"
 };
-var _hoisted_10 = ["href"];
-var _hoisted_11 = {
+var _hoisted_10 = {
   key: 1,
   class: "p-6 bg-white border-t border-gray-100"
 };
@@ -7263,7 +7290,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
             ])
           },
           [
-            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[0] || (_cache[0] = [
+            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[1] || (_cache[1] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7278,7 +7305,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                 -1
                 /* CACHED */
               )
-            ])])) : (openBlock(), createElementBlock("svg", _hoisted_32, [..._cache[1] || (_cache[1] = [
+            ])])) : (openBlock(), createElementBlock("svg", _hoisted_32, [..._cache[2] || (_cache[2] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7343,7 +7370,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
       /* CLASS */
     ),
     $props.site.has2FA && $props.site.methods && $props.site.methods.length ? (openBlock(), createElementBlock("div", _hoisted_7, [
-      _cache[4] || (_cache[4] = createBaseVNode(
+      _cache[5] || (_cache[5] = createBaseVNode(
         "div",
         { class: "flex items-center justify-between mb-4" },
         [
@@ -7362,7 +7389,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
               key: method,
               class: "px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-2 hover:border-blue-200 hover:bg-blue-50/50 cursor-default transition-colors"
             }, [
-              _cache[2] || (_cache[2] = createBaseVNode(
+              _cache[3] || (_cache[3] = createBaseVNode(
                 "div",
                 { class: "w-1.5 h-1.5 rounded-full bg-emerald-400" },
                 null,
@@ -7381,11 +7408,10 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
         ))
       ]),
       $props.site.documentation ? (openBlock(), createElementBlock("div", _hoisted_9, [
-        createBaseVNode("a", {
-          href: $props.site.documentation,
-          target: "_blank",
-          class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 no-underline text-center uppercase tracking-tight"
-        }, [..._cache[3] || (_cache[3] = [
+        createBaseVNode("button", {
+          onClick: _cache[0] || (_cache[0] = ($event) => $setup.openExternalUrl($props.site.documentation)),
+          class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 uppercase tracking-tight"
+        }, [..._cache[4] || (_cache[4] = [
           createBaseVNode(
             "span",
             null,
@@ -7418,10 +7444,10 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
             -1
             /* CACHED */
           )
-        ])], 8, _hoisted_10)
+        ])])
       ])) : createCommentVNode("v-if", true)
     ])) : createCommentVNode("v-if", true),
-    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_11, [..._cache[5] || (_cache[5] = [
+    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_10, [..._cache[6] || (_cache[6] = [
       createBaseVNode(
         "p",
         { class: "text-xs text-gray-500 text-center leading-relaxed" },
@@ -7430,7 +7456,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
         /* CACHED */
       )
     ])])) : createCommentVNode("v-if", true),
-    _cache[6] || (_cache[6] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
+    _cache[7] || (_cache[7] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
   ]);
 }
 
@@ -26673,29 +26699,24 @@ var App_default = {
       if (!query) return [];
       return Object.entries(sites_default).filter(([domain]) => domain.includes(query)).slice(0, 50).map(([domain, data]) => ({
         domain,
-        has2FA: Object.keys(data).length > 0,
+        has2FA: !!(data.methods?.length || data.documentation),
         methods: data.methods || []
       }));
     });
     const getSiteData = (domain) => {
       const cleanDomain = domain.toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
       const siteData = sites_default[cleanDomain];
-      if (siteData) {
-        return {
-          domain: cleanDomain,
-          has2FA: true,
-          methods: siteData.methods || [],
-          documentation: siteData.documentation || "",
-          loading: false
-        };
-      } else {
-        return {
-          domain: cleanDomain,
-          has2FA: false,
-          methods: [],
-          loading: false
-        };
-      }
+      const has2FA = !!(siteData && (siteData.methods?.length || siteData.documentation));
+      return {
+        domain: cleanDomain,
+        has2FA,
+        methods: siteData?.methods || [],
+        documentation: siteData?.documentation || "",
+        loading: false
+      };
+    };
+    const openExternalUrl = (url) => {
+      window.parent.postMessage({ type: "OPEN_URL", url }, "*");
     };
     const checkSite = (domain) => {
       currentSite.value = getSiteData(domain);
@@ -26718,7 +26739,7 @@ var App_default = {
         }
       }, 500);
     });
-    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, filteredSites, getSiteData, checkSite, ref, onMounted, computed: computed2, Button: Button_default2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, get sitesData() {
+    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, filteredSites, getSiteData, openExternalUrl, checkSite, ref, onMounted, computed: computed2, Button: Button_default2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, get sitesData() {
       return sites_default;
     } };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
@@ -26746,7 +26767,7 @@ var _hoisted_92 = {
   class: "space-y-3 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar"
 };
 var _hoisted_102 = ["onClick"];
-var _hoisted_112 = { class: "flex items-center gap-4" };
+var _hoisted_11 = { class: "flex items-center gap-4" };
 var _hoisted_122 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
@@ -26788,11 +26809,13 @@ var _hoisted_20 = {
   key: 0,
   class: "flex flex-col items-center justify-center p-12 space-y-4"
 };
+var _hoisted_21 = { class: "px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" };
+var _hoisted_222 = { class: "pb-1.5 font-medium" };
 function render5(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_14, [
     createCommentVNode(" Header "),
     createBaseVNode("header", _hoisted_24, [
-      _cache[3] || (_cache[3] = createBaseVNode(
+      _cache[6] || (_cache[6] = createBaseVNode(
         "div",
         { class: "flex items-center justify-between px-4 py-3" },
         [
@@ -26817,11 +26840,11 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
           $setup.selectedDirectorySite ? (openBlock(), createElementBlock("div", _hoisted_52, [
             createBaseVNode("button", {
               onClick: _cache[1] || (_cache[1] = ($event) => $setup.selectedDirectorySite = null),
-              class: "flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
-            }, [..._cache[4] || (_cache[4] = [
+              class: "flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
+            }, [..._cache[7] || (_cache[7] = [
               createBaseVNode(
                 "div",
-                { class: "w-8 h-8 rounded-lg bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all" },
+                { class: "w-8 h-8 rounded-md bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all" },
                 [
                   createBaseVNode("svg", {
                     xmlns: "http://www.w3.org/2000/svg",
@@ -26854,7 +26877,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
             createVNode($setup["SiteDetails"], { site: $setup.selectedDirectorySite }, null, 8, ["site"])
           ])) : (openBlock(), createElementBlock("div", _hoisted_62, [
             createBaseVNode("div", _hoisted_72, [
-              _cache[5] || (_cache[5] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
+              _cache[8] || (_cache[8] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
               createBaseVNode(
                 "p",
                 _hoisted_82,
@@ -26878,7 +26901,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                     onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
                     class: "flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md"
                   }, [
-                    createBaseVNode("div", _hoisted_112, [
+                    createBaseVNode("div", _hoisted_11, [
                       createBaseVNode(
                         "div",
                         {
@@ -26888,7 +26911,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                           ])
                         },
                         [
-                          site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_122, [..._cache[6] || (_cache[6] = [
+                          site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_122, [..._cache[9] || (_cache[9] = [
                             createBaseVNode(
                               "path",
                               { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -26903,7 +26926,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                               -1
                               /* CACHED */
                             )
-                          ])])) : (openBlock(), createElementBlock("svg", _hoisted_132, [..._cache[7] || (_cache[7] = [
+                          ])])) : (openBlock(), createElementBlock("svg", _hoisted_132, [..._cache[10] || (_cache[10] = [
                             createBaseVNode(
                               "path",
                               { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -26977,7 +27000,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                         ])) : createCommentVNode("v-if", true)
                       ])
                     ]),
-                    _cache[8] || (_cache[8] = createBaseVNode(
+                    _cache[11] || (_cache[11] = createBaseVNode(
                       "div",
                       { class: "opacity-0 group-hover:opacity-100 p-2.5 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100" },
                       [
@@ -27022,7 +27045,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         "div",
         _hoisted_19,
         [
-          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_20, [..._cache[9] || (_cache[9] = [
+          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_20, [..._cache[12] || (_cache[12] = [
             createBaseVNode(
               "div",
               { class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" },
@@ -27048,7 +27071,39 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         [vShow, $setup.currentTab === "currentSite"]
       ])
     ]),
-    _cache[10] || (_cache[10] = createStaticVNode('<footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" data-v-ea994a51><p class="pb-1.5 font-medium" data-v-ea994a51>Made with \u2764\uFE0F by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank" data-v-ea994a51>Nick Cotterill</a></p><p data-v-ea994a51>Data sourced from <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2fa.directory/gb/" target="_blank" data-v-ea994a51>2FA Directory</a> by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2factorauth-org.pages.dev/" target="_blank" data-v-ea994a51>2factorauth</a></p></footer>', 1))
+    createBaseVNode("footer", _hoisted_21, [
+      createBaseVNode("p", _hoisted_222, [
+        _cache[13] || (_cache[13] = createTextVNode(
+          "Made with \u2764\uFE0F by ",
+          -1
+          /* CACHED */
+        )),
+        createBaseVNode("a", {
+          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
+          onClick: _cache[3] || (_cache[3] = withModifiers(($event) => $setup.openExternalUrl("https://nickcotterill.co.uk"), ["prevent"]))
+        }, "Nick Cotterill")
+      ]),
+      createBaseVNode("p", null, [
+        _cache[14] || (_cache[14] = createTextVNode(
+          "Data sourced from ",
+          -1
+          /* CACHED */
+        )),
+        createBaseVNode("a", {
+          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
+          onClick: _cache[4] || (_cache[4] = withModifiers(($event) => $setup.openExternalUrl("https://2fa.directory/gb/"), ["prevent"]))
+        }, "2FA Directory"),
+        _cache[15] || (_cache[15] = createTextVNode(
+          " by ",
+          -1
+          /* CACHED */
+        )),
+        createBaseVNode("a", {
+          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
+          onClick: _cache[5] || (_cache[5] = withModifiers(($event) => $setup.openExternalUrl("https://2factorauth-org.pages.dev/"), ["prevent"]))
+        }, "2factorauth")
+      ])
+    ])
   ]);
 }
 

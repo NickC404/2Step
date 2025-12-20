@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:css && npm run build:js && npm run copy-files",
     "build:css": "tailwindcss -i ./src/input.css -o ./popup/style.css",
     "build:js": "node scripts/build.js",
-    "dev": "npm run build:js -- --dev && tailwindcss -i ./src/input.css -o ./popup/style.css --watch"
+    "dev": "npm run build:js -- --dev && tailwindcss -i ./src/input.css -o ./popup/style.css --watch",
+    "copy-files": "cp manifest.json dist/ && cp content.js dist/ && cp background.js dist/ || true"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
