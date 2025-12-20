@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300">
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 relative">
     <div :class="[
-      'p-8 flex flex-col items-center text-center space-y-4 transition-colors duration-500',
+      'p-8 flex flex-col items-center text-center space-y-4 transition-colors duration-500 rounded-t-2xl',
       site.has2FA ? 'bg-emerald-50/40' : 'bg-rose-50/40'
     ]">
       <div :class="[
@@ -29,16 +29,12 @@
     </div>
 
     <div v-if="site.has2FA && site.methods && site.methods.length" class="p-6 bg-white border-t border-gray-100">
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-col items-center mb-4">
         <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Security Methods</h3>
-        <span class="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full font-bold uppercase tracking-tight">Verified</span>
+        <div class="h-1 w-8 bg-emerald-100 rounded-full mt-1.5 opacity-50"></div>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <div v-for="method in site.methods" :key="method" 
-             class="px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-2 hover:border-blue-200 hover:bg-blue-50/50 cursor-default transition-colors">
-          <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-          {{ method.toUpperCase() }}
-        </div>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <MethodBadge v-for="method in site.methods" :key="method" :method="method" />
       </div>
       
       <div v-if="site.documentation" class="mt-4">
@@ -55,7 +51,7 @@
       </p>
     </div>
 
-    <div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center">
+    <div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center rounded-b-2xl">
       <a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
         Flag incorrect details
@@ -65,6 +61,8 @@
 </template>
 
 <script setup>
+import MethodBadge from './MethodBadge.vue';
+
 defineProps({
   site: {
     type: Object,

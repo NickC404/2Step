@@ -59,9 +59,13 @@
                   <div>
                     <div class="text-[15px] font-extrabold text-gray-900 tracking-tight">{{ site.domain }}</div>
                     <div v-if="site.has2FA" class="flex gap-1.5 mt-1">
-                      <span v-for="m in site.methods.slice(0, 2)" :key="m" class="text-[10px] px-2 py-0.5 bg-emerald-50 border border-emerald-100/50 text-emerald-700 rounded-lg font-bold uppercase tracking-tight">
-                        {{ m }}
-                      </span>
+                      <MethodBadge 
+                        v-for="m in site.methods.slice(0, 2)" 
+                        :key="m" 
+                        :method="m" 
+                        compact 
+                        side="bottom"
+                      />
                       <span v-if="site.methods.length > 2" class="text-[10px] px-2 py-0.5 bg-gray-50 border border-gray-100 text-gray-500 rounded-lg font-bold">
                         +{{ site.methods.length - 2 }}
                       </span>
@@ -134,9 +138,15 @@
                   class="px-4 pb-4 animate-in fade-in slide-in-from-top-2 duration-200"
                 >
                   <div class="h-px bg-gray-50 mb-3"></div>
-                  <p class="text-sm text-gray-600 leading-relaxed font-semibold">
-                    {{ faq.answer }}
-                  </p>
+                  <div class="space-y-3">
+                    <p 
+                      v-for="(p, i) in faq.answer.split('. ').filter(s => s.trim())" 
+                      :key="i"
+                      class="text-sm text-gray-500 leading-relaxed font-normal"
+                    >
+                      {{ p.endsWith('.') ? p : p + '.' }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -208,6 +218,7 @@
   import Input from './components/Input.vue';
   import TabBar from './components/TabBar.vue';
   import SiteDetails from './components/SiteDetails.vue';
+  import MethodBadge from './components/MethodBadge.vue';
   import sitesData from '../2fa.directory/sites.json';
   import faqData from '../faq/tips-faq.json';
 

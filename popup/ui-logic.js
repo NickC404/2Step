@@ -2648,7 +2648,7 @@ function applyOptions(instance) {
     beforeUnmount,
     destroyed,
     unmounted,
-    render: render5,
+    render: render6,
     renderTracked,
     renderTriggered,
     errorCaptured,
@@ -2802,8 +2802,8 @@ function applyOptions(instance) {
       instance.exposed = {};
     }
   }
-  if (render5 && instance.render === NOOP) {
-    instance.render = render5;
+  if (render6 && instance.render === NOOP) {
+    instance.render = render6;
   }
   if (inheritAttrs != null) {
     instance.inheritAttrs = inheritAttrs;
@@ -3044,7 +3044,7 @@ function createAppContext() {
   };
 }
 var uid$1 = 0;
-function createAppAPI(render5, hydrate) {
+function createAppAPI(render6, hydrate) {
   return function createApp2(rootComponent, rootProps = null) {
     if (!isFunction(rootComponent)) {
       rootComponent = extend({}, rootComponent);
@@ -3148,13 +3148,13 @@ function createAppAPI(render5, hydrate) {
             context.reload = () => {
               const cloned = cloneVNode(vnode);
               cloned.el = null;
-              render5(cloned, rootContainer, namespace);
+              render6(cloned, rootContainer, namespace);
             };
           }
           if (isHydrate && hydrate) {
             hydrate(vnode, rootContainer);
           } else {
-            render5(vnode, rootContainer, namespace);
+            render6(vnode, rootContainer, namespace);
           }
           isMounted = true;
           app2._container = rootContainer;
@@ -3186,7 +3186,7 @@ If you want to remount the same app, move your app creation logic into a factory
             app2._instance,
             16
           );
-          render5(null, app2._container);
+          render6(null, app2._container);
           if (false) {
             app2._instance = null;
             devtoolsUnmountApp(app2);
@@ -3521,7 +3521,7 @@ function renderComponentRoot(instance) {
     slots,
     attrs,
     emit: emit2,
-    render: render5,
+    render: render6,
     renderCache,
     props,
     data,
@@ -3549,7 +3549,7 @@ function renderComponentRoot(instance) {
         }
       }) : proxyToUse;
       result = normalizeVNode(
-        render5.call(
+        render6.call(
           thisProxy,
           proxyToUse,
           renderCache,
@@ -5548,7 +5548,7 @@ function baseCreateRenderer(options, createHydrationFns) {
     return teleportEnd ? hostNextSibling(teleportEnd) : el;
   };
   let isFlushing = false;
-  const render5 = (vnode, container, namespace) => {
+  const render6 = (vnode, container, namespace) => {
     if (vnode == null) {
       if (container._vnode) {
         unmount(container._vnode, null, null, true);
@@ -5592,9 +5592,9 @@ function baseCreateRenderer(options, createHydrationFns) {
     );
   }
   return {
-    render: render5,
+    render: render6,
     hydrate,
-    createApp: createAppAPI(render5, hydrate)
+    createApp: createAppAPI(render6, hydrate)
   };
 }
 function resolveChildrenNamespace({ type, props }, currentNamespace) {
@@ -7077,6 +7077,156 @@ TabBar_default.render = render2;
 TabBar_default.__file = "src/components/TabBar.vue";
 var TabBar_default2 = TabBar_default;
 
+// sfc-script:/private/var/www/apps/2Step/src/components/MethodBadge.vue?type=script
+var MethodBadge_default = {
+  __name: "MethodBadge",
+  props: {
+    method: {
+      type: String,
+      required: true
+    },
+    compact: {
+      type: Boolean,
+      default: false
+    },
+    side: {
+      type: String,
+      default: "top",
+      validator: (v) => ["top", "bottom"].includes(v)
+    }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const props = __props;
+    const siteColorClass = computed2(() => {
+      return props.compact ? "bg-emerald-50 border-emerald-100/50 text-emerald-700 hover:bg-emerald-100" : "bg-gray-50 border-gray-100 text-gray-700 hover:border-blue-200 hover:bg-blue-50/50";
+    });
+    const tooltipPositionClass = computed2(() => {
+      if (props.side === "bottom") {
+        return "top-full mt-2 transform -translate-y-1 group-hover:translate-y-0";
+      }
+      return "bottom-full mb-2 transform translate-y-1 group-hover:translate-y-0";
+    });
+    const arrowClass = computed2(() => {
+      if (props.side === "bottom") {
+        return "bottom-full border-b-blue-600";
+      }
+      return "top-full border-t-white";
+    });
+    const descriptions = {
+      totp: "Time-based One-Time Password. Uses an app like Google Authenticator or Authy to generate unique codes every 30 seconds.",
+      u2f: "Universal 2nd Factor. The most secure method, using physical hardware keys like a Yubikey for hardware-level protection.",
+      sms: "Sends a one-time verification code to your mobile phone via SMS text message.",
+      email: "Sends a one-time verification code to your registered email address.",
+      phone: "Delivers a verification code via an automated voice call to your phone.",
+      prop: "A proprietary method unique to this service, typically a push notification or in-app approval step.",
+      "custom-software": "Uses a custom mobile app developed specifically by this service for secure authentication.",
+      "custom-hardware": "Requires a specific physical hardware device or token provided by the service.",
+      hardware: "Requires a physical security device or token to authenticate.",
+      software: "Uses a software-based authenticator app on your computer or mobile device.",
+      push: "Sends a push notification to your mobile device for quick, one-tap approval.",
+      biometric: "Uses fingerprint, facial recognition, or other biological markers to verify your identity."
+    };
+    const description = computed2(() => {
+      return descriptions[props.method.toLowerCase()] || "An additional security method used to verify your identity beyond just a password.";
+    });
+    const __returned__ = { props, siteColorClass, tooltipPositionClass, arrowClass, descriptions, description, computed: computed2 };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+};
+
+// sfc-template:/private/var/www/apps/2Step/src/components/MethodBadge.vue?type=template
+var _hoisted_13 = { class: "relative group inline-block" };
+var _hoisted_23 = {
+  key: 0,
+  class: "w-1.5 h-1.5 rounded-full bg-emerald-400"
+};
+var _hoisted_32 = { class: "font-bold bg-blue-600 text-white px-3 py-2 flex items-center justify-between" };
+var _hoisted_4 = { class: "p-3" };
+var _hoisted_5 = { class: "leading-relaxed font-semibold text-gray-600" };
+function render3(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_13, [
+    createBaseVNode(
+      "div",
+      {
+        class: normalizeClass([
+          "px-2 py-1 border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all cursor-help",
+          $setup.siteColorClass,
+          $props.compact ? "px-1.5 py-0.5 text-[10px]" : "px-3 py-1.5 text-xs"
+        ])
+      },
+      [
+        !$props.compact ? (openBlock(), createElementBlock("div", _hoisted_23)) : createCommentVNode("v-if", true),
+        createTextVNode(
+          " " + toDisplayString($props.method.toUpperCase()),
+          1
+          /* TEXT */
+        )
+      ],
+      2
+      /* CLASS */
+    ),
+    createCommentVNode(" Tooltip "),
+    createBaseVNode(
+      "div",
+      {
+        class: normalizeClass([
+          "absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden",
+          $setup.tooltipPositionClass
+        ])
+      },
+      [
+        createBaseVNode("div", _hoisted_32, [
+          createBaseVNode(
+            "span",
+            null,
+            toDisplayString($props.method.toUpperCase()),
+            1
+            /* TEXT */
+          ),
+          _cache[0] || (_cache[0] = createBaseVNode(
+            "span",
+            { class: "text-[8px] opacity-70 border border-white/20 px-1 rounded" },
+            "METHOD",
+            -1
+            /* CACHED */
+          ))
+        ]),
+        createBaseVNode("div", _hoisted_4, [
+          createBaseVNode(
+            "p",
+            _hoisted_5,
+            toDisplayString($setup.description),
+            1
+            /* TEXT */
+          )
+        ]),
+        createCommentVNode(" Arrow "),
+        createBaseVNode(
+          "div",
+          {
+            class: normalizeClass([
+              "absolute left-1/2 -translate-x-1/2 border-[6px] border-transparent",
+              $setup.arrowClass
+            ])
+          },
+          null,
+          2
+          /* CLASS */
+        )
+      ],
+      2
+      /* CLASS */
+    )
+  ]);
+}
+
+// src/components/MethodBadge.vue
+MethodBadge_default.render = render3;
+MethodBadge_default.__file = "src/components/MethodBadge.vue";
+var MethodBadge_default2 = MethodBadge_default;
+
 // sfc-script:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=script
 var SiteDetails_default = {
   __name: "SiteDetails",
@@ -7088,15 +7238,15 @@ var SiteDetails_default = {
   },
   setup(__props, { expose: __expose }) {
     __expose();
-    const __returned__ = {};
+    const __returned__ = { MethodBadge: MethodBadge_default2 };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=template
-var _hoisted_13 = { class: "bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300" };
-var _hoisted_23 = {
+var _hoisted_14 = { class: "bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 relative" };
+var _hoisted_24 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   class: "w-8 h-8",
@@ -7107,7 +7257,7 @@ var _hoisted_23 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_32 = {
+var _hoisted_33 = {
   key: 1,
   xmlns: "http://www.w3.org/2000/svg",
   class: "w-8 h-8",
@@ -7118,14 +7268,14 @@ var _hoisted_32 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_4 = { class: "text-xl font-bold text-gray-900 tracking-tight" };
-var _hoisted_5 = { key: 0 };
+var _hoisted_42 = { class: "text-xl font-bold text-gray-900 tracking-tight" };
+var _hoisted_52 = { key: 0 };
 var _hoisted_6 = { key: 1 };
 var _hoisted_7 = {
   key: 0,
   class: "p-6 bg-white border-t border-gray-100"
 };
-var _hoisted_8 = { class: "flex flex-wrap gap-2" };
+var _hoisted_8 = { class: "flex flex-wrap gap-2 justify-center" };
 var _hoisted_9 = {
   key: 0,
   class: "mt-4"
@@ -7135,13 +7285,13 @@ var _hoisted_11 = {
   key: 1,
   class: "p-6 bg-white border-t border-gray-100"
 };
-function render3(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_13, [
+function render4(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_14, [
     createBaseVNode(
       "div",
       {
         class: normalizeClass([
-          "p-8 flex flex-col items-center text-center space-y-4 transition-colors duration-500",
+          "p-8 flex flex-col items-center text-center space-y-4 transition-colors duration-500 rounded-t-2xl",
           $props.site.has2FA ? "bg-emerald-50/40" : "bg-rose-50/40"
         ])
       },
@@ -7155,7 +7305,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
             ])
           },
           [
-            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[0] || (_cache[0] = [
+            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_24, [..._cache[0] || (_cache[0] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7170,7 +7320,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
                 -1
                 /* CACHED */
               )
-            ])])) : (openBlock(), createElementBlock("svg", _hoisted_32, [..._cache[1] || (_cache[1] = [
+            ])])) : (openBlock(), createElementBlock("svg", _hoisted_33, [..._cache[1] || (_cache[1] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7210,7 +7360,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
         createBaseVNode("div", null, [
           createBaseVNode(
             "h2",
-            _hoisted_4,
+            _hoisted_42,
             toDisplayString($props.site.domain),
             1
             /* TEXT */
@@ -7224,7 +7374,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
               ])
             },
             [
-              $props.site.has2FA ? (openBlock(), createElementBlock("span", _hoisted_5, "2FA Available")) : (openBlock(), createElementBlock("span", _hoisted_6, "2FA Not Supported"))
+              $props.site.has2FA ? (openBlock(), createElementBlock("span", _hoisted_52, "2FA Available")) : (openBlock(), createElementBlock("span", _hoisted_6, "2FA Not Supported"))
             ],
             2
             /* CLASS */
@@ -7235,12 +7385,12 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
       /* CLASS */
     ),
     $props.site.has2FA && $props.site.methods && $props.site.methods.length ? (openBlock(), createElementBlock("div", _hoisted_7, [
-      _cache[4] || (_cache[4] = createBaseVNode(
+      _cache[3] || (_cache[3] = createBaseVNode(
         "div",
-        { class: "flex items-center justify-between mb-4" },
+        { class: "flex flex-col items-center mb-4" },
         [
           createBaseVNode("h3", { class: "text-xs font-bold text-gray-400 uppercase tracking-widest" }, "Security Methods"),
-          createBaseVNode("span", { class: "text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-600 rounded-full font-bold uppercase tracking-tight" }, "Verified")
+          createBaseVNode("div", { class: "h-1 w-8 bg-emerald-100 rounded-full mt-1.5 opacity-50" })
         ],
         -1
         /* CACHED */
@@ -7250,23 +7400,10 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
           Fragment,
           null,
           renderList($props.site.methods, (method) => {
-            return openBlock(), createElementBlock("div", {
+            return openBlock(), createBlock($setup["MethodBadge"], {
               key: method,
-              class: "px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-2 hover:border-blue-200 hover:bg-blue-50/50 cursor-default transition-colors"
-            }, [
-              _cache[2] || (_cache[2] = createBaseVNode(
-                "div",
-                { class: "w-1.5 h-1.5 rounded-full bg-emerald-400" },
-                null,
-                -1
-                /* CACHED */
-              )),
-              createTextVNode(
-                " " + toDisplayString(method.toUpperCase()),
-                1
-                /* TEXT */
-              )
-            ]);
+              method
+            }, null, 8, ["method"]);
           }),
           128
           /* KEYED_FRAGMENT */
@@ -7277,7 +7414,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
           href: $props.site.documentation,
           target: "_blank",
           class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 no-underline text-center uppercase tracking-tight"
-        }, [..._cache[3] || (_cache[3] = [
+        }, [..._cache[2] || (_cache[2] = [
           createBaseVNode(
             "span",
             null,
@@ -7313,7 +7450,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
         ])], 8, _hoisted_10)
       ])) : createCommentVNode("v-if", true)
     ])) : createCommentVNode("v-if", true),
-    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_11, [..._cache[5] || (_cache[5] = [
+    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_11, [..._cache[4] || (_cache[4] = [
       createBaseVNode(
         "p",
         { class: "text-xs text-gray-500 text-center leading-relaxed" },
@@ -7322,12 +7459,12 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
         /* CACHED */
       )
     ])])) : createCommentVNode("v-if", true),
-    _cache[6] || (_cache[6] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
+    _cache[5] || (_cache[5] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center rounded-b-2xl"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
   ]);
 }
 
 // src/components/SiteDetails.vue
-SiteDetails_default.render = render3;
+SiteDetails_default.render = render4;
 SiteDetails_default.__file = "src/components/SiteDetails.vue";
 var SiteDetails_default2 = SiteDetails_default;
 
@@ -26907,7 +27044,7 @@ var App_default = {
         }
       }, 500);
     });
-    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, get sitesData() {
+    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, MethodBadge: MethodBadge_default2, get sitesData() {
       return sites_default;
     }, get faqData() {
       return tips_faq_default;
@@ -26918,11 +27055,11 @@ var App_default = {
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/App.vue?type=template
-var _hoisted_14 = { class: "h-full bg-gray-50 flex flex-col" };
-var _hoisted_24 = { class: "bg-blue-600 text-white shadow-md z-10" };
-var _hoisted_33 = { class: "flex-grow overflow-y-auto p-4" };
-var _hoisted_42 = { class: "space-y-4" };
-var _hoisted_52 = {
+var _hoisted_15 = { class: "h-full bg-gray-50 flex flex-col" };
+var _hoisted_25 = { class: "bg-blue-600 text-white shadow-md z-10" };
+var _hoisted_34 = { class: "flex-grow overflow-y-auto p-4" };
+var _hoisted_43 = { class: "space-y-4" };
+var _hoisted_53 = {
   key: 0,
   class: "space-y-4"
 };
@@ -26961,7 +27098,7 @@ var _hoisted_132 = {
   "stroke-linejoin": "round"
 };
 var _hoisted_142 = { class: "text-[15px] font-extrabold text-gray-900 tracking-tight" };
-var _hoisted_15 = {
+var _hoisted_152 = {
   key: 0,
   class: "flex gap-1.5 mt-1"
 };
@@ -26989,16 +27126,16 @@ var _hoisted_232 = {
   class: "space-y-8"
 };
 var _hoisted_242 = { class: "flex items-center gap-2 px-1" };
-var _hoisted_25 = { class: "text-lg" };
+var _hoisted_252 = { class: "text-lg" };
 var _hoisted_26 = { class: "text-xs font-bold text-gray-400 uppercase tracking-widest" };
 var _hoisted_27 = { class: "space-y-2" };
 var _hoisted_28 = ["onClick"];
 var _hoisted_29 = { class: "text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
 var _hoisted_30 = { class: "px-4 pb-4 animate-in fade-in slide-in-from-top-2 duration-200" };
-var _hoisted_31 = { class: "text-sm text-gray-600 leading-relaxed font-semibold" };
+var _hoisted_31 = { class: "space-y-3" };
 var _hoisted_322 = { class: "space-y-4" };
 var _hoisted_332 = { class: "grid gap-3" };
-var _hoisted_34 = { class: "flex gap-4" };
+var _hoisted_342 = { class: "flex gap-4" };
 var _hoisted_35 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
@@ -27024,10 +27161,10 @@ var _hoisted_36 = {
 var _hoisted_37 = { class: "flex-grow" };
 var _hoisted_38 = { class: "flex items-center justify-between mb-1" };
 var _hoisted_39 = { class: "text-[13px] text-gray-800 font-bold leading-snug group-hover:text-gray-900 transition-colors" };
-function render4(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_14, [
+function render5(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_15, [
     createCommentVNode(" Header "),
-    createBaseVNode("header", _hoisted_24, [
+    createBaseVNode("header", _hoisted_25, [
       _cache[3] || (_cache[3] = createBaseVNode(
         "div",
         { class: "flex items-center justify-between px-4 py-3" },
@@ -27045,12 +27182,12 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["modelValue", "has2FA"])
     ]),
     createCommentVNode(" Main Content "),
-    createBaseVNode("main", _hoisted_33, [
+    createBaseVNode("main", _hoisted_34, [
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_42,
+        _hoisted_43,
         [
-          $setup.selectedDirectorySite ? (openBlock(), createElementBlock("div", _hoisted_52, [
+          $setup.selectedDirectorySite ? (openBlock(), createElementBlock("div", _hoisted_53, [
             createBaseVNode("button", {
               onClick: _cache[1] || (_cache[1] = ($event) => $setup.selectedDirectorySite = null),
               class: "flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
@@ -27184,21 +27321,17 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                           1
                           /* TEXT */
                         ),
-                        site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_15, [
+                        site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_152, [
                           (openBlock(true), createElementBlock(
                             Fragment,
                             null,
                             renderList(site.methods.slice(0, 2), (m) => {
-                              return openBlock(), createElementBlock(
-                                "span",
-                                {
-                                  key: m,
-                                  class: "text-[10px] px-2 py-0.5 bg-emerald-50 border border-emerald-100/50 text-emerald-700 rounded-lg font-bold uppercase tracking-tight"
-                                },
-                                toDisplayString(m),
-                                1
-                                /* TEXT */
-                              );
+                              return openBlock(), createBlock($setup["MethodBadge"], {
+                                key: m,
+                                method: m,
+                                compact: "",
+                                side: "bottom"
+                              }, null, 8, ["method"]);
                             }),
                             128
                             /* KEYED_FRAGMENT */
@@ -27326,7 +27459,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                   createBaseVNode("div", _hoisted_242, [
                     createBaseVNode(
                       "span",
-                      _hoisted_25,
+                      _hoisted_252,
                       toDisplayString(cat.icon),
                       1
                       /* TEXT */
@@ -27402,13 +27535,26 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                                 -1
                                 /* CACHED */
                               )),
-                              createBaseVNode(
-                                "p",
-                                _hoisted_31,
-                                toDisplayString(faq.answer),
-                                1
-                                /* TEXT */
-                              )
+                              createBaseVNode("div", _hoisted_31, [
+                                (openBlock(true), createElementBlock(
+                                  Fragment,
+                                  null,
+                                  renderList(faq.answer.split(". ").filter((s) => s.trim()), (p2, i) => {
+                                    return openBlock(), createElementBlock(
+                                      "p",
+                                      {
+                                        key: i,
+                                        class: "text-sm text-gray-500 leading-relaxed font-normal"
+                                      },
+                                      toDisplayString(p2.endsWith(".") ? p2 : p2 + "."),
+                                      1
+                                      /* TEXT */
+                                    );
+                                  }),
+                                  128
+                                  /* KEYED_FRAGMENT */
+                                ))
+                              ])
                             ],
                             512
                             /* NEED_PATCH */
@@ -27457,7 +27603,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                   key: tip.id,
                   class: "bg-white p-4 rounded-xl border border-gray-100 hover:border-emerald-100 transition-all group shadow-sm"
                 }, [
-                  createBaseVNode("div", _hoisted_34, [
+                  createBaseVNode("div", _hoisted_342, [
                     createBaseVNode(
                       "div",
                       {
@@ -27582,7 +27728,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 // src/App.vue
-App_default.render = render4;
+App_default.render = render5;
 App_default.__file = "src/App.vue";
 App_default.__scopeId = "data-v-ea994a51";
 var App_default2 = App_default;
