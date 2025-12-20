@@ -1,0 +1,282 @@
+{
+  "faqs": [
+    {
+      "id": "what-is-2fa",
+      "category": "basics",
+      "question": "What is two-factor authentication (2FA)?",
+      "answer": "Two-factor authentication (2FA) adds an extra layer of security to your accounts. Instead of just entering your password, you also need to provide a second proof of identity - usually a code from your phone. Think of it like needing both a key and a security code to enter a building. Even if someone steals your password, they can't access your account without that second factor.",
+      "tags": ["beginner", "definition"],
+      "relatedQuestions": ["why-need-2fa", "how-2fa-works"]
+    },
+    {
+      "id": "why-need-2fa",
+      "category": "basics",
+      "question": "Why do I need 2FA?",
+      "answer": "Passwords alone aren't enough anymore. They can be guessed, stolen in data breaches, or phished. With 2FA enabled, even if someone gets your password, they still can't access your account without the second factor (your phone or security key). Studies show that 2FA blocks 99.9% of automated attacks. It's one of the single most effective things you can do to protect yourself online.",
+      "tags": ["beginner", "security"],
+      "relatedQuestions": ["what-is-2fa", "most-secure-method"]
+    },
+    {
+      "id": "how-2fa-works",
+      "category": "basics",
+      "question": "How does 2FA work?",
+      "answer": "When you log into an account with 2FA enabled, you first enter your password as usual. Then, you provide a second piece of proof - typically a 6-digit code. This code comes from an authenticator app on your phone, via text message, or from a hardware security key. The code changes every 30 seconds, so even if someone sees it, they can't reuse it. Only someone with both your password AND access to your second factor can log in.",
+      "tags": ["beginner", "how-to"],
+      "relatedQuestions": ["what-is-2fa", "authenticator-app-choice"]
+    },
+    {
+      "id": "which-accounts-first",
+      "category": "getting-started",
+      "question": "Which accounts should I secure with 2FA first?",
+      "answer": "Start with your email account - it's the master key to everything else. Most services use email for password resets, so if someone compromises your email, they can access your other accounts. After email, prioritize financial accounts (banking, PayPal, investment accounts), then social media and cloud storage. Focus on accounts that contain sensitive information, financial data, or could be used to impersonate you.",
+      "tags": ["beginner", "priority"],
+      "relatedQuestions": ["how-setup-2fa", "why-need-2fa"]
+    },
+    {
+      "id": "how-setup-2fa",
+      "category": "getting-started",
+      "question": "How do I set up 2FA on my accounts?",
+      "answer": "The process varies slightly by website, but generally: 1) Go to your account's security or privacy settings, 2) Look for 'Two-Factor Authentication', 'Two-Step Verification', or '2FA', 3) Choose your preferred method (authenticator app recommended), 4) Follow the setup wizard - usually scanning a QR code with your authenticator app, 5) Save your backup codes in a safe place. 2Step provides direct links to each site's 2FA setup page to make this easier.",
+      "tags": ["beginner", "how-to", "setup"],
+      "relatedQuestions": ["authenticator-app-choice", "backup-codes"]
+    },
+    {
+      "id": "authenticator-app-choice",
+      "category": "getting-started",
+      "question": "Which authenticator app should I use?",
+      "answer": "Popular, reliable options include Authy, Google Authenticator, Microsoft Authenticator, and 1Password. All work similarly - they generate time-based codes for your accounts. Authy offers cloud backup and multi-device support. Google Authenticator is simple and widely trusted. Microsoft Authenticator integrates well with Microsoft services. Choose one that's available for your phone's operating system and has good reviews. The most important thing is to use one - they're all significantly more secure than SMS.",
+      "tags": ["beginner", "tools", "apps"],
+      "relatedQuestions": ["how-setup-2fa", "sms-vs-app"]
+    },
+    {
+      "id": "backup-codes",
+      "category": "getting-started",
+      "question": "What are backup codes and why do I need them?",
+      "answer": "Backup codes are one-time-use codes provided when you enable 2FA. They let you access your account if you lose your phone or can't get your regular 2FA codes. Most services give you 8-10 backup codes when you set up 2FA. Save them somewhere secure but separate from your password manager - like printed on paper in a safe place, or in an encrypted note. Each code typically works only once, so you'll want to generate new ones after using a few.",
+      "tags": ["important", "troubleshooting"],
+      "relatedQuestions": ["lost-phone", "where-store-backup-codes"]
+    },
+    {
+      "id": "where-store-backup-codes",
+      "category": "getting-started",
+      "question": "Where should I store my backup codes?",
+      "answer": "Store backup codes somewhere secure but accessible if you lose your phone. Good options include: printing them and keeping them in a safe or locked drawer, saving them in an encrypted password manager (separate from the accounts they protect), or storing them in secure cloud storage. Don't save them in plain text files on your computer or in photos on your phone - if someone gets access to those, they defeat the purpose of 2FA. The key is: secure, offline, and separate from your primary devices.",
+      "tags": ["important", "security"],
+      "relatedQuestions": ["backup-codes", "lost-phone"]
+    },
+    {
+      "id": "lost-phone",
+      "category": "troubleshooting",
+      "question": "What if I lose my phone with my authenticator app?",
+      "answer": "This is exactly why backup codes are critical. If you lose your phone, use one of your saved backup codes to log into your account. Once you're in, you can disable and re-enable 2FA with your new phone. If you don't have backup codes, you'll need to contact the service's support team to verify your identity and regain access - which can take days. Some authenticator apps like Authy offer cloud backup, which makes recovery easier. This is also why having 2FA on multiple devices can be helpful.",
+      "tags": ["troubleshooting", "emergency"],
+      "relatedQuestions": ["backup-codes", "multiple-devices", "where-store-backup-codes"]
+    },
+    {
+      "id": "multiple-devices",
+      "category": "troubleshooting",
+      "question": "Can I use 2FA on multiple devices?",
+      "answer": "Yes! When you set up 2FA by scanning a QR code, you can scan the same code with multiple devices. This gives you backup access if you lose one device. Alternatively, some authenticator apps like Authy support syncing across devices. If you've already set up 2FA on one device, you'll typically need to disable and re-enable it to add another device (which is why you should do this while you still have access). Having 2FA on multiple devices is smart - just keep all devices secure.",
+      "tags": ["advanced", "setup"],
+      "relatedQuestions": ["lost-phone", "authenticator-app-choice"]
+    },
+    {
+      "id": "sms-vs-app",
+      "category": "methods",
+      "question": "Is SMS 2FA as secure as an authenticator app?",
+      "answer": "SMS 2FA is better than no 2FA, but authenticator apps are more secure. SMS codes can be intercepted through SIM swapping (where attackers convince your phone carrier to transfer your number to their device) or through network vulnerabilities. Authenticator apps generate codes locally on your device and don't rely on cellular networks, making them much harder to intercept. If a service offers app-based 2FA, choose that over SMS. But if SMS is the only option, it's still worth enabling.",
+      "tags": ["security", "comparison"],
+      "relatedQuestions": ["most-secure-method", "authenticator-app-choice"]
+    },
+    {
+      "id": "most-secure-method",
+      "category": "methods",
+      "question": "What's the most secure 2FA method?",
+      "answer": "Hardware security keys (like YubiKey or Google Titan) are the most secure 2FA method. They're physical devices you plug into your computer or tap on your phone. They're immune to phishing, can't be remotely hacked, and don't rely on codes that could be intercepted. However, they cost money and require carrying the device with you. For most people, authenticator apps offer excellent security and convenience. The security ranking is: Hardware keys (most secure) > Authenticator apps > SMS (least secure, but still much better than passwords alone).",
+      "tags": ["security", "advanced"],
+      "relatedQuestions": ["hardware-key", "sms-vs-app"]
+    },
+    {
+      "id": "hardware-key",
+      "category": "methods",
+      "question": "What is a hardware security key?",
+      "answer": "A hardware security key is a small physical device (like a USB stick) that provides 2FA. Instead of typing a code, you insert the key into your computer or tap it on your phone. Popular brands include YubiKey, Google Titan, and Thetis. They're the gold standard for security because they can't be phished or hacked remotely. They're ideal for high-value accounts like email, banking, or work accounts. The downside is they cost $25-50, and you should buy two (one as a backup) in case you lose one.",
+      "tags": ["advanced", "hardware"],
+      "relatedQuestions": ["most-secure-method", "sms-vs-app"]
+    },
+    {
+      "id": "cant-scan-qr",
+      "category": "troubleshooting",
+      "question": "What if I can't scan the QR code?",
+      "answer": "Most services offer an alternative to QR codes. Look for a link that says 'Can't scan?' or 'Enter key manually.' This will show you a long string of letters and numbers that you can type into your authenticator app instead of scanning. In your authenticator app, look for an option like 'Enter a setup key' or 'Manual entry.' Type in the code exactly as shown (spaces usually don't matter). This achieves the same result as scanning the QR code.",
+      "tags": ["troubleshooting", "setup"],
+      "relatedQuestions": ["how-setup-2fa", "authenticator-app-choice"]
+    },
+    {
+      "id": "traveling-internationally",
+      "category": "advanced",
+      "question": "Will 2FA work when I'm traveling internationally?",
+      "answer": "Authenticator apps work perfectly anywhere in the world because they don't need internet or cellular service - the codes are generated locally on your device. SMS-based 2FA can be problematic abroad if you don't have cell service or if you get a temporary local SIM card. This is another reason to prefer authenticator apps. If you must use SMS 2FA and travel frequently, make sure your backup codes are saved securely before you leave. Some services also let you add multiple phone numbers for SMS backup.",
+      "tags": ["advanced", "travel"],
+      "relatedQuestions": ["sms-vs-app", "backup-codes"]
+    },
+    {
+      "id": "privacy-concerns",
+      "category": "advanced",
+      "question": "Does 2FA compromise my privacy?",
+      "answer": "2FA actually enhances your privacy by making your accounts harder to hack. Authenticator apps work entirely offline and don't share your data with anyone. SMS 2FA does tie your phone number to your account, which some people consider a privacy trade-off, but the security benefit usually outweighs this. If privacy is a major concern, use authenticator apps or hardware keys instead of SMS. They provide strong security without requiring you to share your phone number.",
+      "tags": ["advanced", "privacy"],
+      "relatedQuestions": ["sms-vs-app", "hardware-key"]
+    },
+    {
+      "id": "does-2step-collect-data",
+      "category": "privacy",
+      "question": "Does 2Step collect any of my data?",
+      "answer": "No. 2Step is completely local and private. Everything is stored only on your device - we never see which websites you visit, which accounts you've secured, or any other information about your browsing. There are no analytics, no tracking, and no data sent to any servers. The extension works entirely offline using a database of sites bundled with the extension. Your privacy is a core principle of this tool.",
+      "tags": ["privacy", "important"],
+      "relatedQuestions": ["privacy-concerns"]
+    },
+    {
+      "id": "remove-2fa",
+      "category": "troubleshooting",
+      "question": "How do I turn off 2FA if I need to?",
+      "answer": "You can disable 2FA at any time through the same security settings where you enabled it. Log into your account (using your current 2FA method), go to security settings, and look for an option to disable or turn off two-factor authentication. The site will usually ask you to confirm this decision since it reduces your security. We strongly recommend keeping 2FA enabled, but if you need to disable it temporarily (like when switching phones), just make sure to re-enable it as soon as possible.",
+      "tags": ["troubleshooting"],
+      "relatedQuestions": ["how-setup-2fa"]
+    },
+    {
+      "id": "new-phone",
+      "category": "troubleshooting",
+      "question": "I got a new phone - how do I transfer my 2FA?",
+      "answer": "The process depends on your authenticator app. Some apps like Authy offer cloud backup and will automatically sync to your new phone when you log in. For apps like Google Authenticator, you'll need to either: 1) Use the app's export/transfer feature (if available) before switching phones, or 2) Disable and re-enable 2FA on each account with your new phone. The second option is more tedious but works for all apps. This is why backup codes are essential - they let you log in while you're switching devices.",
+      "tags": ["troubleshooting", "setup"],
+      "relatedQuestions": ["lost-phone", "backup-codes", "multiple-devices"]
+    },
+    {
+      "id": "too-much-hassle",
+      "category": "basics",
+      "question": "Isn't 2FA too much hassle?",
+      "answer": "2FA adds about 5-10 seconds to your login process - a small price for dramatically better security. Most sites remember your device for 30 days, so you won't need to enter codes every time. And modern authenticator apps make it very quick - just open the app, see the code, done. Compare that to the hassle of having your account hacked: changing all your passwords, dealing with identity theft, recovering compromised accounts, and the stress of knowing someone accessed your private information. Those 5 seconds are worth it.",
+      "tags": ["beginner"],
+      "relatedQuestions": ["why-need-2fa", "how-2fa-works"]
+    }
+  ],
+  "tips": [
+    {
+      "id": "tip-email-first",
+      "text": "Enable 2FA on your email first - it's the gateway to all your other accounts",
+      "category": "priority",
+      "priority": "high",
+      "showAfter": 0
+    },
+    {
+      "id": "tip-backup-codes",
+      "text": "Save your backup codes in a secure place, separate from your password manager",
+      "category": "security",
+      "priority": "high",
+      "showAfter": 1
+    },
+    {
+      "id": "tip-app-over-sms",
+      "text": "Authenticator apps are more secure than SMS - they can't be intercepted",
+      "category": "security",
+      "priority": "medium",
+      "showAfter": 0
+    },
+    {
+      "id": "tip-99-percent",
+      "text": "Accounts with 2FA are 99.9% less likely to be compromised",
+      "category": "motivation",
+      "priority": "medium",
+      "showAfter": 0
+    },
+    {
+      "id": "tip-hardware-keys",
+      "text": "Hardware keys like YubiKey offer the strongest 2FA protection for your most important accounts",
+      "category": "advanced",
+      "priority": "low",
+      "showAfter": 5
+    },
+    {
+      "id": "tip-multiple-devices",
+      "text": "Set up your authenticator on multiple devices in case you lose one",
+      "category": "security",
+      "priority": "medium",
+      "showAfter": 3
+    },
+    {
+      "id": "tip-privacy",
+      "text": "2Step keeps all your data local - we never see which sites you visit",
+      "category": "privacy",
+      "priority": "medium",
+      "showAfter": 0
+    },
+    {
+      "id": "tip-unique-passwords",
+      "text": "Use unique passwords for each site - 2FA protects you if one password leaks",
+      "category": "security",
+      "priority": "medium",
+      "showAfter": 2
+    },
+    {
+      "id": "tip-financial-accounts",
+      "text": "After email, prioritize 2FA on banking and financial accounts",
+      "category": "priority",
+      "priority": "high",
+      "showAfter": 1
+    },
+    {
+      "id": "tip-no-hassle",
+      "text": "Most sites remember your device for 30 days - you won't need codes every time",
+      "category": "motivation",
+      "priority": "low",
+      "showAfter": 0
+    },
+    {
+      "id": "tip-codes-expire",
+      "text": "Authenticator codes change every 30 seconds - even if someone sees one, they can't reuse it",
+      "category": "education",
+      "priority": "low",
+      "showAfter": 1
+    },
+    {
+      "id": "tip-password-not-enough",
+      "text": "Passwords can be guessed or stolen - 2FA adds a layer that hackers can't easily bypass",
+      "category": "motivation",
+      "priority": "medium",
+      "showAfter": 0
+    }
+  ],
+  "categories": {
+    "basics": {
+      "name": "Basics",
+      "description": "New to 2FA? Start here",
+      "icon": "📚"
+    },
+    "getting-started": {
+      "name": "Getting Started",
+      "description": "How to set up and use 2FA",
+      "icon": "🚀"
+    },
+    "methods": {
+      "name": "2FA Methods",
+      "description": "Understanding different types of 2FA",
+      "icon": "🔐"
+    },
+    "troubleshooting": {
+      "name": "Troubleshooting",
+      "description": "Common problems and solutions",
+      "icon": "🔧"
+    },
+    "advanced": {
+      "name": "Advanced",
+      "description": "For experienced users",
+      "icon": "⚡"
+    },
+    "privacy": {
+      "name": "Privacy",
+      "description": "How 2Step protects your privacy",
+      "icon": "🔒"
+    }
+  }
+}

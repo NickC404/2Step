@@ -2456,58 +2456,6 @@ function renderList(source, renderItem, cache, index) {
   }
   return ret;
 }
-function renderSlot(slots, name, props = {}, fallback, noSlotted) {
-  if (currentRenderingInstance.ce || currentRenderingInstance.parent && isAsyncWrapper(currentRenderingInstance.parent) && currentRenderingInstance.parent.ce) {
-    const hasProps = Object.keys(props).length > 0;
-    if (name !== "default") props.name = name;
-    return openBlock(), createBlock(
-      Fragment,
-      null,
-      [createVNode("slot", props, fallback && fallback())],
-      hasProps ? -2 : 64
-    );
-  }
-  let slot = slots[name];
-  if (false) {
-    warn$1(
-      `SSR-optimized slot function detected in a non-SSR-optimized render function. You need to mark this component with $dynamic-slots in the parent template.`
-    );
-    slot = () => [];
-  }
-  if (slot && slot._c) {
-    slot._d = false;
-  }
-  openBlock();
-  const validSlotContent = slot && ensureValidVNode(slot(props));
-  const slotKey = props.key || // slot content array of a dynamic conditional slot may have a branch
-  // key attached in the `createSlots` helper, respect that
-  validSlotContent && validSlotContent.key;
-  const rendered = createBlock(
-    Fragment,
-    {
-      key: (slotKey && !isSymbol(slotKey) ? slotKey : `_${name}`) + // #7256 force differentiate fallback content from actual content
-      (!validSlotContent && fallback ? "_fb" : "")
-    },
-    validSlotContent || (fallback ? fallback() : []),
-    validSlotContent && slots._ === 1 ? 64 : -2
-  );
-  if (!noSlotted && rendered.scopeId) {
-    rendered.slotScopeIds = [rendered.scopeId + "-s"];
-  }
-  if (slot && slot._c) {
-    slot._d = true;
-  }
-  return rendered;
-}
-function ensureValidVNode(vnodes) {
-  return vnodes.some((child) => {
-    if (!isVNode(child)) return true;
-    if (child.type === Comment) return false;
-    if (child.type === Fragment && !ensureValidVNode(child.children))
-      return false;
-    return true;
-  }) ? vnodes : null;
-}
 var getPublicInstance = (i) => {
   if (!i) return null;
   if (isStatefulComponent(i)) return getComponentPublicInstance(i);
@@ -2700,7 +2648,7 @@ function applyOptions(instance) {
     beforeUnmount,
     destroyed,
     unmounted,
-    render: render6,
+    render: render5,
     renderTracked,
     renderTriggered,
     errorCaptured,
@@ -2854,8 +2802,8 @@ function applyOptions(instance) {
       instance.exposed = {};
     }
   }
-  if (render6 && instance.render === NOOP) {
-    instance.render = render6;
+  if (render5 && instance.render === NOOP) {
+    instance.render = render5;
   }
   if (inheritAttrs != null) {
     instance.inheritAttrs = inheritAttrs;
@@ -3096,7 +3044,7 @@ function createAppContext() {
   };
 }
 var uid$1 = 0;
-function createAppAPI(render6, hydrate) {
+function createAppAPI(render5, hydrate) {
   return function createApp2(rootComponent, rootProps = null) {
     if (!isFunction(rootComponent)) {
       rootComponent = extend({}, rootComponent);
@@ -3200,13 +3148,13 @@ function createAppAPI(render6, hydrate) {
             context.reload = () => {
               const cloned = cloneVNode(vnode);
               cloned.el = null;
-              render6(cloned, rootContainer, namespace);
+              render5(cloned, rootContainer, namespace);
             };
           }
           if (isHydrate && hydrate) {
             hydrate(vnode, rootContainer);
           } else {
-            render6(vnode, rootContainer, namespace);
+            render5(vnode, rootContainer, namespace);
           }
           isMounted = true;
           app2._container = rootContainer;
@@ -3238,7 +3186,7 @@ If you want to remount the same app, move your app creation logic into a factory
             app2._instance,
             16
           );
-          render6(null, app2._container);
+          render5(null, app2._container);
           if (false) {
             app2._instance = null;
             devtoolsUnmountApp(app2);
@@ -3573,7 +3521,7 @@ function renderComponentRoot(instance) {
     slots,
     attrs,
     emit: emit2,
-    render: render6,
+    render: render5,
     renderCache,
     props,
     data,
@@ -3601,7 +3549,7 @@ function renderComponentRoot(instance) {
         }
       }) : proxyToUse;
       result = normalizeVNode(
-        render6.call(
+        render5.call(
           thisProxy,
           proxyToUse,
           renderCache,
@@ -5600,7 +5548,7 @@ function baseCreateRenderer(options, createHydrationFns) {
     return teleportEnd ? hostNextSibling(teleportEnd) : el;
   };
   let isFlushing = false;
-  const render6 = (vnode, container, namespace) => {
+  const render5 = (vnode, container, namespace) => {
     if (vnode == null) {
       if (container._vnode) {
         unmount(container._vnode, null, null, true);
@@ -5644,9 +5592,9 @@ function baseCreateRenderer(options, createHydrationFns) {
     );
   }
   return {
-    render: render6,
+    render: render5,
     hydrate,
-    createApp: createAppAPI(render6, hydrate)
+    createApp: createAppAPI(render5, hydrate)
   };
 }
 function resolveChildrenNamespace({ type, props }, currentNamespace) {
@@ -6966,31 +6914,6 @@ function shouldSetAsProp(el, key, value, isSVG) {
   }
   return key in el;
 }
-var systemModifiers = ["ctrl", "shift", "alt", "meta"];
-var modifierGuards = {
-  stop: (e) => e.stopPropagation(),
-  prevent: (e) => e.preventDefault(),
-  self: (e) => e.target !== e.currentTarget,
-  ctrl: (e) => !e.ctrlKey,
-  shift: (e) => !e.shiftKey,
-  alt: (e) => !e.altKey,
-  meta: (e) => !e.metaKey,
-  left: (e) => "button" in e && e.button !== 0,
-  middle: (e) => "button" in e && e.button !== 1,
-  right: (e) => "button" in e && e.button !== 2,
-  exact: (e, modifiers) => systemModifiers.some((m) => e[`${m}Key`] && !modifiers.includes(m))
-};
-var withModifiers = (fn, modifiers) => {
-  const cache = fn._withMods || (fn._withMods = {});
-  const cacheKey = modifiers.join(".");
-  return cache[cacheKey] || (cache[cacheKey] = ((event, ...args) => {
-    for (let i = 0; i < modifiers.length; i++) {
-      const guard = modifierGuards[modifiers[i]];
-      if (guard && guard(event, modifiers)) return;
-    }
-    return fn(event, ...args);
-  }));
-};
 var rendererOptions = /* @__PURE__ */ extend({ patchProp }, nodeOps);
 var renderer;
 function ensureRenderer() {
@@ -7053,62 +6976,6 @@ if (false) {
   initDev();
 }
 
-// sfc-script:/private/var/www/apps/2Step/src/components/Button.vue?type=script
-var Button_default = {
-  __name: "Button",
-  props: {
-    variant: {
-      type: String,
-      default: "primary",
-      validator: (value) => ["primary", "secondary", "danger", "ghost"].includes(value)
-    }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const variantClasses = computed2(() => {
-      switch (props.variant) {
-        case "primary":
-          return "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500";
-        case "secondary":
-          return "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500";
-        case "danger":
-          return "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500";
-        case "ghost":
-          return "bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500";
-        default:
-          return "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500";
-      }
-    });
-    const __returned__ = { props, variantClasses, computed: computed2 };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
-};
-
-// sfc-template:/private/var/www/apps/2Step/src/components/Button.vue?type=template
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock(
-    "button",
-    mergeProps({
-      class: [
-        "cursor-pointer inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none uppercase tracking-tight",
-        $setup.variantClasses
-      ]
-    }, _ctx.$attrs),
-    [
-      renderSlot(_ctx.$slots, "default")
-    ],
-    16
-    /* FULL_PROPS */
-  );
-}
-
-// src/components/Button.vue
-Button_default.render = render;
-Button_default.__file = "src/components/Button.vue";
-var Button_default2 = Button_default;
-
 // sfc-script:/private/var/www/apps/2Step/src/components/Input.vue?type=script
 var Input_default = {
   __name: "Input",
@@ -7132,7 +6999,7 @@ var _hoisted_2 = {
   class: "block text-sm font-medium text-gray-700"
 };
 var _hoisted_3 = ["value"];
-function render2(_ctx, _cache, $props, $setup, $data, $options) {
+function render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1, [
     $props.label ? (openBlock(), createElementBlock(
       "label",
@@ -7150,7 +7017,7 @@ function render2(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 // src/components/Input.vue
-Input_default.render = render2;
+Input_default.render = render;
 Input_default.__file = "src/components/Input.vue";
 var Input_default2 = Input_default;
 
@@ -7184,7 +7051,7 @@ var TabBar_default = {
 // sfc-template:/private/var/www/apps/2Step/src/components/TabBar.vue?type=template
 var _hoisted_12 = { class: "flex px-3 space-x-1 pb-2" };
 var _hoisted_22 = ["onClick"];
-function render3(_ctx, _cache, $props, $setup, $data, $options) {
+function render2(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_12, [
     (openBlock(true), createElementBlock(
       Fragment,
@@ -7206,7 +7073,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 // src/components/TabBar.vue
-TabBar_default.render = render3;
+TabBar_default.render = render2;
 TabBar_default.__file = "src/components/TabBar.vue";
 var TabBar_default2 = TabBar_default;
 
@@ -7221,10 +7088,7 @@ var SiteDetails_default = {
   },
   setup(__props, { expose: __expose }) {
     __expose();
-    const openExternalUrl = (url) => {
-      window.parent.postMessage({ type: "OPEN_URL", url }, "*");
-    };
-    const __returned__ = { openExternalUrl };
+    const __returned__ = {};
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
@@ -7266,11 +7130,12 @@ var _hoisted_9 = {
   key: 0,
   class: "mt-4"
 };
-var _hoisted_10 = {
+var _hoisted_10 = ["href"];
+var _hoisted_11 = {
   key: 1,
   class: "p-6 bg-white border-t border-gray-100"
 };
-function render4(_ctx, _cache, $props, $setup, $data, $options) {
+function render3(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_13, [
     createBaseVNode(
       "div",
@@ -7290,7 +7155,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
             ])
           },
           [
-            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[1] || (_cache[1] = [
+            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[0] || (_cache[0] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7305,7 +7170,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
                 -1
                 /* CACHED */
               )
-            ])])) : (openBlock(), createElementBlock("svg", _hoisted_32, [..._cache[2] || (_cache[2] = [
+            ])])) : (openBlock(), createElementBlock("svg", _hoisted_32, [..._cache[1] || (_cache[1] = [
               createBaseVNode(
                 "path",
                 { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -7370,7 +7235,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
       /* CLASS */
     ),
     $props.site.has2FA && $props.site.methods && $props.site.methods.length ? (openBlock(), createElementBlock("div", _hoisted_7, [
-      _cache[5] || (_cache[5] = createBaseVNode(
+      _cache[4] || (_cache[4] = createBaseVNode(
         "div",
         { class: "flex items-center justify-between mb-4" },
         [
@@ -7389,7 +7254,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
               key: method,
               class: "px-3 py-1.5 bg-gray-50 border border-gray-100 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-2 hover:border-blue-200 hover:bg-blue-50/50 cursor-default transition-colors"
             }, [
-              _cache[3] || (_cache[3] = createBaseVNode(
+              _cache[2] || (_cache[2] = createBaseVNode(
                 "div",
                 { class: "w-1.5 h-1.5 rounded-full bg-emerald-400" },
                 null,
@@ -7408,10 +7273,11 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
         ))
       ]),
       $props.site.documentation ? (openBlock(), createElementBlock("div", _hoisted_9, [
-        createBaseVNode("button", {
-          onClick: _cache[0] || (_cache[0] = ($event) => $setup.openExternalUrl($props.site.documentation)),
-          class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 uppercase tracking-tight"
-        }, [..._cache[4] || (_cache[4] = [
+        createBaseVNode("a", {
+          href: $props.site.documentation,
+          target: "_blank",
+          class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 no-underline text-center uppercase tracking-tight"
+        }, [..._cache[3] || (_cache[3] = [
           createBaseVNode(
             "span",
             null,
@@ -7444,10 +7310,10 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
             -1
             /* CACHED */
           )
-        ])])
+        ])], 8, _hoisted_10)
       ])) : createCommentVNode("v-if", true)
     ])) : createCommentVNode("v-if", true),
-    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_10, [..._cache[6] || (_cache[6] = [
+    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_11, [..._cache[5] || (_cache[5] = [
       createBaseVNode(
         "p",
         { class: "text-xs text-gray-500 text-center leading-relaxed" },
@@ -7456,12 +7322,12 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
         /* CACHED */
       )
     ])])) : createCommentVNode("v-if", true),
-    _cache[7] || (_cache[7] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
+    _cache[6] || (_cache[6] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
   ]);
 }
 
 // src/components/SiteDetails.vue
-SiteDetails_default.render = render4;
+SiteDetails_default.render = render3;
 SiteDetails_default.__file = "src/components/SiteDetails.vue";
 var SiteDetails_default2 = SiteDetails_default;
 
@@ -26675,14 +26541,300 @@ var sites_default = {
   "coop.ch": {}
 };
 
+// faq/tips-faq.json
+var tips_faq_default = {
+  faqs: [
+    {
+      id: "what-is-2fa",
+      category: "basics",
+      question: "What is two-factor authentication (2FA)?",
+      answer: "Two-factor authentication (2FA) adds an extra layer of security to your accounts. Instead of just entering your password, you also need to provide a second proof of identity - usually a code from your phone. Think of it like needing both a key and a security code to enter a building. Even if someone steals your password, they can't access your account without that second factor.",
+      tags: ["beginner", "definition"],
+      relatedQuestions: ["why-need-2fa", "how-2fa-works"]
+    },
+    {
+      id: "why-need-2fa",
+      category: "basics",
+      question: "Why do I need 2FA?",
+      answer: "Passwords alone aren't enough anymore. They can be guessed, stolen in data breaches, or phished. With 2FA enabled, even if someone gets your password, they still can't access your account without the second factor (your phone or security key). Studies show that 2FA blocks 99.9% of automated attacks. It's one of the single most effective things you can do to protect yourself online.",
+      tags: ["beginner", "security"],
+      relatedQuestions: ["what-is-2fa", "most-secure-method"]
+    },
+    {
+      id: "how-2fa-works",
+      category: "basics",
+      question: "How does 2FA work?",
+      answer: "When you log into an account with 2FA enabled, you first enter your password as usual. Then, you provide a second piece of proof - typically a 6-digit code. This code comes from an authenticator app on your phone, via text message, or from a hardware security key. The code changes every 30 seconds, so even if someone sees it, they can't reuse it. Only someone with both your password AND access to your second factor can log in.",
+      tags: ["beginner", "how-to"],
+      relatedQuestions: ["what-is-2fa", "authenticator-app-choice"]
+    },
+    {
+      id: "which-accounts-first",
+      category: "getting-started",
+      question: "Which accounts should I secure with 2FA first?",
+      answer: "Start with your email account - it's the master key to everything else. Most services use email for password resets, so if someone compromises your email, they can access your other accounts. After email, prioritize financial accounts (banking, PayPal, investment accounts), then social media and cloud storage. Focus on accounts that contain sensitive information, financial data, or could be used to impersonate you.",
+      tags: ["beginner", "priority"],
+      relatedQuestions: ["how-setup-2fa", "why-need-2fa"]
+    },
+    {
+      id: "how-setup-2fa",
+      category: "getting-started",
+      question: "How do I set up 2FA on my accounts?",
+      answer: "The process varies slightly by website, but generally: 1) Go to your account's security or privacy settings, 2) Look for 'Two-Factor Authentication', 'Two-Step Verification', or '2FA', 3) Choose your preferred method (authenticator app recommended), 4) Follow the setup wizard - usually scanning a QR code with your authenticator app, 5) Save your backup codes in a safe place. 2Step provides direct links to each site's 2FA setup page to make this easier.",
+      tags: ["beginner", "how-to", "setup"],
+      relatedQuestions: ["authenticator-app-choice", "backup-codes"]
+    },
+    {
+      id: "authenticator-app-choice",
+      category: "getting-started",
+      question: "Which authenticator app should I use?",
+      answer: "Popular, reliable options include Authy, Google Authenticator, Microsoft Authenticator, and 1Password. All work similarly - they generate time-based codes for your accounts. Authy offers cloud backup and multi-device support. Google Authenticator is simple and widely trusted. Microsoft Authenticator integrates well with Microsoft services. Choose one that's available for your phone's operating system and has good reviews. The most important thing is to use one - they're all significantly more secure than SMS.",
+      tags: ["beginner", "tools", "apps"],
+      relatedQuestions: ["how-setup-2fa", "sms-vs-app"]
+    },
+    {
+      id: "backup-codes",
+      category: "getting-started",
+      question: "What are backup codes and why do I need them?",
+      answer: "Backup codes are one-time-use codes provided when you enable 2FA. They let you access your account if you lose your phone or can't get your regular 2FA codes. Most services give you 8-10 backup codes when you set up 2FA. Save them somewhere secure but separate from your password manager - like printed on paper in a safe place, or in an encrypted note. Each code typically works only once, so you'll want to generate new ones after using a few.",
+      tags: ["important", "troubleshooting"],
+      relatedQuestions: ["lost-phone", "where-store-backup-codes"]
+    },
+    {
+      id: "where-store-backup-codes",
+      category: "getting-started",
+      question: "Where should I store my backup codes?",
+      answer: "Store backup codes somewhere secure but accessible if you lose your phone. Good options include: printing them and keeping them in a safe or locked drawer, saving them in an encrypted password manager (separate from the accounts they protect), or storing them in secure cloud storage. Don't save them in plain text files on your computer or in photos on your phone - if someone gets access to those, they defeat the purpose of 2FA. The key is: secure, offline, and separate from your primary devices.",
+      tags: ["important", "security"],
+      relatedQuestions: ["backup-codes", "lost-phone"]
+    },
+    {
+      id: "lost-phone",
+      category: "troubleshooting",
+      question: "What if I lose my phone with my authenticator app?",
+      answer: "This is exactly why backup codes are critical. If you lose your phone, use one of your saved backup codes to log into your account. Once you're in, you can disable and re-enable 2FA with your new phone. If you don't have backup codes, you'll need to contact the service's support team to verify your identity and regain access - which can take days. Some authenticator apps like Authy offer cloud backup, which makes recovery easier. This is also why having 2FA on multiple devices can be helpful.",
+      tags: ["troubleshooting", "emergency"],
+      relatedQuestions: ["backup-codes", "multiple-devices", "where-store-backup-codes"]
+    },
+    {
+      id: "multiple-devices",
+      category: "troubleshooting",
+      question: "Can I use 2FA on multiple devices?",
+      answer: "Yes! When you set up 2FA by scanning a QR code, you can scan the same code with multiple devices. This gives you backup access if you lose one device. Alternatively, some authenticator apps like Authy support syncing across devices. If you've already set up 2FA on one device, you'll typically need to disable and re-enable it to add another device (which is why you should do this while you still have access). Having 2FA on multiple devices is smart - just keep all devices secure.",
+      tags: ["advanced", "setup"],
+      relatedQuestions: ["lost-phone", "authenticator-app-choice"]
+    },
+    {
+      id: "sms-vs-app",
+      category: "methods",
+      question: "Is SMS 2FA as secure as an authenticator app?",
+      answer: "SMS 2FA is better than no 2FA, but authenticator apps are more secure. SMS codes can be intercepted through SIM swapping (where attackers convince your phone carrier to transfer your number to their device) or through network vulnerabilities. Authenticator apps generate codes locally on your device and don't rely on cellular networks, making them much harder to intercept. If a service offers app-based 2FA, choose that over SMS. But if SMS is the only option, it's still worth enabling.",
+      tags: ["security", "comparison"],
+      relatedQuestions: ["most-secure-method", "authenticator-app-choice"]
+    },
+    {
+      id: "most-secure-method",
+      category: "methods",
+      question: "What's the most secure 2FA method?",
+      answer: "Hardware security keys (like YubiKey or Google Titan) are the most secure 2FA method. They're physical devices you plug into your computer or tap on your phone. They're immune to phishing, can't be remotely hacked, and don't rely on codes that could be intercepted. However, they cost money and require carrying the device with you. For most people, authenticator apps offer excellent security and convenience. The security ranking is: Hardware keys (most secure) > Authenticator apps > SMS (least secure, but still much better than passwords alone).",
+      tags: ["security", "advanced"],
+      relatedQuestions: ["hardware-key", "sms-vs-app"]
+    },
+    {
+      id: "hardware-key",
+      category: "methods",
+      question: "What is a hardware security key?",
+      answer: "A hardware security key is a small physical device (like a USB stick) that provides 2FA. Instead of typing a code, you insert the key into your computer or tap it on your phone. Popular brands include YubiKey, Google Titan, and Thetis. They're the gold standard for security because they can't be phished or hacked remotely. They're ideal for high-value accounts like email, banking, or work accounts. The downside is they cost $25-50, and you should buy two (one as a backup) in case you lose one.",
+      tags: ["advanced", "hardware"],
+      relatedQuestions: ["most-secure-method", "sms-vs-app"]
+    },
+    {
+      id: "cant-scan-qr",
+      category: "troubleshooting",
+      question: "What if I can't scan the QR code?",
+      answer: "Most services offer an alternative to QR codes. Look for a link that says 'Can't scan?' or 'Enter key manually.' This will show you a long string of letters and numbers that you can type into your authenticator app instead of scanning. In your authenticator app, look for an option like 'Enter a setup key' or 'Manual entry.' Type in the code exactly as shown (spaces usually don't matter). This achieves the same result as scanning the QR code.",
+      tags: ["troubleshooting", "setup"],
+      relatedQuestions: ["how-setup-2fa", "authenticator-app-choice"]
+    },
+    {
+      id: "traveling-internationally",
+      category: "advanced",
+      question: "Will 2FA work when I'm traveling internationally?",
+      answer: "Authenticator apps work perfectly anywhere in the world because they don't need internet or cellular service - the codes are generated locally on your device. SMS-based 2FA can be problematic abroad if you don't have cell service or if you get a temporary local SIM card. This is another reason to prefer authenticator apps. If you must use SMS 2FA and travel frequently, make sure your backup codes are saved securely before you leave. Some services also let you add multiple phone numbers for SMS backup.",
+      tags: ["advanced", "travel"],
+      relatedQuestions: ["sms-vs-app", "backup-codes"]
+    },
+    {
+      id: "privacy-concerns",
+      category: "advanced",
+      question: "Does 2FA compromise my privacy?",
+      answer: "2FA actually enhances your privacy by making your accounts harder to hack. Authenticator apps work entirely offline and don't share your data with anyone. SMS 2FA does tie your phone number to your account, which some people consider a privacy trade-off, but the security benefit usually outweighs this. If privacy is a major concern, use authenticator apps or hardware keys instead of SMS. They provide strong security without requiring you to share your phone number.",
+      tags: ["advanced", "privacy"],
+      relatedQuestions: ["sms-vs-app", "hardware-key"]
+    },
+    {
+      id: "does-2step-collect-data",
+      category: "privacy",
+      question: "Does 2Step collect any of my data?",
+      answer: "No. 2Step is completely local and private. Everything is stored only on your device - we never see which websites you visit, which accounts you've secured, or any other information about your browsing. There are no analytics, no tracking, and no data sent to any servers. The extension works entirely offline using a database of sites bundled with the extension. Your privacy is a core principle of this tool.",
+      tags: ["privacy", "important"],
+      relatedQuestions: ["privacy-concerns"]
+    },
+    {
+      id: "remove-2fa",
+      category: "troubleshooting",
+      question: "How do I turn off 2FA if I need to?",
+      answer: "You can disable 2FA at any time through the same security settings where you enabled it. Log into your account (using your current 2FA method), go to security settings, and look for an option to disable or turn off two-factor authentication. The site will usually ask you to confirm this decision since it reduces your security. We strongly recommend keeping 2FA enabled, but if you need to disable it temporarily (like when switching phones), just make sure to re-enable it as soon as possible.",
+      tags: ["troubleshooting"],
+      relatedQuestions: ["how-setup-2fa"]
+    },
+    {
+      id: "new-phone",
+      category: "troubleshooting",
+      question: "I got a new phone - how do I transfer my 2FA?",
+      answer: "The process depends on your authenticator app. Some apps like Authy offer cloud backup and will automatically sync to your new phone when you log in. For apps like Google Authenticator, you'll need to either: 1) Use the app's export/transfer feature (if available) before switching phones, or 2) Disable and re-enable 2FA on each account with your new phone. The second option is more tedious but works for all apps. This is why backup codes are essential - they let you log in while you're switching devices.",
+      tags: ["troubleshooting", "setup"],
+      relatedQuestions: ["lost-phone", "backup-codes", "multiple-devices"]
+    },
+    {
+      id: "too-much-hassle",
+      category: "basics",
+      question: "Isn't 2FA too much hassle?",
+      answer: "2FA adds about 5-10 seconds to your login process - a small price for dramatically better security. Most sites remember your device for 30 days, so you won't need to enter codes every time. And modern authenticator apps make it very quick - just open the app, see the code, done. Compare that to the hassle of having your account hacked: changing all your passwords, dealing with identity theft, recovering compromised accounts, and the stress of knowing someone accessed your private information. Those 5 seconds are worth it.",
+      tags: ["beginner"],
+      relatedQuestions: ["why-need-2fa", "how-2fa-works"]
+    }
+  ],
+  tips: [
+    {
+      id: "tip-email-first",
+      text: "Enable 2FA on your email first - it's the gateway to all your other accounts",
+      category: "priority",
+      priority: "high",
+      showAfter: 0
+    },
+    {
+      id: "tip-backup-codes",
+      text: "Save your backup codes in a secure place, separate from your password manager",
+      category: "security",
+      priority: "high",
+      showAfter: 1
+    },
+    {
+      id: "tip-app-over-sms",
+      text: "Authenticator apps are more secure than SMS - they can't be intercepted",
+      category: "security",
+      priority: "medium",
+      showAfter: 0
+    },
+    {
+      id: "tip-99-percent",
+      text: "Accounts with 2FA are 99.9% less likely to be compromised",
+      category: "motivation",
+      priority: "medium",
+      showAfter: 0
+    },
+    {
+      id: "tip-hardware-keys",
+      text: "Hardware keys like YubiKey offer the strongest 2FA protection for your most important accounts",
+      category: "advanced",
+      priority: "low",
+      showAfter: 5
+    },
+    {
+      id: "tip-multiple-devices",
+      text: "Set up your authenticator on multiple devices in case you lose one",
+      category: "security",
+      priority: "medium",
+      showAfter: 3
+    },
+    {
+      id: "tip-privacy",
+      text: "2Step keeps all your data local - we never see which sites you visit",
+      category: "privacy",
+      priority: "medium",
+      showAfter: 0
+    },
+    {
+      id: "tip-unique-passwords",
+      text: "Use unique passwords for each site - 2FA protects you if one password leaks",
+      category: "security",
+      priority: "medium",
+      showAfter: 2
+    },
+    {
+      id: "tip-financial-accounts",
+      text: "After email, prioritize 2FA on banking and financial accounts",
+      category: "priority",
+      priority: "high",
+      showAfter: 1
+    },
+    {
+      id: "tip-no-hassle",
+      text: "Most sites remember your device for 30 days - you won't need codes every time",
+      category: "motivation",
+      priority: "low",
+      showAfter: 0
+    },
+    {
+      id: "tip-codes-expire",
+      text: "Authenticator codes change every 30 seconds - even if someone sees one, they can't reuse it",
+      category: "education",
+      priority: "low",
+      showAfter: 1
+    },
+    {
+      id: "tip-password-not-enough",
+      text: "Passwords can be guessed or stolen - 2FA adds a layer that hackers can't easily bypass",
+      category: "motivation",
+      priority: "medium",
+      showAfter: 0
+    }
+  ],
+  categories: {
+    basics: {
+      name: "Basics",
+      description: "New to 2FA? Start here",
+      icon: "\u{1F4DA}"
+    },
+    "getting-started": {
+      name: "Getting Started",
+      description: "How to set up and use 2FA",
+      icon: "\u{1F680}"
+    },
+    methods: {
+      name: "2FA Methods",
+      description: "Understanding different types of 2FA",
+      icon: "\u{1F510}"
+    },
+    troubleshooting: {
+      name: "Troubleshooting",
+      description: "Common problems and solutions",
+      icon: "\u{1F527}"
+    },
+    advanced: {
+      name: "Advanced",
+      description: "For experienced users",
+      icon: "\u26A1"
+    },
+    privacy: {
+      name: "Privacy",
+      description: "How 2Step protects your privacy",
+      icon: "\u{1F512}"
+    }
+  }
+};
+
 // sfc-script:/private/var/www/apps/2Step/src/App.vue?type=script
 var App_default = {
   __name: "App",
   setup(__props, { expose: __expose }) {
     __expose();
     const tabs = [
-      { id: "currentSite", label: "Current Site" },
-      { id: "allSites", label: "Directory" }
+      { id: "currentSite", label: "Current" },
+      { id: "allSites", label: "Directory" },
+      { id: "faqs", label: "FAQ" },
+      { id: "tips", label: "Tips" }
     ];
     const currentTab = ref("currentSite");
     const settings = ref({ search: "" });
@@ -26693,6 +26845,25 @@ var App_default = {
       methods: [],
       documentation: "",
       loading: true
+    });
+    const faqs = ref({
+      loading: false,
+      ...tips_faq_default
+    });
+    const selectedCategory = ref("basics");
+    const itemsOpen = ref({});
+    const toggleAccordion = (id) => {
+      itemsOpen.value[id] = !itemsOpen.value[id];
+    };
+    const orderedTips = computed2(() => {
+      const priorityMap = { "high": 1, "medium": 2, "low": 3 };
+      return [...faqs.value.tips].sort((a, b) => {
+        return (priorityMap[a.priority] || 99) - (priorityMap[b.priority] || 99);
+      });
+    });
+    const filteredFaqs = computed2(() => {
+      if (!selectedCategory.value) return faqs.value.faqs;
+      return faqs.value.faqs.filter((f) => f.category === selectedCategory.value);
     });
     const filteredSites = computed2(() => {
       const query = settings.value.search.toLowerCase();
@@ -26715,9 +26886,6 @@ var App_default = {
         loading: false
       };
     };
-    const openExternalUrl = (url) => {
-      window.parent.postMessage({ type: "OPEN_URL", url }, "*");
-    };
     const checkSite = (domain) => {
       currentSite.value = getSiteData(domain);
     };
@@ -26739,8 +26907,10 @@ var App_default = {
         }
       }, 500);
     });
-    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, filteredSites, getSiteData, openExternalUrl, checkSite, ref, onMounted, computed: computed2, Button: Button_default2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, get sitesData() {
+    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, get sitesData() {
       return sites_default;
+    }, get faqData() {
+      return tips_faq_default;
     } };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
@@ -26767,7 +26937,7 @@ var _hoisted_92 = {
   class: "space-y-3 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar"
 };
 var _hoisted_102 = ["onClick"];
-var _hoisted_11 = { class: "flex items-center gap-4" };
+var _hoisted_112 = { class: "flex items-center gap-4" };
 var _hoisted_122 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
@@ -26809,13 +26979,56 @@ var _hoisted_20 = {
   key: 0,
   class: "flex flex-col items-center justify-center p-12 space-y-4"
 };
-var _hoisted_21 = { class: "px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" };
-var _hoisted_222 = { class: "pb-1.5 font-medium" };
-function render5(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_21 = { class: "space-y-6" };
+var _hoisted_222 = {
+  key: 0,
+  class: "flex flex-col items-center justify-center p-12 space-y-4"
+};
+var _hoisted_232 = {
+  key: 1,
+  class: "space-y-8"
+};
+var _hoisted_242 = { class: "flex items-center gap-2 px-1" };
+var _hoisted_25 = { class: "text-lg" };
+var _hoisted_26 = { class: "text-xs font-bold text-gray-400 uppercase tracking-widest" };
+var _hoisted_27 = { class: "space-y-2" };
+var _hoisted_28 = ["onClick"];
+var _hoisted_29 = { class: "text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
+var _hoisted_30 = { class: "px-4 pb-4 animate-in fade-in slide-in-from-top-2 duration-200" };
+var _hoisted_31 = { class: "text-sm text-gray-600 leading-relaxed font-semibold" };
+var _hoisted_322 = { class: "space-y-4" };
+var _hoisted_332 = { class: "grid gap-3" };
+var _hoisted_34 = { class: "flex gap-4" };
+var _hoisted_35 = {
+  key: 0,
+  xmlns: "http://www.w3.org/2000/svg",
+  class: "w-5 h-5",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": "2.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+var _hoisted_36 = {
+  key: 1,
+  xmlns: "http://www.w3.org/2000/svg",
+  class: "w-5 h-5",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": "2.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+var _hoisted_37 = { class: "flex-grow" };
+var _hoisted_38 = { class: "flex items-center justify-between mb-1" };
+var _hoisted_39 = { class: "text-[13px] text-gray-800 font-bold leading-snug group-hover:text-gray-900 transition-colors" };
+function render4(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_14, [
     createCommentVNode(" Header "),
     createBaseVNode("header", _hoisted_24, [
-      _cache[6] || (_cache[6] = createBaseVNode(
+      _cache[3] || (_cache[3] = createBaseVNode(
         "div",
         { class: "flex items-center justify-between px-4 py-3" },
         [
@@ -26841,7 +27054,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
             createBaseVNode("button", {
               onClick: _cache[1] || (_cache[1] = ($event) => $setup.selectedDirectorySite = null),
               class: "flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
-            }, [..._cache[7] || (_cache[7] = [
+            }, [..._cache[4] || (_cache[4] = [
               createBaseVNode(
                 "div",
                 { class: "w-8 h-8 rounded-md bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all" },
@@ -26877,7 +27090,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
             createVNode($setup["SiteDetails"], { site: $setup.selectedDirectorySite }, null, 8, ["site"])
           ])) : (openBlock(), createElementBlock("div", _hoisted_62, [
             createBaseVNode("div", _hoisted_72, [
-              _cache[8] || (_cache[8] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
+              _cache[5] || (_cache[5] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
               createBaseVNode(
                 "p",
                 _hoisted_82,
@@ -26901,7 +27114,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                     onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
                     class: "flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md"
                   }, [
-                    createBaseVNode("div", _hoisted_11, [
+                    createBaseVNode("div", _hoisted_112, [
                       createBaseVNode(
                         "div",
                         {
@@ -26911,7 +27124,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                           ])
                         },
                         [
-                          site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_122, [..._cache[9] || (_cache[9] = [
+                          site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_122, [..._cache[6] || (_cache[6] = [
                             createBaseVNode(
                               "path",
                               { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -26926,7 +27139,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                               -1
                               /* CACHED */
                             )
-                          ])])) : (openBlock(), createElementBlock("svg", _hoisted_132, [..._cache[10] || (_cache[10] = [
+                          ])])) : (openBlock(), createElementBlock("svg", _hoisted_132, [..._cache[7] || (_cache[7] = [
                             createBaseVNode(
                               "path",
                               { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
@@ -27000,7 +27213,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                         ])) : createCommentVNode("v-if", true)
                       ])
                     ]),
-                    _cache[11] || (_cache[11] = createBaseVNode(
+                    _cache[8] || (_cache[8] = createBaseVNode(
                       "div",
                       { class: "opacity-0 group-hover:opacity-100 p-2.5 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100" },
                       [
@@ -27045,7 +27258,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         "div",
         _hoisted_19,
         [
-          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_20, [..._cache[12] || (_cache[12] = [
+          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_20, [..._cache[9] || (_cache[9] = [
             createBaseVNode(
               "div",
               { class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" },
@@ -27069,46 +27282,307 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         /* NEED_PATCH */
       ), [
         [vShow, $setup.currentTab === "currentSite"]
+      ]),
+      withDirectives(createBaseVNode(
+        "div",
+        _hoisted_21,
+        [
+          $setup.faqs.loading ? (openBlock(), createElementBlock("div", _hoisted_222, [..._cache[10] || (_cache[10] = [
+            createBaseVNode(
+              "div",
+              { class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" },
+              null,
+              -1
+              /* CACHED */
+            ),
+            createBaseVNode(
+              "p",
+              { class: "text-sm text-gray-500 font-medium" },
+              "Loading FAQs...",
+              -1
+              /* CACHED */
+            )
+          ])])) : (openBlock(), createElementBlock("div", _hoisted_232, [
+            createCommentVNode(" Intro "),
+            _cache[13] || (_cache[13] = createBaseVNode(
+              "div",
+              { class: "bg-white rounded-xl p-6 border border-gray-100 text-center mb-2" },
+              [
+                createBaseVNode("h3", { class: "text-sm font-bold text-gray-900" }, "How can we help?"),
+                createBaseVNode("p", { class: "text-xs text-gray-500 mt-1" }, "Common questions and simple answers.")
+              ],
+              -1
+              /* CACHED */
+            )),
+            createCommentVNode(" FAQ Groups "),
+            (openBlock(true), createElementBlock(
+              Fragment,
+              null,
+              renderList($setup.faqs.categories, (cat, catId) => {
+                return openBlock(), createElementBlock("div", {
+                  key: catId,
+                  class: "space-y-3"
+                }, [
+                  createBaseVNode("div", _hoisted_242, [
+                    createBaseVNode(
+                      "span",
+                      _hoisted_25,
+                      toDisplayString(cat.icon),
+                      1
+                      /* TEXT */
+                    ),
+                    createBaseVNode(
+                      "h4",
+                      _hoisted_26,
+                      toDisplayString(cat.name),
+                      1
+                      /* TEXT */
+                    )
+                  ]),
+                  createBaseVNode("div", _hoisted_27, [
+                    (openBlock(true), createElementBlock(
+                      Fragment,
+                      null,
+                      renderList($setup.faqs.faqs.filter((f) => f.category === catId), (faq) => {
+                        return openBlock(), createElementBlock("div", {
+                          key: faq.id,
+                          class: "bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
+                        }, [
+                          createBaseVNode("button", {
+                            onClick: ($event) => $setup.toggleAccordion(faq.id),
+                            class: "w-full flex items-center justify-between p-4 text-left group"
+                          }, [
+                            createBaseVNode(
+                              "span",
+                              _hoisted_29,
+                              toDisplayString(faq.question),
+                              1
+                              /* TEXT */
+                            ),
+                            createBaseVNode(
+                              "div",
+                              {
+                                class: normalizeClass([
+                                  "w-6 h-6 rounded-lg flex items-center justify-center transition-all flex-shrink-0",
+                                  $setup.itemsOpen[faq.id] ? "bg-blue-50 text-blue-600 rotate-180" : "bg-gray-50 text-gray-400 group-hover:bg-blue-50 group-hover:text-blue-500"
+                                ])
+                              },
+                              [..._cache[11] || (_cache[11] = [
+                                createBaseVNode(
+                                  "svg",
+                                  {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    class: "w-4 h-4",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    "stroke-width": "2.5",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
+                                  },
+                                  [
+                                    createBaseVNode("polyline", { points: "6 9 12 15 18 9" })
+                                  ],
+                                  -1
+                                  /* CACHED */
+                                )
+                              ])],
+                              2
+                              /* CLASS */
+                            )
+                          ], 8, _hoisted_28),
+                          withDirectives(createBaseVNode(
+                            "div",
+                            _hoisted_30,
+                            [
+                              _cache[12] || (_cache[12] = createBaseVNode(
+                                "div",
+                                { class: "h-px bg-gray-50 mb-3" },
+                                null,
+                                -1
+                                /* CACHED */
+                              )),
+                              createBaseVNode(
+                                "p",
+                                _hoisted_31,
+                                toDisplayString(faq.answer),
+                                1
+                                /* TEXT */
+                              )
+                            ],
+                            512
+                            /* NEED_PATCH */
+                          ), [
+                            [vShow, $setup.itemsOpen[faq.id]]
+                          ])
+                        ]);
+                      }),
+                      128
+                      /* KEYED_FRAGMENT */
+                    ))
+                  ])
+                ]);
+              }),
+              128
+              /* KEYED_FRAGMENT */
+            ))
+          ]))
+        ],
+        512
+        /* NEED_PATCH */
+      ), [
+        [vShow, $setup.currentTab === "faqs"]
+      ]),
+      createCommentVNode(" Tips Tab "),
+      withDirectives(createBaseVNode(
+        "div",
+        _hoisted_322,
+        [
+          _cache[16] || (_cache[16] = createBaseVNode(
+            "div",
+            { class: "bg-white rounded-xl p-6 border border-gray-100 text-center mb-2" },
+            [
+              createBaseVNode("h3", { class: "text-sm font-bold text-gray-900" }, "Security Tips"),
+              createBaseVNode("p", { class: "text-xs text-gray-500 mt-1" }, "Quick wins to level up your digital security.")
+            ],
+            -1
+            /* CACHED */
+          )),
+          createBaseVNode("div", _hoisted_332, [
+            (openBlock(true), createElementBlock(
+              Fragment,
+              null,
+              renderList($setup.orderedTips, (tip) => {
+                return openBlock(), createElementBlock("div", {
+                  key: tip.id,
+                  class: "bg-white p-4 rounded-xl border border-gray-100 hover:border-emerald-100 transition-all group shadow-sm"
+                }, [
+                  createBaseVNode("div", _hoisted_34, [
+                    createBaseVNode(
+                      "div",
+                      {
+                        class: normalizeClass([
+                          "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
+                          tip.priority === "high" ? "bg-orange-50 text-orange-600" : "bg-emerald-50 text-emerald-600"
+                        ])
+                      },
+                      [
+                        tip.priority === "high" ? (openBlock(), createElementBlock("svg", _hoisted_35, [..._cache[14] || (_cache[14] = [
+                          createBaseVNode(
+                            "path",
+                            { d: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" },
+                            null,
+                            -1
+                            /* CACHED */
+                          ),
+                          createBaseVNode(
+                            "line",
+                            {
+                              x1: "12",
+                              y1: "9",
+                              x2: "12",
+                              y2: "13"
+                            },
+                            null,
+                            -1
+                            /* CACHED */
+                          ),
+                          createBaseVNode(
+                            "line",
+                            {
+                              x1: "12",
+                              y1: "17",
+                              x2: "12.01",
+                              y2: "17"
+                            },
+                            null,
+                            -1
+                            /* CACHED */
+                          )
+                        ])])) : (openBlock(), createElementBlock("svg", _hoisted_36, [..._cache[15] || (_cache[15] = [
+                          createBaseVNode(
+                            "circle",
+                            {
+                              cx: "12",
+                              cy: "12",
+                              r: "10"
+                            },
+                            null,
+                            -1
+                            /* CACHED */
+                          ),
+                          createBaseVNode(
+                            "line",
+                            {
+                              x1: "12",
+                              y1: "16",
+                              x2: "12",
+                              y2: "12"
+                            },
+                            null,
+                            -1
+                            /* CACHED */
+                          ),
+                          createBaseVNode(
+                            "line",
+                            {
+                              x1: "12",
+                              y1: "8",
+                              x2: "12.01",
+                              y2: "8"
+                            },
+                            null,
+                            -1
+                            /* CACHED */
+                          )
+                        ])]))
+                      ],
+                      2
+                      /* CLASS */
+                    ),
+                    createBaseVNode("div", _hoisted_37, [
+                      createBaseVNode("div", _hoisted_38, [
+                        createBaseVNode(
+                          "span",
+                          {
+                            class: normalizeClass([
+                              "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md",
+                              tip.priority === "high" ? "bg-orange-100 text-orange-700" : "bg-emerald-100 text-emerald-700"
+                            ])
+                          },
+                          toDisplayString(tip.priority) + " priority ",
+                          3
+                          /* TEXT, CLASS */
+                        )
+                      ]),
+                      createBaseVNode(
+                        "p",
+                        _hoisted_39,
+                        toDisplayString(tip.text),
+                        1
+                        /* TEXT */
+                      )
+                    ])
+                  ])
+                ]);
+              }),
+              128
+              /* KEYED_FRAGMENT */
+            ))
+          ])
+        ],
+        512
+        /* NEED_PATCH */
+      ), [
+        [vShow, $setup.currentTab === "tips"]
       ])
     ]),
-    createBaseVNode("footer", _hoisted_21, [
-      createBaseVNode("p", _hoisted_222, [
-        _cache[13] || (_cache[13] = createTextVNode(
-          "Made with \u2764\uFE0F by ",
-          -1
-          /* CACHED */
-        )),
-        createBaseVNode("a", {
-          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
-          onClick: _cache[3] || (_cache[3] = withModifiers(($event) => $setup.openExternalUrl("https://nickcotterill.co.uk"), ["prevent"]))
-        }, "Nick Cotterill")
-      ]),
-      createBaseVNode("p", null, [
-        _cache[14] || (_cache[14] = createTextVNode(
-          "Data sourced from ",
-          -1
-          /* CACHED */
-        )),
-        createBaseVNode("a", {
-          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
-          onClick: _cache[4] || (_cache[4] = withModifiers(($event) => $setup.openExternalUrl("https://2fa.directory/gb/"), ["prevent"]))
-        }, "2FA Directory"),
-        _cache[15] || (_cache[15] = createTextVNode(
-          " by ",
-          -1
-          /* CACHED */
-        )),
-        createBaseVNode("a", {
-          class: "text-blue-500 hover:text-blue-600 transition-colors cursor-pointer",
-          onClick: _cache[5] || (_cache[5] = withModifiers(($event) => $setup.openExternalUrl("https://2factorauth-org.pages.dev/"), ["prevent"]))
-        }, "2factorauth")
-      ])
-    ])
+    _cache[17] || (_cache[17] = createStaticVNode('<footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" data-v-ea994a51><p class="pb-1.5 font-medium" data-v-ea994a51>Made with \u2764\uFE0F by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank" data-v-ea994a51>Nick Cotterill</a></p><p data-v-ea994a51>Data sourced from <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2fa.directory/gb/" target="_blank" data-v-ea994a51>2FA Directory</a> by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2factorauth-org.pages.dev/" target="_blank" data-v-ea994a51>2factorauth</a></p></footer>', 1))
   ]);
 }
 
 // src/App.vue
-App_default.render = render5;
+App_default.render = render4;
 App_default.__file = "src/App.vue";
 App_default.__scopeId = "data-v-ea994a51";
 var App_default2 = App_default;

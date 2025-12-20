@@ -88,6 +88,97 @@
         
         <SiteDetails v-else :site="currentSite" />
       </div>
+      <div v-show="currentTab === 'faqs'" class="space-y-6">
+        <div v-if="faqs.loading" class="flex flex-col items-center justify-center p-12 space-y-4">
+          <div class="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-sm text-gray-500 font-medium">Loading FAQs...</p>
+        </div>
+
+        <div v-else class="space-y-8">
+          <!-- Intro -->
+          <div class="bg-white rounded-xl p-6 border border-gray-100 text-center mb-2">
+            <h3 class="text-sm font-bold text-gray-900">How can we help?</h3>
+            <p class="text-xs text-gray-500 mt-1">Common questions and simple answers.</p>
+          </div>
+
+          <!-- FAQ Groups -->
+          <div v-for="(cat, catId) in faqs.categories" :key="catId" class="space-y-3">
+            <div class="flex items-center gap-2 px-1">
+              <span class="text-lg">{{ cat.icon }}</span>
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ cat.name }}</h4>
+            </div>
+
+            <div class="space-y-2">
+              <div 
+                v-for="faq in faqs.faqs.filter(f => f.category === catId)" 
+                :key="faq.id"
+                class="bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
+              >
+                <button 
+                  @click="toggleAccordion(faq.id)"
+                  class="w-full flex items-center justify-between p-4 text-left group"
+                >
+                  <span class="text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4">
+                    {{ faq.question }}
+                  </span>
+                  <div :class="[
+                    'w-6 h-6 rounded-lg flex items-center justify-center transition-all flex-shrink-0',
+                    itemsOpen[faq.id] ? 'bg-blue-50 text-blue-600 rotate-180' : 'bg-gray-50 text-gray-400 group-hover:bg-blue-50 group-hover:text-blue-500'
+                  ]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </button>
+                
+                <div 
+                  v-show="itemsOpen[faq.id]" 
+                  class="px-4 pb-4 animate-in fade-in slide-in-from-top-2 duration-200"
+                >
+                  <div class="h-px bg-gray-50 mb-3"></div>
+                  <p class="text-sm text-gray-600 leading-relaxed font-semibold">
+                    {{ faq.answer }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips Tab -->
+      <div v-show="currentTab === 'tips'" class="space-y-4">
+        <div class="bg-white rounded-xl p-6 border border-gray-100 text-center mb-2">
+          <h3 class="text-sm font-bold text-gray-900">Security Tips</h3>
+          <p class="text-xs text-gray-500 mt-1">Quick wins to level up your digital security.</p>
+        </div>
+
+        <div class="grid gap-3">
+          <div v-for="tip in orderedTips" :key="tip.id" 
+               class="bg-white p-4 rounded-xl border border-gray-100 hover:border-emerald-100 transition-all group shadow-sm">
+            <div class="flex gap-4">
+              <div :class="[
+                'w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors',
+                tip.priority === 'high' ? 'bg-orange-50 text-orange-600' : 'bg-emerald-50 text-emerald-600'
+              ]">
+                <svg v-if="tip.priority === 'high'" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </div>
+              <div class="flex-grow">
+                <div class="flex items-center justify-between mb-1">
+                  <span :class="[
+                    'text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md',
+                    tip.priority === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-emerald-100 text-emerald-700'
+                  ]">
+                    {{ tip.priority }} priority
+                  </span>
+                </div>
+                <p class="text-[13px] text-gray-800 font-bold leading-snug group-hover:text-gray-900 transition-colors">
+                  {{ tip.text }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
       <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank">Nick Cotterill</a></p>
@@ -114,15 +205,17 @@
 
 <script setup>
   import { ref, onMounted, computed } from 'vue';
-  import Button from './components/Button.vue';
   import Input from './components/Input.vue';
   import TabBar from './components/TabBar.vue';
   import SiteDetails from './components/SiteDetails.vue';
   import sitesData from '../2fa.directory/sites.json';
+  import faqData from '../faq/tips-faq.json';
 
   const tabs = [
-    { id: 'currentSite', label: 'Current Site' },
-    { id: 'allSites', label: 'Directory' }
+    { id: 'currentSite', label: 'Current' },
+    { id: 'allSites', label: 'Directory' },
+    { id: 'faqs', label: 'FAQ' },
+    { id: 'tips', label: 'Tips' },
   ];
 
   const currentTab = ref('currentSite');
@@ -135,6 +228,30 @@
     methods: [],
     documentation: '',
     loading: true
+  });
+
+  const faqs = ref({ 
+    loading: false,
+    ...faqData
+  });
+
+  const selectedCategory = ref('basics');
+  const itemsOpen = ref({});
+
+  const toggleAccordion = (id) => {
+    itemsOpen.value[id] = !itemsOpen.value[id];
+  };
+
+  const orderedTips = computed(() => {
+    const priorityMap = { 'high': 1, 'medium': 2, 'low': 3 };
+    return [...faqs.value.tips].sort((a, b) => {
+      return (priorityMap[a.priority] || 99) - (priorityMap[b.priority] || 99);
+    });
+  });
+
+  const filteredFaqs = computed(() => {
+    if (!selectedCategory.value) return faqs.value.faqs;
+    return faqs.value.faqs.filter(f => f.category === selectedCategory.value);
   });
 
   const filteredSites = computed(() => {
