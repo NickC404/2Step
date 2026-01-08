@@ -300,9 +300,19 @@
     currentSite.value = getSiteData(domain);
   };
 
-  onMounted(() => {
+    // Extension origin for postMessage validation
+    // Sandboxed pages cannot access chrome.runtime, so we get it from URL parameters
+    const urlParams = new URL(window.location.href).searchParams;
+    const extensionOrigin = urlParams.get('origin');
+
+    onMounted(() => {
     // Listen for messages from the wrapper script
     window.addEventListener('message', (event) => {
+      // Validate that the message comes from our privileged wrapper
+      if (extensionOrigin && event.origin !== extensionOrigin) {
+        return;
+      }
+
       if (event.data.type === 'TAB_URL') {
         try {
           const url = new URL(event.data.url);
@@ -314,7 +324,7 @@
     });
 
     // Request the current tab URL from the wrapper
-    window.parent.postMessage({ type: 'GET_TAB_URL' }, '*');
+    window.parent.postMessage({ type: 'GET_TAB_URL' }, extensionOrigin || '*');
 
     // Fallback if no message arrives in 500ms (likely dev environment)
     setTimeout(() => {

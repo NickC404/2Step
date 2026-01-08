@@ -27026,8 +27026,13 @@ var App_default = {
     const checkSite = (domain) => {
       currentSite.value = getSiteData(domain);
     };
+    const urlParams = new URL(window.location.href).searchParams;
+    const extensionOrigin = urlParams.get("origin");
     onMounted(() => {
       window.addEventListener("message", (event) => {
+        if (extensionOrigin && event.origin !== extensionOrigin) {
+          return;
+        }
         if (event.data.type === "TAB_URL") {
           try {
             const url = new URL(event.data.url);
@@ -27037,14 +27042,14 @@ var App_default = {
           }
         }
       });
-      window.parent.postMessage({ type: "GET_TAB_URL" }, "*");
+      window.parent.postMessage({ type: "GET_TAB_URL" }, extensionOrigin || "*");
       setTimeout(() => {
         if (currentSite.value.loading) {
           checkSite("github.com");
         }
       }, 500);
     });
-    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, MethodBadge: MethodBadge_default2, get sitesData() {
+    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, urlParams, extensionOrigin, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, MethodBadge: MethodBadge_default2, get sitesData() {
       return sites_default;
     }, get faqData() {
       return tips_faq_default;

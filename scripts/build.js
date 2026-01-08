@@ -38,12 +38,6 @@ async function build() {
             ...commonConfig,
             entryPoints: ['src/wrapper.js'],
             outfile: 'popup/wrapper.js',
-        }),
-        // Content Script
-        await esbuild.context({
-            ...commonConfig,
-            entryPoints: ['src/content.js'],
-            outfile: 'content.js',
         })
     ];
 

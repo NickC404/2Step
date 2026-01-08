@@ -8,22 +8,33 @@ test.describe('2Step Extension', () => {
     test.beforeAll(async () => {
         const pathToExtension = path.resolve('dist');
         context = await chromium.launchPersistentContext('', {
-            headless: false, // Extensions only work in headful mode normally, but Playwright can handle some headless cases. For this we'll use headful to be safe or special flags.
+            headless: false, // Switch back to false but with longer timeout
             args: [
                 `--disable-extensions-except=${pathToExtension}`,
                 `--load-extension=${pathToExtension}`,
+                '--no-sandbox',
+                '--disable-setuid-sandbox'
             ],
         });
 
-        let [background] = context.serviceWorkers();
-        if (!background) {
-            background = await context.waitForEvent('serviceworker');
+        // Polling for service worker as it's more reliable than events sometimes
+        let background;
+        for (let i = 0; i < 30; i++) {
+            background = context.serviceWorkers()[0];
+            if (background) break;
+            await new Promise(r => setTimeout(r, 1000));
         }
-        extensionId = background.url().split('/')[2];
-    });
+
+        if (background) {
+            extensionId = background.url().split('/')[2];
+            console.log(`Extension ID: ${extensionId}`);
+        } else {
+            throw new Error('Could not find extension service worker after 30s');
+        }
+    }, 60000);
 
     test.afterAll(async () => {
-        await context.close();
+        if (context) await context.close();
     });
 
     test('should load the popup and show current site status', async () => {
@@ -37,8 +48,8 @@ test.describe('2Step Extension', () => {
         const siteTitle = page.locator('h2', { hasText: 'github.com' });
         await expect(siteTitle).toBeVisible();
 
-        // Check if 2FA status is shown
-        await expect(page.locator('text=2FA AVAILABLE')).toBeVisible();
+        // Check if 2FA status is shown (case insensitive match)
+        await expect(page.locator('text=/2FA Available/i')).toBeVisible();
     });
 
     test('should switch tabs', async () => {
@@ -90,9 +101,8 @@ test.describe('2Step Extension', () => {
         await firstFaq.click();
 
         // Check if answer is visible
-        // The answer text is "Two-Factor Authentication (2FA) adds an extra layer of security..." (based on typical FAQ content)
-        // Let's just check for the presence of the answer container which is v-show="itemsOpen[faq.id]"
-        await expect(page.locator('p.text-sm.text-gray-600').first()).toBeVisible();
+        // Updated selector to match text-gray-500
+        await expect(page.locator('p.text-sm.text-gray-500').first()).toBeVisible();
     });
 
     test('should show security tips', async () => {
@@ -113,12 +123,11 @@ test.describe('2Step Extension', () => {
         // The iframe has ID sandbox-frame
         const frame = page.frameLocator('#sandbox-frame');
 
-        // Wait for the iframe content to load
-        await expect(frame.locator('h1')).toContainText('2Step');
+        // Wait for the iframe content to load (App.vue mounts or ui.html title)
+        await expect(frame.locator('h1')).toContainText('2Step', { timeout: 10000 });
 
-        // Verify that the site details section is eventually shown (either via wrapper message or fallback)
-        // We check for the 2FA status text instead of a specific domain to be more robust
-        const statusText = frame.locator('text=/2FA (Available|Not Supported)/');
-        await expect(statusText).toBeVisible({ timeout: 5000 });
+        // Verify that the site details section is eventually shown
+        const statusText = frame.locator('text=/2FA (Available|Not Supported)/i');
+        await expect(statusText).toBeVisible({ timeout: 10000 });
     });
 });

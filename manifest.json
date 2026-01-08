@@ -5,8 +5,7 @@
     "description": "",
     "permissions": [
         "storage",
-        "activeTab",
-        "scripting"
+        "activeTab"
     ],
     "host_permissions": [
         "<all_urls>"
@@ -20,17 +19,6 @@
     "background": {
         "service_worker": "background.js"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content.js"
-            ],
-            "run_at": "document_idle"
-        }
-    ],
     "sandbox": {
         "pages": [
             "popup/ui.html"

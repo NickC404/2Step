@@ -7,7 +7,7 @@
     "build:css": "tailwindcss -i ./src/input.css -o ./popup/style.css",
     "build:js": "node scripts/build.js",
     "dev": "npm run build:js -- --dev && tailwindcss -i ./src/input.css -o ./popup/style.css --watch",
-    "copy-files": "cp -r manifest.json background.js content.js popup assets dist/ || true",
+    "copy-files": "cp -r manifest.json background.js popup dist/ || true",
     "test": "npx playwright test"
   },
   "devDependencies": {
