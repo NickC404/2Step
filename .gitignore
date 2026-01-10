@@ -28,6 +28,9 @@ yarn-error.log*
 
 # Testing
 coverage/
+playwright-report/
+test-results/
+blob-report/
 
 # Misc
 .eslintcache

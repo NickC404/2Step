@@ -8,6 +8,7 @@ test.describe('2Step Extension', () => {
     test.beforeAll(async () => {
         const pathToExtension = path.resolve('dist');
         console.log('Launching browser context...');
+        test.setTimeout(120000);
         context = await chromium.launchPersistentContext('', {
             headless: false,
             args: [
@@ -17,6 +18,10 @@ test.describe('2Step Extension', () => {
                 '--disable-setuid-sandbox'
             ],
         });
+
+        // Open a dummy page to wake up the service worker in CI
+        const page = await context.newPage();
+        await page.goto('about:blank');
 
         console.log('Polling for service worker...');
         let background;
