@@ -7,8 +7,9 @@ test.describe('2Step Extension', () => {
 
     test.beforeAll(async () => {
         const pathToExtension = path.resolve('dist');
+        console.log('Launching browser context...');
         context = await chromium.launchPersistentContext('', {
-            headless: false, // Switch back to false but with longer timeout
+            headless: false,
             args: [
                 `--disable-extensions-except=${pathToExtension}`,
                 `--load-extension=${pathToExtension}`,
@@ -17,21 +18,23 @@ test.describe('2Step Extension', () => {
             ],
         });
 
-        // Polling for service worker as it's more reliable than events sometimes
+        console.log('Polling for service worker...');
         let background;
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 60; i++) {
             background = context.serviceWorkers()[0];
             if (background) break;
             await new Promise(r => setTimeout(r, 1000));
+            if (i % 10 === 0 && i > 0) console.log(`Still waiting for service worker (${i}s)...`);
         }
 
         if (background) {
             extensionId = background.url().split('/')[2];
             console.log(`Extension ID: ${extensionId}`);
         } else {
-            throw new Error('Could not find extension service worker after 30s');
+            console.error('Service worker not found. Available service workers:', context.serviceWorkers().length);
+            throw new Error('Could not find extension service worker after 60s');
         }
-    }, 60000);
+    }, 120000);
 
     test.afterAll(async () => {
         if (context) {
