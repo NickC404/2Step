@@ -34,7 +34,13 @@ test.describe('2Step Extension', () => {
     }, 60000);
 
     test.afterAll(async () => {
-        if (context) await context.close();
+        if (context) {
+            // Give context.close() a reasonable timeout to prevent hanging worker teardown
+            await Promise.race([
+                context.close(),
+                new Promise(resolve => setTimeout(resolve, 5000))
+            ]);
+        }
     });
 
     test('should load the popup and show current site status', async () => {
