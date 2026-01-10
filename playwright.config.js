@@ -17,7 +17,7 @@ export default defineConfig({
 
     // Add this section:
     webServer: {
-        command: 'npm run preview',
+        command: 'npx vite preview',
         port: 4173,
         timeout: 120000,
         reuseExistingServer: !process.env.CI,
