@@ -13,6 +13,7 @@ export default defineConfig({
     use: {
         baseURL: 'http://localhost:4173', // Vite preview default port
         trace: 'on-first-retry',
+        headless: true,
     },
 
     // Add this section:
