@@ -27,4 +27,36 @@ Unlike many other extensions that track your browsing history to provide "useful
 2Step uses the incredible data provided by the [2FA Directory](https://2fa.directory/).
 
 ---
+
+## 🛠️ Installation (Development Mode)
+
+Since this extension is in development, you can load it into your browser manually:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/NickC404/2Step.git
+   cd 2Step
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Build the project**:
+   ```bash
+   npm run build
+   ```
+4. **Load in Chrome**:
+   - Open `chrome://extensions/`.
+   - Enable "Developer mode" (top right).
+   - Click "Load unpacked" and select the `2Step` project folder.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
 Made with ❤️ by [Nick Cotterill](https://nickcotterill.co.uk)
