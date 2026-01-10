@@ -7,39 +7,64 @@ test.describe('2Step Extension', () => {
 
     test.beforeAll(async () => {
         const pathToExtension = path.resolve('dist');
+        console.log('--- Playwright Setup Start ---');
+        console.log('Path to extension:', pathToExtension);
+        test.setTimeout(300000);
+
         console.log('Launching browser context...');
-        test.setTimeout(120000);
         context = await chromium.launchPersistentContext('', {
             headless: false,
             args: [
                 `--disable-extensions-except=${pathToExtension}`,
                 `--load-extension=${pathToExtension}`,
                 '--no-sandbox',
-                '--disable-setuid-sandbox'
+                '--disable-setuid-sandbox',
+                '--disable-gpu',
+                '--disable-dev-shm-usage',
+                '--window-size=1280,1024'
             ],
         });
 
+        console.log('Browser context launched.');
+
         // Open a dummy page to wake up the service worker in CI
+        console.log('Opening dummy page to trigger service worker...');
         const page = await context.newPage();
         await page.goto('about:blank');
+        console.log('Dummy page loaded.');
 
-        console.log('Polling for service worker...');
+        console.log('Polling for service worker (up to 120s)...');
         let background;
-        for (let i = 0; i < 60; i++) {
-            background = context.serviceWorkers()[0];
-            if (background) break;
+        for (let i = 0; i < 120; i++) {
+            // Check all service workers and find the one that belongs to our extension
+            const workers = context.serviceWorkers();
+            background = workers.find(sw => sw.url().includes('extension'));
+
+            if (background) {
+                console.log(`Service worker found after ${i}s!`);
+                break;
+            }
+
             await new Promise(r => setTimeout(r, 1000));
-            if (i % 10 === 0 && i > 0) console.log(`Still waiting for service worker (${i}s)...`);
+            if (i % 10 === 0 && i > 0) {
+                console.log(`Still waiting for service worker (${i}s)... Total workers found: ${workers.length}`);
+                if (workers.length > 0) {
+                    workers.forEach((sw, idx) => console.log(` - Worker ${idx}: ${sw.url()}`));
+                }
+            }
         }
 
         if (background) {
             extensionId = background.url().split('/')[2];
             console.log(`Extension ID: ${extensionId}`);
+            console.log('--- Playwright Setup Complete ---');
         } else {
-            console.error('Service worker not found. Available service workers:', context.serviceWorkers().length);
-            throw new Error('Could not find extension service worker after 60s');
+            console.error('FAILED: Service worker not found after 120s.');
+            console.error('Final workers list:');
+            context.serviceWorkers().forEach((sw, idx) => console.log(` - Worker ${idx}: ${sw.url()}`));
+            throw new Error('Could not find extension service worker after 120s');
         }
-    }, 120000);
+    }, 300000);
 
     test.afterAll(async () => {
         if (context) {
