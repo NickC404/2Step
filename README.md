@@ -1,5 +1,7 @@
 # 2Step - Privacy-First 2FA Checker
 
+[![Playwright Tests](https://github.com/NickC404/2Step/actions/workflows/playwright.yml/badge.svg)](https://github.com/NickC404/2Step/actions/workflows/playwright.yml)
+
 **2Step** is a lightweight, privacy-focused browser extension that helps you identify which websites support Two-Factor Authentication (2FA) and guides you on how to set it up.
 
 ## 🛡️ Privacy Focused
