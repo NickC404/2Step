@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-    timeout: 30000, // 30 seconds is more reasonable
+    timeout: 120000,
     expect: {
         timeout: 10000,
     },
@@ -11,17 +11,8 @@ export default defineConfig({
     workers: 1,
     reporter: 'html',
     use: {
-        baseURL: 'http://localhost:4173', // Vite preview default port
         trace: 'on-first-retry',
-        headless: true,
-    },
-
-    // Add this section:
-    webServer: {
-        command: 'npx vite preview',
-        port: 4173,
-        timeout: 120000,
-        reuseExistingServer: !process.env.CI,
+        headless: false,
     },
 
     projects: [

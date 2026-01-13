@@ -21,21 +21,24 @@ jobs:
     - name: Cache Playwright browsers
       uses: actions/cache@v4
       with:
-        path: ~/. cache/ms-playwright
+        path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-playwright-
 
     - name: Install Playwright Browsers
-      run:  npx playwright install --with-deps
+      run: npx playwright install --with-deps
 
     - name: Build project
       run: npm run build
 
-    - name: Run Playwright tests
-      run: xvfb-run --auto-servernum -- npx playwright test
+    - name: Diagnostic - List dist folder
+      run: ls -R dist
 
-    - uses:  actions/upload-artifact@v4
+    - name: Run Playwright tests
+      run: dbus-run-session -- xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" npm test
+
+    - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
