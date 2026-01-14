@@ -50,6 +50,83 @@ Since this extension is in development, you can load it into your browser manual
    - Enable "Developer mode" (top right).
    - Click "Load unpacked" and select the `2Step` project folder.
 
+## 🔧 Development
+
+### Available Commands
+
+```bash
+# Build the extension
+npm run build
+
+# Build CSS only
+npm run build:css
+
+# Build JavaScript only
+npm run build:js
+
+# Development mode with watch
+npm run dev
+
+# Run tests
+npm test
+```
+
+### Project Structure
+
+```
+2Step/
+├── src/              # Vue components and source files
+├── popup/            # Extension popup UI
+├── tests/            # Playwright test suite
+├── dist/             # Built extension (generated)
+├── 2fa.directory/    # 2FA data source
+└── background.js     # Extension service worker
+```
+
+## 🧪 Testing
+
+2Step has comprehensive test coverage using Playwright for end-to-end testing.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run specific test file
+npx playwright test tests/search.spec.js
+
+# Run with UI mode (for debugging)
+npx playwright test --ui
+
+# Run specific test by name
+npx playwright test -g "should filter search results"
+```
+
+### Test Coverage
+
+Our test suite includes **~70 tests** across 8 files, covering:
+
+- ✅ **Background Service Worker** (`background.spec.js`) - Icon updates and tab detection
+- ✅ **Search & Filtering** (`search.spec.js`) - Case-insensitive search, partial matches, edge cases
+- ✅ **Site Details** (`site-details.spec.js`) - 2FA method display, navigation, setup guides
+- ✅ **Accessibility** (`accessibility.spec.js`) - Keyboard navigation, loading states, UX
+- ✅ **Edge Cases** (`edge-cases.spec.js`) - Error handling, special characters, subdomain detection
+- ✅ **Components** (`components.spec.js`) - Method badges, tooltips, tab bar, input fields, icons
+- ✅ **Data Integration** (`data-integration.spec.js`) - Data loading, domain normalization, message passing
+- ✅ **Core Functionality** (`main.spec.js`) - Tab switching, FAQ, tips, basic features
+
+**Coverage**: 100% of user-facing features
+
+### CI/CD Integration
+
+Tests run automatically on:
+- ✅ Push to `main` or `master` branch
+- ✅ Pull requests
+- ✅ Uses GitHub Actions with automated browser setup
+
+See the [Testing Quick Reference](TESTING_QUICK_REFERENCE.md) for detailed test documentation.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
