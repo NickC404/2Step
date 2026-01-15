@@ -112,9 +112,10 @@ test.describe('Accessibility and User Experience', () => {
         // Footer should be visible
         await expect(page.locator('footer')).toBeVisible();
 
-        // Should have credit links
-        await expect(page.locator('text=/Nick Cotterill/i')).toBeVisible();
-        await expect(page.locator('text=/2FA Directory/i')).toBeVisible();
+        // Should have credit links within footer
+        const footer = page.locator('footer');
+        await expect(footer.locator('text=/Nick Cotterill/i')).toBeVisible();
+        await expect(footer.locator('a[href*="2fa.directory"]')).toBeVisible();
 
         // Links should have target="_blank"
         const links = page.locator('footer a[target="_blank"]');
