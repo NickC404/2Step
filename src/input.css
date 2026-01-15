@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@source "../src/**/*.{js,vue}";
+@source "../popup/**/*.html";
+
 @theme {
     --color-brand: #4257AC;
 }

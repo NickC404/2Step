@@ -36,7 +36,7 @@
                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
              </div>
              <h3 class="text-sm font-bold text-gray-900">Directory Search</h3>
-             <p class="text-xs text-gray-500 mt-1 mb-4">Search through {{ Object.keys(sitesData).length }} sites in our database.</p>
+             <p class="text-xs text-gray-500 mt-1 mb-4">Search through {{ Object.keys(sitesData).length }} sites in the 2FA Directory database.</p>
              <Input v-model="settings.search" placeholder="Search domains (e.g. google.com)..." />
            </div>
 

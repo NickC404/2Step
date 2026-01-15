@@ -50,13 +50,6 @@
         This site doesn't seem to support 2FA yet. We recommend using a strong, unique password and a password manager.
       </p>
     </div>
-
-    <div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center rounded-b-2xl">
-      <a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-        Flag incorrect details
-      </a>
-    </div>
   </div>
 </template>
 

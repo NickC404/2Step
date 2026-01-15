@@ -7103,9 +7103,9 @@ var MethodBadge_default = {
     });
     const tooltipPositionClass = computed2(() => {
       if (props.side === "bottom") {
-        return "top-full mt-2 transform -translate-y-1 group-hover:translate-y-0";
+        return "top-full mt-2 transform translate-y-1 group-hover/badge:translate-y-0";
       }
-      return "bottom-full mb-2 transform translate-y-1 group-hover:translate-y-0";
+      return "bottom-full mb-2 transform translate-y-1 group-hover/badge:translate-y-0";
     });
     const arrowClass = computed2(() => {
       if (props.side === "bottom") {
@@ -7137,7 +7137,7 @@ var MethodBadge_default = {
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/components/MethodBadge.vue?type=template
-var _hoisted_13 = { class: "relative group inline-block" };
+var _hoisted_13 = { class: "relative inline-block group/badge" };
 var _hoisted_23 = {
   key: 0,
   class: "w-1.5 h-1.5 rounded-full bg-emerald-400"
@@ -7172,7 +7172,7 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
       "div",
       {
         class: normalizeClass([
-          "absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden",
+          "absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover/badge:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden",
           $setup.tooltipPositionClass
         ])
       },
@@ -7458,8 +7458,7 @@ function render4(_ctx, _cache, $props, $setup, $data, $options) {
         -1
         /* CACHED */
       )
-    ])])) : createCommentVNode("v-if", true),
-    _cache[5] || (_cache[5] = createStaticVNode('<div class="py-3 bg-gray-50/80 border-t border-gray-100 text-center rounded-b-2xl"><a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-blue-600 transition-colors no-underline inline-flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> Flag incorrect details </a></div>', 1))
+    ])])) : createCommentVNode("v-if", true)
   ]);
 }
 

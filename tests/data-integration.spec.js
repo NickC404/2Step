@@ -282,23 +282,6 @@ test.describe('Data Loading and Integration', () => {
         await page.close();
     });
 
-    test('should handle clicking Flag incorrect details link', async () => {
-        const page = await context.newPage();
-        await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
-
-        await page.click('button:has-text("Directory")');
-        await page.fill('input[placeholder*="Search domains"]', 'github');
-
-        const result = page.locator('div', { hasText: 'github.com' }).first();
-        await result.click();
-
-        // Should have flag link
-        const flagLink = page.locator('a:has-text("Flag incorrect details")');
-        await expect(flagLink).toBeVisible();
-
-        await page.close();
-    });
-
     test.skip('should handle message passing between wrapper and sandbox', async () => {
         // Skipped: Requires external network access to github.com
         const page = await context.newPage();

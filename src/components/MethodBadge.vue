@@ -1,6 +1,6 @@
 <template>
-  <div class="relative group inline-block">
-    <div 
+  <div class="relative inline-block group/badge">
+    <div
       :class="[
         'px-2 py-1 border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all cursor-help',
         siteColorClass,
@@ -13,7 +13,7 @@
     
     <!-- Tooltip -->
     <div :class="[
-      'absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden',
+      'absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover/badge:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden',
       tooltipPositionClass
     ]">
       <div class="font-bold bg-blue-600 text-white px-3 py-2 flex items-center justify-between">
@@ -61,9 +61,9 @@ const siteColorClass = computed(() => {
 
 const tooltipPositionClass = computed(() => {
   if (props.side === 'bottom') {
-    return 'top-full mt-2 transform -translate-y-1 group-hover:translate-y-0';
+    return 'top-full mt-2 transform translate-y-1 group-hover/badge:translate-y-0';
   }
-  return 'bottom-full mb-2 transform translate-y-1 group-hover:translate-y-0';
+  return 'bottom-full mb-2 transform translate-y-1 group-hover/badge:translate-y-0';
 });
 
 const arrowClass = computed(() => {
