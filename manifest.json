@@ -4,9 +4,11 @@
     "version": "0.1.0",
     "description": "",
     "permissions": [
-        "storage",
         "activeTab"
     ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'none';"
+    },
     "host_permissions": [
         "<all_urls>"
     ],
@@ -29,9 +31,7 @@
             "resources": [
                 "assets/*"
             ],
-            "matches": [
-                "<all_urls>"
-            ]
+            "matches": []
         }
     ]
 }

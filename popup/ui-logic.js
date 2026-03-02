@@ -2178,6 +2178,14 @@ function setTransitionHooks(vnode, hooks) {
     vnode.transition = hooks;
   }
 }
+// @__NO_SIDE_EFFECTS__
+function defineComponent(options, extraOptions) {
+  return isFunction(options) ? (
+    // #8236: extend call and options.name access are considered side-effects
+    // by Rollup, so we have to wrap it in a pure-annotated IIFE.
+    /* @__PURE__ */ (() => extend({ name: options.name }, extraOptions, { setup: options }))()
+  ) : options;
+}
 function markAsyncBoundary(instance) {
   instance.ids = [instance.ids[0] + instance.ids[2]++ + "-", 0, 0];
 }
@@ -2403,7 +2411,52 @@ var onRenderTracked = createHook("rtc");
 function onErrorCaptured(hook, target = currentInstance) {
   injectHook("ec", hook, target);
 }
+var COMPONENTS = "components";
 var NULL_DYNAMIC_COMPONENT = /* @__PURE__ */ Symbol.for("v-ndc");
+function resolveDynamicComponent(component) {
+  if (isString(component)) {
+    return resolveAsset(COMPONENTS, component, false) || component;
+  } else {
+    return component || NULL_DYNAMIC_COMPONENT;
+  }
+}
+function resolveAsset(type, name, warnMissing = true, maybeSelfReference = false) {
+  const instance = currentRenderingInstance || currentInstance;
+  if (instance) {
+    const Component = instance.type;
+    if (type === COMPONENTS) {
+      const selfName = getComponentName(
+        Component,
+        false
+      );
+      if (selfName && (selfName === name || selfName === camelize(name) || selfName === capitalize(camelize(name)))) {
+        return Component;
+      }
+    }
+    const res = (
+      // local registration
+      // check instance[type] first which is resolved for options API
+      resolve(instance[type] || Component[type], name) || // global registration
+      resolve(instance.appContext[type], name)
+    );
+    if (!res && maybeSelfReference) {
+      return Component;
+    }
+    if (false) {
+      const extra = type === COMPONENTS ? `
+If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.` : ``;
+      warn$1(`Failed to resolve ${type.slice(0, -1)}: ${name}${extra}`);
+    }
+    return res;
+  } else if (false) {
+    warn$1(
+      `resolve${capitalize(type.slice(0, -1))} can only be used in render() or setup().`
+    );
+  }
+}
+function resolve(registry, name) {
+  return registry && (registry[name] || registry[camelize(name)] || registry[capitalize(camelize(name))]);
+}
 function renderList(source, renderItem, cache, index) {
   let ret;
   const cached = cache && cache[index];
@@ -6453,6 +6506,9 @@ function getComponentPublicInstance(instance) {
     return instance.proxy;
   }
 }
+function getComponentName(Component, includeInferred = true) {
+  return isFunction(Component) ? Component.displayName || Component.name : Component.name || includeInferred && Component.__name;
+}
 function isClassComponent(value) {
   return isFunction(value) && "__vccOpts" in value;
 }
@@ -6466,6 +6522,31 @@ var computed2 = (getterOrOptions, debugOptions) => {
   }
   return c;
 };
+function h(type, propsOrChildren, children) {
+  try {
+    setBlockTracking(-1);
+    const l = arguments.length;
+    if (l === 2) {
+      if (isObject(propsOrChildren) && !isArray(propsOrChildren)) {
+        if (isVNode(propsOrChildren)) {
+          return createVNode(type, null, [propsOrChildren]);
+        }
+        return createVNode(type, propsOrChildren);
+      } else {
+        return createVNode(type, null, propsOrChildren);
+      }
+    } else {
+      if (l > 3) {
+        children = Array.prototype.slice.call(arguments, 2);
+      } else if (l === 3 && isVNode(children)) {
+        children = [children];
+      }
+      return createVNode(type, propsOrChildren, children);
+    }
+  } finally {
+    setBlockTracking(1);
+  }
+}
 var version = "3.5.25";
 
 // node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
@@ -6914,6 +6995,55 @@ function shouldSetAsProp(el, key, value, isSVG) {
   }
   return key in el;
 }
+var systemModifiers = ["ctrl", "shift", "alt", "meta"];
+var modifierGuards = {
+  stop: (e) => e.stopPropagation(),
+  prevent: (e) => e.preventDefault(),
+  self: (e) => e.target !== e.currentTarget,
+  ctrl: (e) => !e.ctrlKey,
+  shift: (e) => !e.shiftKey,
+  alt: (e) => !e.altKey,
+  meta: (e) => !e.metaKey,
+  left: (e) => "button" in e && e.button !== 0,
+  middle: (e) => "button" in e && e.button !== 1,
+  right: (e) => "button" in e && e.button !== 2,
+  exact: (e, modifiers) => systemModifiers.some((m) => e[`${m}Key`] && !modifiers.includes(m))
+};
+var withModifiers = (fn, modifiers) => {
+  const cache = fn._withMods || (fn._withMods = {});
+  const cacheKey = modifiers.join(".");
+  return cache[cacheKey] || (cache[cacheKey] = ((event, ...args) => {
+    for (let i = 0; i < modifiers.length; i++) {
+      const guard = modifierGuards[modifiers[i]];
+      if (guard && guard(event, modifiers)) return;
+    }
+    return fn(event, ...args);
+  }));
+};
+var keyNames = {
+  esc: "escape",
+  space: " ",
+  up: "arrow-up",
+  left: "arrow-left",
+  right: "arrow-right",
+  down: "arrow-down",
+  delete: "backspace"
+};
+var withKeys = (fn, modifiers) => {
+  const cache = fn._withKeys || (fn._withKeys = {});
+  const cacheKey = modifiers.join(".");
+  return cache[cacheKey] || (cache[cacheKey] = ((event) => {
+    if (!("key" in event)) {
+      return;
+    }
+    const eventKey = hyphenate(event.key);
+    if (modifiers.some(
+      (k) => k === eventKey || keyNames[k] === eventKey
+    )) {
+      return fn(event);
+    }
+  }));
+};
 var rendererOptions = /* @__PURE__ */ extend({ patchProp }, nodeOps);
 var renderer;
 function ensureRenderer() {
@@ -7028,7 +7158,6 @@ var TabBar_default = {
     tabs: {
       type: Array,
       required: true
-      // Expects objects with { id, label, icon }
     },
     modelValue: {
       type: String,
@@ -7040,42 +7169,607 @@ var TabBar_default = {
     }
   },
   emits: ["update:modelValue"],
-  setup(__props, { expose: __expose }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
     __expose();
-    const __returned__ = {};
+    const props = __props;
+    const emit2 = __emit;
+    const handleKeydown = (e) => {
+      const tabIds = props.tabs.map((t) => t.id);
+      const currentIndex = tabIds.indexOf(props.modelValue);
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % tabIds.length;
+        emit2("update:modelValue", tabIds[nextIndex]);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+        emit2("update:modelValue", tabIds[prevIndex]);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        emit2("update:modelValue", tabIds[0]);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        emit2("update:modelValue", tabIds[tabIds.length - 1]);
+      }
+    };
+    const __returned__ = { props, emit: emit2, handleKeydown };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/components/TabBar.vue?type=template
-var _hoisted_12 = { class: "flex px-3 space-x-1 pb-2" };
-var _hoisted_22 = ["onClick"];
+var _hoisted_12 = ["aria-selected", "aria-controls", "id", "tabindex", "onClick"];
+var _hoisted_22 = ["aria-label"];
+var _hoisted_32 = {
+  key: 1,
+  class: "absolute bottom-0 left-2 right-2 h-0.5 bg-white rounded-full",
+  "aria-hidden": "true"
+};
 function render2(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_12, [
-    (openBlock(true), createElementBlock(
-      Fragment,
-      null,
-      renderList($props.tabs, (tab) => {
-        return openBlock(), createElementBlock("button", {
-          key: tab.id,
-          onClick: ($event) => _ctx.$emit("update:modelValue", tab.id),
-          class: normalizeClass([
-            "flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold transition-all duration-200 cursor-pointer relative uppercase tracking-tight",
-            $props.modelValue === tab.id ? "bg-white text-blue-600 shadow-sm" : "text-blue-100 hover:bg-white/10 hover:text-white"
-          ])
-        }, toDisplayString(tab.label), 11, _hoisted_22);
-      }),
-      128
-      /* KEYED_FRAGMENT */
-    ))
-  ]);
+  return openBlock(), createElementBlock(
+    "div",
+    {
+      class: "flex px-3 pb-2 gap-0.5",
+      role: "tablist",
+      "aria-label": "Extension sections",
+      onKeydown: $setup.handleKeydown
+    },
+    [
+      (openBlock(true), createElementBlock(
+        Fragment,
+        null,
+        renderList($props.tabs, (tab) => {
+          return openBlock(), createElementBlock("button", {
+            key: tab.id,
+            role: "tab",
+            "aria-selected": $props.modelValue === tab.id,
+            "aria-controls": `tabpanel-${tab.id}`,
+            id: `tab-${tab.id}`,
+            tabindex: $props.modelValue === tab.id ? 0 : -1,
+            onClick: ($event) => _ctx.$emit("update:modelValue", tab.id),
+            class: normalizeClass([
+              "relative flex items-center gap-1.5 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-200 cursor-pointer uppercase tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-blue-600",
+              $props.modelValue === tab.id ? "bg-white/15 text-white" : "text-blue-100 hover:bg-white/10 hover:text-white"
+            ])
+          }, [
+            createCommentVNode(" 2FA status dot on Current tab "),
+            tab.id === "currentSite" && $props.has2FA !== null ? (openBlock(), createElementBlock("span", {
+              key: 0,
+              class: normalizeClass([
+                "w-1.5 h-1.5 rounded-full flex-shrink-0",
+                $props.has2FA ? "bg-emerald-400" : "bg-amber-400"
+              ]),
+              "aria-label": $props.has2FA ? "2FA supported" : "2FA not supported",
+              "aria-hidden": "true"
+            }, null, 10, _hoisted_22)) : createCommentVNode("v-if", true),
+            createTextVNode(
+              " " + toDisplayString(tab.label) + " ",
+              1
+              /* TEXT */
+            ),
+            createCommentVNode(" Active underline indicator "),
+            $props.modelValue === tab.id ? (openBlock(), createElementBlock("span", _hoisted_32)) : createCommentVNode("v-if", true)
+          ], 10, _hoisted_12);
+        }),
+        128
+        /* KEYED_FRAGMENT */
+      ))
+    ],
+    32
+    /* NEED_HYDRATION */
+  );
 }
 
 // src/components/TabBar.vue
 TabBar_default.render = render2;
 TabBar_default.__file = "src/components/TabBar.vue";
 var TabBar_default2 = TabBar_default;
+
+// src/methodConfig.js
+var methodConfig = {
+  hardware: {
+    label: "Hardware Key",
+    strength: "Best",
+    strengthBadgeClass: "bg-emerald-100 text-emerald-700",
+    colorClass: "bg-emerald-100 text-emerald-700",
+    strengthOrder: 1,
+    description: "Physical security keys (e.g. YubiKey) offer the strongest protection and are phishing-resistant."
+  },
+  u2f: {
+    label: "Security Key (U2F)",
+    strength: "Best",
+    strengthBadgeClass: "bg-emerald-100 text-emerald-700",
+    colorClass: "bg-emerald-100 text-emerald-700",
+    strengthOrder: 1,
+    description: "Hardware-based U2F keys provide hardware-level protection that is fully phishing-resistant."
+  },
+  "custom-hardware": {
+    label: "Hardware Token",
+    strength: "Best",
+    strengthBadgeClass: "bg-emerald-100 text-emerald-700",
+    colorClass: "bg-emerald-100 text-emerald-700",
+    strengthOrder: 1,
+    description: "A proprietary hardware token for strong offline authentication."
+  },
+  totp: {
+    label: "Authenticator App (TOTP)",
+    strength: "Strong",
+    strengthBadgeClass: "bg-sky-100 text-sky-700",
+    colorClass: "bg-sky-100 text-sky-700",
+    strengthOrder: 2,
+    description: "Time-based codes from apps like Authy or Google Authenticator. Works offline and is very secure."
+  },
+  software: {
+    label: "Software Token",
+    strength: "Strong",
+    strengthBadgeClass: "bg-sky-100 text-sky-700",
+    colorClass: "bg-sky-100 text-sky-700",
+    strengthOrder: 2,
+    description: "A software-based authenticator app on your device."
+  },
+  "custom-software": {
+    label: "Custom App",
+    strength: "Strong",
+    strengthBadgeClass: "bg-sky-100 text-sky-700",
+    colorClass: "bg-sky-100 text-sky-700",
+    strengthOrder: 2,
+    description: "A custom authenticator app built specifically by this service."
+  },
+  push: {
+    label: "Push Notification",
+    strength: "Good",
+    strengthBadgeClass: "bg-violet-100 text-violet-700",
+    colorClass: "bg-violet-100 text-violet-700",
+    strengthOrder: 3,
+    description: "One-tap approval via push notification sent to your mobile device."
+  },
+  biometric: {
+    label: "Biometric",
+    strength: "Good",
+    strengthBadgeClass: "bg-violet-100 text-violet-700",
+    colorClass: "bg-violet-100 text-violet-700",
+    strengthOrder: 3,
+    description: "Fingerprint or facial recognition to verify your identity."
+  },
+  email: {
+    label: "Email Code",
+    strength: "Fair",
+    strengthBadgeClass: "bg-amber-100 text-amber-800",
+    colorClass: "bg-amber-100 text-amber-700",
+    strengthOrder: 4,
+    description: "A one-time code sent to your email. Security depends on your email account being secure."
+  },
+  phone: {
+    label: "Voice Call",
+    strength: "Fair",
+    strengthBadgeClass: "bg-amber-100 text-amber-800",
+    colorClass: "bg-amber-100 text-amber-700",
+    strengthOrder: 4,
+    description: "An automated call delivers a verification code to your phone."
+  },
+  prop: {
+    label: "Proprietary Method",
+    strength: "Fair",
+    strengthBadgeClass: "bg-amber-100 text-amber-800",
+    colorClass: "bg-amber-100 text-amber-700",
+    strengthOrder: 4,
+    description: "A unique authentication method specific to this service."
+  },
+  sms: {
+    label: "SMS Text Code",
+    strength: "Weak",
+    strengthBadgeClass: "bg-red-100 text-red-700",
+    colorClass: "bg-red-100 text-red-700",
+    strengthOrder: 5,
+    description: "Codes via SMS are vulnerable to SIM swapping. Use TOTP instead if available."
+  }
+};
+var methodFallback = (id) => ({
+  label: id.toUpperCase(),
+  strength: "Unknown",
+  strengthBadgeClass: "bg-gray-100 text-gray-700",
+  colorClass: "bg-gray-50 text-gray-600",
+  strengthOrder: 99,
+  description: "An additional security method used to verify your identity."
+});
+var getMethod = (id) => methodConfig[id.toLowerCase()] ?? methodFallback(id);
+
+// sfc-script:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=script
+var SiteDetails_default = {
+  __name: "SiteDetails",
+  props: {
+    site: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const props = __props;
+    const domainInitial = computed2(() => {
+      return (props.site.domain || "?").charAt(0).toUpperCase();
+    });
+    const IconHardwareKey = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" })
+      ])
+    });
+    const IconPhone = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("rect", { x: "5", y: "2", width: "14", height: "20", rx: "2", ry: "2" }),
+        h("line", { x1: "12", y1: "18", x2: "12.01", y2: "18" })
+      ])
+    });
+    const IconClock = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("circle", { cx: "12", cy: "12", r: "10" }),
+        h("polyline", { points: "12 6 12 12 16 14" })
+      ])
+    });
+    const IconBell = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" }),
+        h("path", { d: "M13.73 21a2 2 0 0 1-3.46 0" })
+      ])
+    });
+    const IconFingerprint = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" }),
+        h("path", { d: "M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2" }),
+        h("path", { d: "M17.29 21.02c.12-.6.43-2.3.5-3.02" }),
+        h("path", { d: "M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" }),
+        h("path", { d: "M8.65 22c.21-.66.45-1.32.57-2" }),
+        h("path", { d: "M14 13.12c0 2.38 0 6.38-1 8.88" }),
+        h("path", { d: "M2 16h.01" }),
+        h("path", { d: "M21.8 16c.2-2 .131-5.354 0-6" }),
+        h("path", { d: "M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2" })
+      ])
+    });
+    const IconMail = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" }),
+        h("polyline", { points: "22,6 12,13 2,6" })
+      ])
+    });
+    const IconVoice = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" })
+      ])
+    });
+    const IconLock = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("rect", { x: "3", y: "11", width: "18", height: "11", rx: "2", ry: "2" }),
+        h("path", { d: "M7 11V7a5 5 0 0 1 10 0v4" })
+      ])
+    });
+    const IconMessage = defineComponent({
+      render: () => h("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2.5", "stroke-linecap": "round", "stroke-linejoin": "round" }, [
+        h("path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" })
+      ])
+    });
+    const methodIcons = {
+      hardware: IconHardwareKey,
+      u2f: IconHardwareKey,
+      "custom-hardware": IconHardwareKey,
+      totp: IconClock,
+      software: IconPhone,
+      "custom-software": IconPhone,
+      push: IconBell,
+      biometric: IconFingerprint,
+      email: IconMail,
+      phone: IconVoice,
+      prop: IconLock,
+      sms: IconMessage
+    };
+    const rankedMethods = computed2(() => {
+      return [...props.site.methods].map((m) => ({
+        id: m,
+        ...getMethod(m),
+        icon: methodIcons[m.toLowerCase()] ?? IconLock
+      })).sort((a, b) => a.strengthOrder - b.strengthOrder);
+    });
+    const __returned__ = { props, domainInitial, IconHardwareKey, IconPhone, IconClock, IconBell, IconFingerprint, IconMail, IconVoice, IconLock, IconMessage, methodIcons, rankedMethods, computed: computed2, defineComponent, h, get getMethod() {
+      return getMethod;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+};
+
+// sfc-template:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=template
+var _hoisted_13 = { class: "bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden" };
+var _hoisted_23 = {
+  key: 0,
+  xmlns: "http://www.w3.org/2000/svg",
+  class: "w-4 h-4",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": "2.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+var _hoisted_33 = {
+  key: 1,
+  xmlns: "http://www.w3.org/2000/svg",
+  class: "w-4 h-4",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": "2.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+var _hoisted_4 = { class: "px-6 py-4 flex items-center gap-3 border-b border-gray-100" };
+var _hoisted_5 = { class: "text-base font-bold text-gray-900 tracking-tight" };
+var _hoisted_6 = { class: "text-xs text-gray-400 mt-0.5" };
+var _hoisted_7 = {
+  key: 0,
+  class: "px-6 py-4 border-b border-gray-100"
+};
+var _hoisted_8 = { class: "space-y-2" };
+var _hoisted_9 = { class: "flex-grow min-w-0" };
+var _hoisted_10 = { class: "flex items-center justify-between gap-2 flex-wrap" };
+var _hoisted_11 = { class: "text-[13px] font-bold text-gray-800" };
+var _hoisted_122 = { class: "text-[11px] text-gray-500 mt-0.5 leading-snug" };
+var _hoisted_132 = {
+  key: 0,
+  class: "mt-4"
+};
+var _hoisted_14 = ["href", "aria-label"];
+var _hoisted_15 = {
+  key: 1,
+  class: "px-6 py-4"
+};
+function render3(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_13, [
+    createCommentVNode(" Status Banner "),
+    createBaseVNode(
+      "div",
+      {
+        class: normalizeClass([
+          "px-6 py-4 flex items-center gap-3",
+          $props.site.has2FA ? "bg-emerald-100" : "bg-amber-100"
+        ])
+      },
+      [
+        createBaseVNode(
+          "div",
+          {
+            class: normalizeClass([
+              "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
+              $props.site.has2FA ? "bg-emerald-200 text-emerald-600" : "bg-amber-200 text-amber-600"
+            ]),
+            "aria-hidden": "true"
+          },
+          [
+            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_23, [..._cache[0] || (_cache[0] = [
+              createBaseVNode(
+                "path",
+                { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                null,
+                -1
+                /* CACHED */
+              ),
+              createBaseVNode(
+                "polyline",
+                { points: "9 11 11 13 15 9" },
+                null,
+                -1
+                /* CACHED */
+              )
+            ])])) : (openBlock(), createElementBlock("svg", _hoisted_33, [..._cache[1] || (_cache[1] = [
+              createBaseVNode(
+                "path",
+                { d: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" },
+                null,
+                -1
+                /* CACHED */
+              ),
+              createBaseVNode(
+                "line",
+                {
+                  x1: "12",
+                  y1: "9",
+                  x2: "12",
+                  y2: "13"
+                },
+                null,
+                -1
+                /* CACHED */
+              ),
+              createBaseVNode(
+                "line",
+                {
+                  x1: "12",
+                  y1: "17",
+                  x2: "12.01",
+                  y2: "17"
+                },
+                null,
+                -1
+                /* CACHED */
+              )
+            ])]))
+          ],
+          2
+          /* CLASS */
+        ),
+        createBaseVNode("div", null, [
+          createBaseVNode(
+            "p",
+            {
+              class: normalizeClass(["font-bold text-sm", $props.site.has2FA ? "text-emerald-800" : "text-amber-800"]),
+              role: "status",
+              "aria-live": "polite"
+            },
+            toDisplayString($props.site.has2FA ? "2FA Supported" : "2FA Not Supported"),
+            3
+            /* TEXT, CLASS */
+          ),
+          createBaseVNode(
+            "p",
+            {
+              class: normalizeClass(["text-xs mt-0.5", $props.site.has2FA ? "text-emerald-700" : "text-amber-700"])
+            },
+            toDisplayString($props.site.has2FA ? "This site can be secured with two-factor authentication." : "This site does not currently support 2FA."),
+            3
+            /* TEXT, CLASS */
+          )
+        ])
+      ],
+      2
+      /* CLASS */
+    ),
+    createCommentVNode(" Site Identity "),
+    createBaseVNode("div", _hoisted_4, [
+      createBaseVNode(
+        "div",
+        {
+          class: normalizeClass([
+            "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0 select-none",
+            $props.site.has2FA ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-800"
+          ]),
+          "aria-hidden": "true"
+        },
+        toDisplayString($setup.domainInitial),
+        3
+        /* TEXT, CLASS */
+      ),
+      createBaseVNode("div", null, [
+        createBaseVNode(
+          "h2",
+          _hoisted_5,
+          toDisplayString($props.site.domain),
+          1
+          /* TEXT */
+        ),
+        createBaseVNode(
+          "p",
+          _hoisted_6,
+          toDisplayString($props.site.has2FA ? `${$props.site.methods.length} authentication method${$props.site.methods.length !== 1 ? "s" : ""} available` : "No 2FA methods available"),
+          1
+          /* TEXT */
+        )
+      ])
+    ]),
+    createCommentVNode(" Methods (if 2FA supported) "),
+    $props.site.has2FA && $props.site.methods && $props.site.methods.length ? (openBlock(), createElementBlock("div", _hoisted_7, [
+      _cache[3] || (_cache[3] = createBaseVNode(
+        "h3",
+        { class: "text-xs font-bold text-gray-400 uppercase tracking-widest mb-3" },
+        "Authentication Methods",
+        -1
+        /* CACHED */
+      )),
+      createBaseVNode("div", _hoisted_8, [
+        (openBlock(true), createElementBlock(
+          Fragment,
+          null,
+          renderList($setup.rankedMethods, (method) => {
+            return openBlock(), createElementBlock("div", {
+              key: method.id,
+              class: "flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100"
+            }, [
+              createBaseVNode(
+                "div",
+                {
+                  class: normalizeClass(["w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0", method.colorClass]),
+                  "aria-hidden": "true"
+                },
+                [
+                  (openBlock(), createBlock(resolveDynamicComponent(method.icon), { class: "w-4 h-4" }))
+                ],
+                2
+                /* CLASS */
+              ),
+              createBaseVNode("div", _hoisted_9, [
+                createBaseVNode("div", _hoisted_10, [
+                  createBaseVNode(
+                    "span",
+                    _hoisted_11,
+                    toDisplayString(method.label),
+                    1
+                    /* TEXT */
+                  ),
+                  createBaseVNode(
+                    "span",
+                    {
+                      class: normalizeClass(["text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full flex-shrink-0", method.strengthBadgeClass])
+                    },
+                    toDisplayString(method.strength),
+                    3
+                    /* TEXT, CLASS */
+                  )
+                ]),
+                createBaseVNode(
+                  "p",
+                  _hoisted_122,
+                  toDisplayString(method.description),
+                  1
+                  /* TEXT */
+                )
+              ])
+            ]);
+          }),
+          128
+          /* KEYED_FRAGMENT */
+        ))
+      ]),
+      $props.site.documentation ? (openBlock(), createElementBlock("div", _hoisted_132, [
+        createBaseVNode("a", {
+          href: $props.site.documentation,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          "aria-label": `Open 2FA setup guide for ${$props.site.domain} (opens in new tab)`,
+          class: "flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors no-underline"
+        }, [..._cache[2] || (_cache[2] = [
+          createBaseVNode(
+            "svg",
+            {
+              xmlns: "http://www.w3.org/2000/svg",
+              class: "w-3.5 h-3.5",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              "stroke-width": "2.5",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              "aria-hidden": "true"
+            },
+            [
+              createBaseVNode("path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" }),
+              createBaseVNode("polyline", { points: "15 3 21 3 21 9" }),
+              createBaseVNode("line", {
+                x1: "10",
+                y1: "14",
+                x2: "21",
+                y2: "3"
+              })
+            ],
+            -1
+            /* CACHED */
+          ),
+          createTextVNode(
+            " Open Setup Guide ",
+            -1
+            /* CACHED */
+          )
+        ])], 8, _hoisted_14)
+      ])) : createCommentVNode("v-if", true)
+    ])) : createCommentVNode("v-if", true),
+    createCommentVNode(" No 2FA: Actionable advice "),
+    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_15, [..._cache[4] || (_cache[4] = [
+      createStaticVNode('<h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">What you can do</h3><div class="space-y-2"><div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100"><div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><div><p class="text-[13px] font-bold text-gray-800">Use a strong, unique password</p><p class="text-[11px] text-gray-500 mt-0.5 leading-snug">Since 2FA isn&#39;t available, a unique password is your best defence. Consider a password manager.</p></div></div></div>', 2)
+    ])])) : createCommentVNode("v-if", true)
+  ]);
+}
+
+// src/components/SiteDetails.vue
+SiteDetails_default.render = render3;
+SiteDetails_default.__file = "src/components/SiteDetails.vue";
+var SiteDetails_default2 = SiteDetails_default;
 
 // sfc-script:/private/var/www/apps/2Step/src/components/MethodBadge.vue?type=script
 var MethodBadge_default = {
@@ -7098,66 +7792,57 @@ var MethodBadge_default = {
   setup(__props, { expose: __expose }) {
     __expose();
     const props = __props;
+    const tooltipVisible = ref(false);
     const siteColorClass = computed2(() => {
       return props.compact ? "bg-emerald-50 border-emerald-100/50 text-emerald-700 hover:bg-emerald-100" : "bg-gray-50 border-gray-100 text-gray-700 hover:border-blue-200 hover:bg-blue-50/50";
     });
-    const tooltipPositionClass = computed2(() => {
-      if (props.side === "bottom") {
-        return "top-full mt-2 transform translate-y-1 group-hover/badge:translate-y-0";
-      }
-      return "bottom-full mb-2 transform translate-y-1 group-hover/badge:translate-y-0";
-    });
     const arrowClass = computed2(() => {
       if (props.side === "bottom") {
-        return "bottom-full border-b-blue-600";
+        return "-top-[6px] border-b-blue-600";
       }
-      return "top-full border-t-white";
+      return "-bottom-[6px] border-t-white";
     });
-    const descriptions = {
-      totp: "Time-based One-Time Password. Uses an app like Google Authenticator or Authy to generate unique codes every 30 seconds.",
-      u2f: "Universal 2nd Factor. The most secure method, using physical hardware keys like a Yubikey for hardware-level protection.",
-      sms: "Sends a one-time verification code to your mobile phone via SMS text message.",
-      email: "Sends a one-time verification code to your registered email address.",
-      phone: "Delivers a verification code via an automated voice call to your phone.",
-      prop: "A proprietary method unique to this service, typically a push notification or in-app approval step.",
-      "custom-software": "Uses a custom mobile app developed specifically by this service for secure authentication.",
-      "custom-hardware": "Requires a specific physical hardware device or token provided by the service.",
-      hardware: "Requires a physical security device or token to authenticate.",
-      software: "Uses a software-based authenticator app on your computer or mobile device.",
-      push: "Sends a push notification to your mobile device for quick, one-tap approval.",
-      biometric: "Uses fingerprint, facial recognition, or other biological markers to verify your identity."
-    };
-    const description = computed2(() => {
-      return descriptions[props.method.toLowerCase()] || "An additional security method used to verify your identity beyond just a password.";
-    });
-    const __returned__ = { props, siteColorClass, tooltipPositionClass, arrowClass, descriptions, description, computed: computed2 };
+    const description = computed2(() => getMethod(props.method).description);
+    const __returned__ = { props, tooltipVisible, siteColorClass, arrowClass, description, ref, computed: computed2, get getMethod() {
+      return getMethod;
+    } };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/components/MethodBadge.vue?type=template
-var _hoisted_13 = { class: "relative inline-block group/badge" };
-var _hoisted_23 = {
+var _hoisted_16 = ["aria-describedby"];
+var _hoisted_24 = {
   key: 0,
-  class: "w-1.5 h-1.5 rounded-full bg-emerald-400"
+  class: "w-1.5 h-1.5 rounded-full bg-emerald-400",
+  "aria-hidden": "true"
 };
-var _hoisted_32 = { class: "font-bold bg-blue-600 text-white px-3 py-2 flex items-center justify-between" };
-var _hoisted_4 = { class: "p-3" };
-var _hoisted_5 = { class: "leading-relaxed font-semibold text-gray-600" };
-function render3(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_13, [
+var _hoisted_34 = ["id"];
+var _hoisted_42 = { class: "font-bold bg-blue-600 text-white px-3 py-2 flex items-center justify-between" };
+var _hoisted_52 = { class: "p-3" };
+var _hoisted_62 = { class: "leading-relaxed font-semibold text-gray-600" };
+function render4(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", {
+    class: "relative inline-block",
+    tabindex: "0",
+    "aria-describedby": `tooltip-${$props.method}`,
+    onMouseenter: _cache[0] || (_cache[0] = ($event) => $setup.tooltipVisible = true),
+    onMouseleave: _cache[1] || (_cache[1] = ($event) => $setup.tooltipVisible = false),
+    onFocus: _cache[2] || (_cache[2] = ($event) => $setup.tooltipVisible = true),
+    onBlur: _cache[3] || (_cache[3] = ($event) => $setup.tooltipVisible = false)
+  }, [
     createBaseVNode(
       "div",
       {
         class: normalizeClass([
-          "px-2 py-1 border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all cursor-help",
+          "border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all cursor-help",
           $setup.siteColorClass,
           $props.compact ? "px-1.5 py-0.5 text-[10px]" : "px-3 py-1.5 text-xs"
         ])
       },
       [
-        !$props.compact ? (openBlock(), createElementBlock("div", _hoisted_23)) : createCommentVNode("v-if", true),
+        !$props.compact ? (openBlock(), createElementBlock("div", _hoisted_24)) : createCommentVNode("v-if", true),
         createTextVNode(
           " " + toDisplayString($props.method.toUpperCase()),
           1
@@ -7168,304 +7853,62 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
       /* CLASS */
     ),
     createCommentVNode(" Tooltip "),
-    createBaseVNode(
-      "div",
-      {
-        class: normalizeClass([
-          "absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl opacity-0 group-hover/badge:opacity-100 pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden",
-          $setup.tooltipPositionClass
-        ])
-      },
-      [
-        createBaseVNode("div", _hoisted_32, [
-          createBaseVNode(
-            "span",
-            null,
-            toDisplayString($props.method.toUpperCase()),
-            1
-            /* TEXT */
-          ),
-          _cache[0] || (_cache[0] = createBaseVNode(
-            "span",
-            { class: "text-[8px] opacity-70 border border-white/20 px-1 rounded" },
-            "METHOD",
-            -1
-            /* CACHED */
-          ))
-        ]),
-        createBaseVNode("div", _hoisted_4, [
-          createBaseVNode(
-            "p",
-            _hoisted_5,
-            toDisplayString($setup.description),
-            1
-            /* TEXT */
-          )
-        ]),
-        createCommentVNode(" Arrow "),
+    createBaseVNode("div", {
+      id: `tooltip-${$props.method}`,
+      role: "tooltip",
+      class: normalizeClass([
+        "absolute left-1/2 -translate-x-1/2 w-48 bg-white text-[10px] rounded-xl pointer-events-none transition-all duration-200 z-50 shadow-2xl border border-gray-100 overflow-hidden",
+        $setup.tooltipVisible ? "opacity-100 translate-y-0" : "opacity-0",
+        $props.side === "bottom" ? "top-full mt-2 translate-y-1" : "bottom-full mb-2 -translate-y-1"
+      ])
+    }, [
+      createBaseVNode("div", _hoisted_42, [
         createBaseVNode(
-          "div",
-          {
-            class: normalizeClass([
-              "absolute left-1/2 -translate-x-1/2 border-[6px] border-transparent",
-              $setup.arrowClass
-            ])
-          },
+          "span",
           null,
-          2
-          /* CLASS */
+          toDisplayString($props.method.toUpperCase()),
+          1
+          /* TEXT */
+        ),
+        _cache[4] || (_cache[4] = createBaseVNode(
+          "span",
+          { class: "text-[8px] opacity-70 border border-white/20 px-1 rounded" },
+          "METHOD",
+          -1
+          /* CACHED */
+        ))
+      ]),
+      createBaseVNode("div", _hoisted_52, [
+        createBaseVNode(
+          "p",
+          _hoisted_62,
+          toDisplayString($setup.description),
+          1
+          /* TEXT */
         )
-      ],
-      2
-      /* CLASS */
-    )
-  ]);
+      ]),
+      createCommentVNode(" Arrow "),
+      createBaseVNode(
+        "div",
+        {
+          class: normalizeClass([
+            "absolute left-1/2 -translate-x-1/2 border-[6px] border-transparent",
+            $setup.arrowClass
+          ]),
+          "aria-hidden": "true"
+        },
+        null,
+        2
+        /* CLASS */
+      )
+    ], 10, _hoisted_34)
+  ], 40, _hoisted_16);
 }
 
 // src/components/MethodBadge.vue
-MethodBadge_default.render = render3;
+MethodBadge_default.render = render4;
 MethodBadge_default.__file = "src/components/MethodBadge.vue";
 var MethodBadge_default2 = MethodBadge_default;
-
-// sfc-script:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=script
-var SiteDetails_default = {
-  __name: "SiteDetails",
-  props: {
-    site: {
-      type: Object,
-      required: true
-    }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = { MethodBadge: MethodBadge_default2 };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
-};
-
-// sfc-template:/private/var/www/apps/2Step/src/components/SiteDetails.vue?type=template
-var _hoisted_14 = { class: "bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 relative" };
-var _hoisted_24 = {
-  key: 0,
-  xmlns: "http://www.w3.org/2000/svg",
-  class: "w-8 h-8",
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-width": "2.5",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round"
-};
-var _hoisted_33 = {
-  key: 1,
-  xmlns: "http://www.w3.org/2000/svg",
-  class: "w-8 h-8",
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-width": "2.5",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round"
-};
-var _hoisted_42 = { class: "text-xl font-bold text-gray-900 tracking-tight" };
-var _hoisted_52 = { key: 0 };
-var _hoisted_6 = { key: 1 };
-var _hoisted_7 = {
-  key: 0,
-  class: "p-6 bg-white border-t border-gray-100"
-};
-var _hoisted_8 = { class: "flex flex-wrap gap-2 justify-center" };
-var _hoisted_9 = {
-  key: 0,
-  class: "mt-4"
-};
-var _hoisted_10 = ["href"];
-var _hoisted_11 = {
-  key: 1,
-  class: "p-6 bg-white border-t border-gray-100"
-};
-function render4(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_14, [
-    createBaseVNode(
-      "div",
-      {
-        class: normalizeClass([
-          "p-8 flex flex-col items-center text-center space-y-4 transition-colors duration-500 rounded-t-2xl",
-          $props.site.has2FA ? "bg-emerald-50/40" : "bg-rose-50/40"
-        ])
-      },
-      [
-        createBaseVNode(
-          "div",
-          {
-            class: normalizeClass([
-              "w-16 h-16 rounded-full flex items-center justify-center shadow-sm transition-all duration-300 transform hover:scale-105",
-              $props.site.has2FA ? "bg-emerald-100 text-emerald-600" : "bg-rose-100 text-rose-600"
-            ])
-          },
-          [
-            $props.site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_24, [..._cache[0] || (_cache[0] = [
-              createBaseVNode(
-                "path",
-                { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                null,
-                -1
-                /* CACHED */
-              ),
-              createBaseVNode(
-                "polyline",
-                { points: "9 11 11 13 15 9" },
-                null,
-                -1
-                /* CACHED */
-              )
-            ])])) : (openBlock(), createElementBlock("svg", _hoisted_33, [..._cache[1] || (_cache[1] = [
-              createBaseVNode(
-                "path",
-                { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                null,
-                -1
-                /* CACHED */
-              ),
-              createBaseVNode(
-                "line",
-                {
-                  x1: "15",
-                  y1: "9",
-                  x2: "9",
-                  y2: "15"
-                },
-                null,
-                -1
-                /* CACHED */
-              ),
-              createBaseVNode(
-                "line",
-                {
-                  x1: "9",
-                  y1: "9",
-                  x2: "15",
-                  y2: "15"
-                },
-                null,
-                -1
-                /* CACHED */
-              )
-            ])]))
-          ],
-          2
-          /* CLASS */
-        ),
-        createBaseVNode("div", null, [
-          createBaseVNode(
-            "h2",
-            _hoisted_42,
-            toDisplayString($props.site.domain),
-            1
-            /* TEXT */
-          ),
-          createBaseVNode(
-            "p",
-            {
-              class: normalizeClass([
-                "text-sm font-semibold mt-1.5 flex items-center justify-center gap-1.5",
-                $props.site.has2FA ? "text-emerald-700" : "text-rose-700"
-              ])
-            },
-            [
-              $props.site.has2FA ? (openBlock(), createElementBlock("span", _hoisted_52, "2FA Available")) : (openBlock(), createElementBlock("span", _hoisted_6, "2FA Not Supported"))
-            ],
-            2
-            /* CLASS */
-          )
-        ])
-      ],
-      2
-      /* CLASS */
-    ),
-    $props.site.has2FA && $props.site.methods && $props.site.methods.length ? (openBlock(), createElementBlock("div", _hoisted_7, [
-      _cache[3] || (_cache[3] = createBaseVNode(
-        "div",
-        { class: "flex flex-col items-center mb-4" },
-        [
-          createBaseVNode("h3", { class: "text-xs font-bold text-gray-400 uppercase tracking-widest" }, "Security Methods"),
-          createBaseVNode("div", { class: "h-1 w-8 bg-emerald-100 rounded-full mt-1.5 opacity-50" })
-        ],
-        -1
-        /* CACHED */
-      )),
-      createBaseVNode("div", _hoisted_8, [
-        (openBlock(true), createElementBlock(
-          Fragment,
-          null,
-          renderList($props.site.methods, (method) => {
-            return openBlock(), createBlock($setup["MethodBadge"], {
-              key: method,
-              method
-            }, null, 8, ["method"]);
-          }),
-          128
-          /* KEYED_FRAGMENT */
-        ))
-      ]),
-      $props.site.documentation ? (openBlock(), createElementBlock("div", _hoisted_9, [
-        createBaseVNode("a", {
-          href: $props.site.documentation,
-          target: "_blank",
-          class: "flex items-center justify-center gap-1.5 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-blue-200 no-underline text-center uppercase tracking-tight"
-        }, [..._cache[2] || (_cache[2] = [
-          createBaseVNode(
-            "span",
-            null,
-            "Setup Guide",
-            -1
-            /* CACHED */
-          ),
-          createBaseVNode(
-            "svg",
-            {
-              xmlns: "http://www.w3.org/2000/svg",
-              class: "w-3.5 h-3.5",
-              viewBox: "0 0 24 24",
-              fill: "none",
-              stroke: "currentColor",
-              "stroke-width": "2.5",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            },
-            [
-              createBaseVNode("path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" }),
-              createBaseVNode("polyline", { points: "15 3 21 3 21 9" }),
-              createBaseVNode("line", {
-                x1: "10",
-                y1: "14",
-                x2: "21",
-                y2: "3"
-              })
-            ],
-            -1
-            /* CACHED */
-          )
-        ])], 8, _hoisted_10)
-      ])) : createCommentVNode("v-if", true)
-    ])) : createCommentVNode("v-if", true),
-    !$props.site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_11, [..._cache[4] || (_cache[4] = [
-      createBaseVNode(
-        "p",
-        { class: "text-xs text-gray-500 text-center leading-relaxed" },
-        " This site doesn't seem to support 2FA yet. We recommend using a strong, unique password and a password manager. ",
-        -1
-        /* CACHED */
-      )
-    ])])) : createCommentVNode("v-if", true)
-  ]);
-}
-
-// src/components/SiteDetails.vue
-SiteDetails_default.render = render4;
-SiteDetails_default.__file = "src/components/SiteDetails.vue";
-var SiteDetails_default2 = SiteDetails_default;
 
 // 2fa.directory/sites.json
 var sites_default = {
@@ -26930,33 +27373,27 @@ var tips_faq_default = {
   categories: {
     basics: {
       name: "Basics",
-      description: "New to 2FA? Start here",
-      icon: "\u{1F4DA}"
+      description: "New to 2FA? Start here"
     },
     "getting-started": {
       name: "Getting Started",
-      description: "How to set up and use 2FA",
-      icon: "\u{1F680}"
+      description: "How to set up and use 2FA"
     },
     methods: {
       name: "2FA Methods",
-      description: "Understanding different types of 2FA",
-      icon: "\u{1F510}"
+      description: "Understanding different types of 2FA"
     },
     troubleshooting: {
       name: "Troubleshooting",
-      description: "Common problems and solutions",
-      icon: "\u{1F527}"
+      description: "Common problems and solutions"
     },
     advanced: {
       name: "Advanced",
-      description: "For experienced users",
-      icon: "\u26A1"
+      description: "For experienced users"
     },
     privacy: {
       name: "Privacy",
-      description: "How 2Step protects your privacy",
-      icon: "\u{1F512}"
+      description: "How 2Step protects your privacy"
     }
   }
 };
@@ -26975,6 +27412,8 @@ var App_default = {
     const currentTab = ref("currentSite");
     const settings = ref({ search: "" });
     const selectedDirectorySite = ref(null);
+    const searchInputRef = ref(null);
+    const backButton = ref(null);
     const currentSite = ref({
       domain: "",
       has2FA: false,
@@ -26986,10 +27425,50 @@ var App_default = {
       loading: false,
       ...tips_faq_default
     });
-    const selectedCategory = ref("basics");
+    const selectedFaqCategory = ref(null);
     const itemsOpen = ref({});
     const toggleAccordion = (id) => {
       itemsOpen.value[id] = !itemsOpen.value[id];
+    };
+    const popularSites = [
+      { domain: "google.com", label: "Google" },
+      { domain: "github.com", label: "GitHub" },
+      { domain: "amazon.com", label: "Amazon" },
+      { domain: "paypal.com", label: "PayPal" },
+      { domain: "twitter.com", label: "Twitter" },
+      { domain: "microsoft.com", label: "Microsoft" }
+    ];
+    const filteredFaqsByCategory = computed2(() => {
+      if (!selectedFaqCategory.value) return faqs.value.faqs;
+      return faqs.value.faqs.filter((f) => f.category === selectedFaqCategory.value);
+    });
+    const safeStorage = {
+      get(key, fallback = null) {
+        try {
+          return localStorage.getItem(key);
+        } catch {
+          return fallback;
+        }
+      },
+      set(key, value) {
+        try {
+          localStorage.setItem(key, value);
+        } catch {
+        }
+      }
+    };
+    const doneTipIds = ref(
+      JSON.parse(safeStorage.get("2step-done-tips") || "[]")
+    );
+    const isTipDone = (id) => doneTipIds.value.includes(id);
+    const toggleTip = (id) => {
+      const idx = doneTipIds.value.indexOf(id);
+      if (idx >= 0) {
+        doneTipIds.value.splice(idx, 1);
+      } else {
+        doneTipIds.value.push(id);
+      }
+      safeStorage.set("2step-done-tips", JSON.stringify(doneTipIds.value));
     };
     const orderedTips = computed2(() => {
       const priorityMap = { "high": 1, "medium": 2, "low": 3 };
@@ -26997,12 +27476,13 @@ var App_default = {
         return (priorityMap[a.priority] || 99) - (priorityMap[b.priority] || 99);
       });
     });
-    const filteredFaqs = computed2(() => {
-      if (!selectedCategory.value) return faqs.value.faqs;
-      return faqs.value.faqs.filter((f) => f.category === selectedCategory.value);
+    const tipsProgress = computed2(() => {
+      const total = orderedTips.value.length;
+      const done = orderedTips.value.filter((t) => isTipDone(t.id)).length;
+      return { done, total, pct: total > 0 ? Math.round(done / total * 100) : 0 };
     });
     const filteredSites = computed2(() => {
-      const query = settings.value.search.toLowerCase();
+      const query = settings.value.search.toLowerCase().trim();
       if (!query) return [];
       return Object.entries(sites_default).filter(([domain]) => domain.includes(query)).slice(0, 50).map(([domain, data]) => ({
         domain,
@@ -27022,14 +27502,20 @@ var App_default = {
         loading: false
       };
     };
+    const goBackToList = () => {
+      selectedDirectorySite.value = null;
+      nextTick(() => {
+        const input = searchInputRef.value?.$el?.querySelector("input");
+        input?.focus();
+      });
+    };
     const checkSite = (domain) => {
       currentSite.value = getSiteData(domain);
     };
-    const urlParams = new URL(window.location.href).searchParams;
-    const extensionOrigin = urlParams.get("origin");
+    const extensionOrigin = location.ancestorOrigins?.[0] ?? null;
     onMounted(() => {
       window.addEventListener("message", (event) => {
-        if (extensionOrigin && event.origin !== extensionOrigin) {
+        if (!extensionOrigin || event.origin !== extensionOrigin) {
           return;
         }
         if (event.data.type === "TAB_URL") {
@@ -27041,14 +27527,15 @@ var App_default = {
           }
         }
       });
-      window.parent.postMessage({ type: "GET_TAB_URL" }, extensionOrigin || "*");
+      if (!extensionOrigin) return;
+      window.parent.postMessage({ type: "GET_TAB_URL" }, extensionOrigin);
       setTimeout(() => {
         if (currentSite.value.loading) {
           checkSite("github.com");
         }
       }, 500);
     });
-    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, currentSite, faqs, selectedCategory, itemsOpen, toggleAccordion, orderedTips, filteredFaqs, filteredSites, getSiteData, checkSite, urlParams, extensionOrigin, ref, onMounted, computed: computed2, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, MethodBadge: MethodBadge_default2, get sitesData() {
+    const __returned__ = { tabs, currentTab, settings, selectedDirectorySite, searchInputRef, backButton, currentSite, faqs, selectedFaqCategory, itemsOpen, toggleAccordion, popularSites, filteredFaqsByCategory, safeStorage, doneTipIds, isTipDone, toggleTip, orderedTips, tipsProgress, filteredSites, getSiteData, goBackToList, checkSite, extensionOrigin, ref, onMounted, computed: computed2, nextTick, Input: Input_default2, TabBar: TabBar_default2, SiteDetails: SiteDetails_default2, MethodBadge: MethodBadge_default2, get sitesData() {
       return sites_default;
     }, get faqData() {
       return tips_faq_default;
@@ -27059,30 +27546,45 @@ var App_default = {
 };
 
 // sfc-template:/private/var/www/apps/2Step/src/App.vue?type=template
-var _hoisted_15 = { class: "h-full bg-gray-50 flex flex-col" };
-var _hoisted_25 = { class: "bg-blue-600 text-white shadow-md z-10" };
-var _hoisted_34 = { class: "flex-grow overflow-y-auto p-4" };
-var _hoisted_43 = { class: "space-y-4" };
-var _hoisted_53 = {
+var _hoisted_17 = { class: "h-full bg-gray-50 flex flex-col" };
+var _hoisted_25 = { class: "bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 text-white shadow-md z-10" };
+var _hoisted_35 = { class: "flex items-center justify-between px-4 py-3" };
+var _hoisted_43 = ["aria-label"];
+var _hoisted_53 = { class: "text-xs font-medium text-white/90 truncate" };
+var _hoisted_63 = {
+  key: 1,
+  class: "w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin",
+  "aria-label": "Loading current site",
+  role: "status"
+};
+var _hoisted_72 = { class: "flex-grow overflow-y-auto p-4" };
+var _hoisted_82 = {
+  id: "tabpanel-allSites",
+  role: "tabpanel",
+  "aria-labelledby": "tab-allSites",
+  tabindex: "0",
+  class: "space-y-4 focus:outline-none"
+};
+var _hoisted_92 = {
   key: 0,
   class: "space-y-4"
 };
-var _hoisted_62 = {
-  key: 1,
-  class: "bg-white rounded-xl shadow-sm p-6 border border-gray-100"
-};
-var _hoisted_72 = { class: "text-center mb-6" };
-var _hoisted_82 = { class: "text-xs text-gray-500 mt-1 mb-4" };
-var _hoisted_92 = {
+var _hoisted_102 = { class: "bg-white rounded-xl shadow-sm border border-gray-100" };
+var _hoisted_112 = { class: "p-6 pb-4" };
+var _hoisted_123 = { class: "text-center mb-5" };
+var _hoisted_133 = { class: "text-xs text-gray-500 mt-1" };
+var _hoisted_142 = {
   key: 0,
-  class: "space-y-3 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar"
+  class: "pb-4"
 };
-var _hoisted_102 = ["onClick"];
-var _hoisted_112 = { class: "flex items-center gap-4" };
-var _hoisted_122 = {
+var _hoisted_152 = { class: "text-[10px] font-bold text-gray-400 uppercase tracking-widest px-6 mb-2" };
+var _hoisted_162 = { class: "space-y-1 max-h-[300px] overflow-y-auto px-3 custom-scrollbar" };
+var _hoisted_172 = ["onClick", "onKeydown", "aria-label"];
+var _hoisted_18 = { class: "flex items-center gap-3" };
+var _hoisted_19 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
-  class: "w-5 h-5",
+  class: "w-4 h-4",
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
@@ -27090,10 +27592,10 @@ var _hoisted_122 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_132 = {
+var _hoisted_20 = {
   key: 1,
   xmlns: "http://www.w3.org/2000/svg",
-  class: "w-5 h-5",
+  class: "w-4 h-4",
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
@@ -27101,83 +27603,125 @@ var _hoisted_132 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_142 = { class: "text-[15px] font-extrabold text-gray-900 tracking-tight" };
-var _hoisted_152 = {
+var _hoisted_21 = { class: "text-[14px] font-extrabold text-gray-900 tracking-tight" };
+var _hoisted_222 = {
   key: 0,
-  class: "flex gap-1.5 mt-1"
+  class: "flex gap-1 mt-1 flex-wrap"
 };
-var _hoisted_16 = {
+var _hoisted_232 = {
   key: 0,
   class: "text-[10px] px-2 py-0.5 bg-gray-50 border border-gray-100 text-gray-500 rounded-lg font-bold"
 };
-var _hoisted_17 = {
+var _hoisted_242 = {
   key: 1,
-  class: "text-center py-8"
+  class: "text-[10px] text-gray-400 mt-0.5"
 };
-var _hoisted_18 = { class: "text-sm text-gray-400" };
-var _hoisted_19 = { class: "space-y-4" };
-var _hoisted_20 = {
+var _hoisted_252 = { class: "text-center py-8 px-6" };
+var _hoisted_26 = { class: "text-sm text-gray-400" };
+var _hoisted_27 = { class: "px-6 pb-6" };
+var _hoisted_28 = { class: "grid grid-cols-2 gap-2" };
+var _hoisted_29 = ["onClick"];
+var _hoisted_30 = { class: "w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors" };
+var _hoisted_31 = { class: "text-xs font-bold text-gray-700 group-hover:text-blue-600 transition-colors" };
+var _hoisted_322 = {
+  id: "tabpanel-currentSite",
+  role: "tabpanel",
+  "aria-labelledby": "tab-currentSite",
+  tabindex: "0",
+  class: "space-y-4 focus:outline-none"
+};
+var _hoisted_332 = {
   key: 0,
   class: "flex flex-col items-center justify-center p-12 space-y-4"
 };
-var _hoisted_21 = { class: "space-y-6" };
-var _hoisted_222 = {
+var _hoisted_342 = {
+  id: "tabpanel-faqs",
+  role: "tabpanel",
+  "aria-labelledby": "tab-faqs",
+  tabindex: "0",
+  class: "space-y-4 focus:outline-none"
+};
+var _hoisted_352 = {
   key: 0,
   class: "flex flex-col items-center justify-center p-12 space-y-4"
-};
-var _hoisted_232 = {
-  key: 1,
-  class: "space-y-8"
-};
-var _hoisted_242 = { class: "flex items-center gap-2 px-1" };
-var _hoisted_252 = { class: "text-lg" };
-var _hoisted_26 = { class: "text-xs font-bold text-gray-400 uppercase tracking-widest" };
-var _hoisted_27 = { class: "space-y-2" };
-var _hoisted_28 = ["onClick"];
-var _hoisted_29 = { class: "text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
-var _hoisted_30 = { class: "px-4 pb-4 animate-in fade-in slide-in-from-top-2 duration-200" };
-var _hoisted_31 = { class: "space-y-3" };
-var _hoisted_322 = { class: "space-y-4" };
-var _hoisted_332 = { class: "grid gap-3" };
-var _hoisted_342 = { class: "flex gap-4" };
-var _hoisted_35 = {
-  key: 0,
-  xmlns: "http://www.w3.org/2000/svg",
-  class: "w-5 h-5",
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-width": "2.5",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round"
 };
 var _hoisted_36 = {
   key: 1,
+  class: "space-y-5"
+};
+var _hoisted_37 = {
+  class: "flex gap-2 flex-wrap",
+  role: "group",
+  "aria-label": "Filter FAQs by category"
+};
+var _hoisted_38 = ["aria-pressed"];
+var _hoisted_39 = ["onClick", "aria-pressed"];
+var _hoisted_40 = { class: "space-y-2" };
+var _hoisted_41 = ["id", "onClick", "aria-expanded", "aria-controls"];
+var _hoisted_422 = { class: "text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
+var _hoisted_432 = ["id", "aria-labelledby"];
+var _hoisted_44 = { class: "text-sm text-gray-500 leading-relaxed" };
+var _hoisted_45 = {
+  id: "tabpanel-tips",
+  role: "tabpanel",
+  "aria-labelledby": "tab-tips",
+  tabindex: "0",
+  class: "space-y-4 focus:outline-none"
+};
+var _hoisted_46 = { class: "bg-white rounded-xl p-5 border border-gray-100" };
+var _hoisted_47 = { class: "flex items-center justify-between text-[11px] font-bold mb-2" };
+var _hoisted_48 = ["aria-valuenow", "aria-valuemax", "aria-label"];
+var _hoisted_49 = { class: "space-y-2" };
+var _hoisted_50 = { class: "flex gap-3 items-start" };
+var _hoisted_51 = ["aria-label"];
+var _hoisted_522 = { class: "flex-grow" };
+var _hoisted_532 = { class: "flex items-start justify-between gap-3" };
+var _hoisted_54 = ["aria-label"];
+var _hoisted_55 = ["checked", "onChange"];
+var _hoisted_56 = {
+  key: 0,
   xmlns: "http://www.w3.org/2000/svg",
-  class: "w-5 h-5",
+  class: "w-3 h-3 text-white",
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
-  "stroke-width": "2.5",
+  "stroke-width": "3",
   "stroke-linecap": "round",
-  "stroke-linejoin": "round"
+  "stroke-linejoin": "round",
+  "aria-hidden": "true"
 };
-var _hoisted_37 = { class: "flex-grow" };
-var _hoisted_38 = { class: "flex items-center justify-between mb-1" };
-var _hoisted_39 = { class: "text-[13px] text-gray-800 font-bold leading-snug group-hover:text-gray-900 transition-colors" };
 function render5(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_15, [
+  return openBlock(), createElementBlock("div", _hoisted_17, [
     createCommentVNode(" Header "),
     createBaseVNode("header", _hoisted_25, [
-      _cache[3] || (_cache[3] = createBaseVNode(
-        "div",
-        { class: "flex items-center justify-between px-4 py-3" },
-        [
-          createBaseVNode("h1", { class: "text-lg font-bold" }, "2Step - 2FA Checker")
-        ],
-        -1
-        /* CACHED */
-      )),
+      createBaseVNode("div", _hoisted_35, [
+        createCommentVNode(" Logo + title "),
+        _cache[3] || (_cache[3] = createStaticVNode('<div class="flex items-center gap-2" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white/90 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-v-ea994a51><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" data-v-ea994a51></path><polyline points="9 11 11 13 15 9" data-v-ea994a51></polyline></svg><h1 class="text-base font-bold tracking-tight" data-v-ea994a51>2Step</h1></div>', 1)),
+        createCommentVNode(" Current site status chip (always visible) "),
+        !$setup.currentSite.loading && $setup.currentSite.domain ? (openBlock(), createElementBlock("div", {
+          key: 0,
+          class: "flex items-center gap-1.5 bg-white/15 rounded-lg px-2.5 py-1 max-w-[160px]",
+          "aria-label": `Current site: ${$setup.currentSite.domain}, 2FA ${$setup.currentSite.has2FA ? "supported" : "not supported"}`
+        }, [
+          createBaseVNode(
+            "span",
+            {
+              class: normalizeClass(["w-1.5 h-1.5 rounded-full flex-shrink-0", $setup.currentSite.has2FA ? "bg-emerald-400" : "bg-amber-400"]),
+              "aria-hidden": "true"
+            },
+            null,
+            2
+            /* CLASS */
+          ),
+          createBaseVNode(
+            "span",
+            _hoisted_53,
+            toDisplayString($setup.currentSite.domain),
+            1
+            /* TEXT */
+          )
+        ], 8, _hoisted_43)) : $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_63)) : createCommentVNode("v-if", true)
+      ]),
       createVNode($setup["TabBar"], {
         tabs: $setup.tabs,
         modelValue: $setup.currentTab,
@@ -27186,219 +27730,331 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["modelValue", "has2FA"])
     ]),
     createCommentVNode(" Main Content "),
-    createBaseVNode("main", _hoisted_34, [
+    createBaseVNode("main", _hoisted_72, [
+      createCommentVNode(" Directory Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_43,
+        _hoisted_82,
         [
-          $setup.selectedDirectorySite ? (openBlock(), createElementBlock("div", _hoisted_53, [
-            createBaseVNode("button", {
-              onClick: _cache[1] || (_cache[1] = ($event) => $setup.selectedDirectorySite = null),
-              class: "flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2"
-            }, [..._cache[4] || (_cache[4] = [
-              createBaseVNode(
-                "div",
-                { class: "w-8 h-8 rounded-md bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all" },
-                [
-                  createBaseVNode("svg", {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    class: "w-4 h-4",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2.5",
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round"
-                  }, [
-                    createBaseVNode("line", {
-                      x1: "19",
-                      y1: "12",
-                      x2: "5",
-                      y2: "12"
-                    }),
-                    createBaseVNode("polyline", { points: "12 19 5 12 12 5" })
-                  ])
-                ],
-                -1
-                /* CACHED */
-              ),
-              createTextVNode(
-                " Back to list ",
-                -1
-                /* CACHED */
-              )
-            ])]),
+          createCommentVNode(" Site detail view "),
+          $setup.selectedDirectorySite ? (openBlock(), createElementBlock("div", _hoisted_92, [
+            createBaseVNode(
+              "button",
+              {
+                ref: "backButton",
+                onClick: $setup.goBackToList,
+                class: "flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors group mb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 rounded-md"
+              },
+              [..._cache[4] || (_cache[4] = [
+                createBaseVNode(
+                  "div",
+                  { class: "w-8 h-8 rounded-md bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:border-blue-200 group-hover:shadow-md transition-all" },
+                  [
+                    createBaseVNode("svg", {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      class: "w-4 h-4",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      stroke: "currentColor",
+                      "stroke-width": "2.5",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "aria-hidden": "true"
+                    }, [
+                      createBaseVNode("line", {
+                        x1: "19",
+                        y1: "12",
+                        x2: "5",
+                        y2: "12"
+                      }),
+                      createBaseVNode("polyline", { points: "12 19 5 12 12 5" })
+                    ])
+                  ],
+                  -1
+                  /* CACHED */
+                ),
+                createTextVNode(
+                  " Back to list ",
+                  -1
+                  /* CACHED */
+                )
+              ])],
+              512
+              /* NEED_PATCH */
+            ),
             createVNode($setup["SiteDetails"], { site: $setup.selectedDirectorySite }, null, 8, ["site"])
-          ])) : (openBlock(), createElementBlock("div", _hoisted_62, [
-            createBaseVNode("div", _hoisted_72, [
-              _cache[5] || (_cache[5] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
-              createBaseVNode(
-                "p",
-                _hoisted_82,
-                "Search through " + toDisplayString(Object.keys($setup.sitesData).length) + " sites in our database.",
-                1
-                /* TEXT */
-              ),
-              createVNode($setup["Input"], {
-                modelValue: $setup.settings.search,
-                "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $setup.settings.search = $event),
-                placeholder: "Search domains (e.g. google.com)..."
-              }, null, 8, ["modelValue"])
-            ]),
-            $setup.filteredSites.length ? (openBlock(), createElementBlock("div", _hoisted_92, [
-              (openBlock(true), createElementBlock(
-                Fragment,
-                null,
-                renderList($setup.filteredSites, (site) => {
-                  return openBlock(), createElementBlock("div", {
-                    key: site.domain,
-                    onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
-                    class: "flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md"
-                  }, [
-                    createBaseVNode("div", _hoisted_112, [
-                      createBaseVNode(
-                        "div",
-                        {
-                          class: normalizeClass([
-                            "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-sm",
-                            site.has2FA ? "bg-emerald-100/50 text-emerald-600" : "bg-gray-100 text-gray-400"
-                          ])
-                        },
-                        [
-                          site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_122, [..._cache[6] || (_cache[6] = [
-                            createBaseVNode(
-                              "path",
-                              { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                              null,
-                              -1
-                              /* CACHED */
-                            ),
-                            createBaseVNode(
-                              "polyline",
-                              { points: "9 11 11 13 15 9" },
-                              null,
-                              -1
-                              /* CACHED */
-                            )
-                          ])])) : (openBlock(), createElementBlock("svg", _hoisted_132, [..._cache[7] || (_cache[7] = [
-                            createBaseVNode(
-                              "path",
-                              { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                              null,
-                              -1
-                              /* CACHED */
-                            ),
-                            createBaseVNode(
-                              "line",
-                              {
-                                x1: "15",
-                                y1: "9",
-                                x2: "9",
-                                y2: "15"
-                              },
-                              null,
-                              -1
-                              /* CACHED */
-                            ),
-                            createBaseVNode(
-                              "line",
-                              {
-                                x1: "9",
-                                y1: "9",
-                                x2: "15",
-                                y2: "15"
-                              },
-                              null,
-                              -1
-                              /* CACHED */
-                            )
-                          ])]))
-                        ],
-                        2
-                        /* CLASS */
-                      ),
-                      createBaseVNode("div", null, [
-                        createBaseVNode(
-                          "div",
-                          _hoisted_142,
-                          toDisplayString(site.domain),
-                          1
-                          /* TEXT */
-                        ),
-                        site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_152, [
-                          (openBlock(true), createElementBlock(
-                            Fragment,
-                            null,
-                            renderList(site.methods.slice(0, 2), (m) => {
-                              return openBlock(), createBlock($setup["MethodBadge"], {
-                                key: m,
-                                method: m,
-                                compact: "",
-                                side: "bottom"
-                              }, null, 8, ["method"]);
-                            }),
-                            128
-                            /* KEYED_FRAGMENT */
-                          )),
-                          site.methods.length > 2 ? (openBlock(), createElementBlock(
-                            "span",
-                            _hoisted_16,
-                            " +" + toDisplayString(site.methods.length - 2),
-                            1
-                            /* TEXT */
-                          )) : createCommentVNode("v-if", true)
-                        ])) : createCommentVNode("v-if", true)
-                      ])
-                    ]),
-                    _cache[8] || (_cache[8] = createBaseVNode(
-                      "div",
-                      { class: "opacity-0 group-hover:opacity-100 p-2.5 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100" },
-                      [
-                        createBaseVNode("svg", {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          class: "w-5 h-5",
-                          viewBox: "0 0 24 24",
-                          fill: "none",
-                          stroke: "currentColor",
-                          "stroke-width": "2.5",
-                          "stroke-linecap": "round",
-                          "stroke-linejoin": "round"
+          ])) : (openBlock(), createElementBlock(
+            Fragment,
+            { key: 1 },
+            [
+              createCommentVNode(" Search + directory list "),
+              createBaseVNode("div", _hoisted_102, [
+                createBaseVNode("div", _hoisted_112, [
+                  createBaseVNode("div", _hoisted_123, [
+                    _cache[5] || (_cache[5] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" aria-hidden="true" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h3 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h3>', 2)),
+                    createBaseVNode(
+                      "p",
+                      _hoisted_133,
+                      "Search " + toDisplayString(Object.keys($setup.sitesData).length.toLocaleString()) + " sites in the 2FA Directory.",
+                      1
+                      /* TEXT */
+                    )
+                  ]),
+                  createVNode($setup["Input"], {
+                    ref: "searchInputRef",
+                    modelValue: $setup.settings.search,
+                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.settings.search = $event),
+                    placeholder: "Search domains (e.g. google.com)...",
+                    "aria-label": "Search sites"
+                  }, null, 8, ["modelValue"])
+                ]),
+                createCommentVNode(" Results with count "),
+                $setup.settings.search && $setup.filteredSites.length ? (openBlock(), createElementBlock("div", _hoisted_142, [
+                  createBaseVNode(
+                    "p",
+                    _hoisted_152,
+                    toDisplayString($setup.filteredSites.length) + " result" + toDisplayString($setup.filteredSites.length !== 1 ? "s" : "") + ' for "' + toDisplayString($setup.settings.search) + '" ',
+                    1
+                    /* TEXT */
+                  ),
+                  createBaseVNode("div", _hoisted_162, [
+                    (openBlock(true), createElementBlock(
+                      Fragment,
+                      null,
+                      renderList($setup.filteredSites, (site) => {
+                        return openBlock(), createElementBlock("div", {
+                          key: site.domain,
+                          onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
+                          onKeydown: [
+                            withKeys(($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain), ["enter"]),
+                            withKeys(withModifiers(($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain), ["prevent"]), ["space"])
+                          ],
+                          role: "button",
+                          tabindex: "0",
+                          "aria-label": `${site.domain}, 2FA ${site.has2FA ? "supported" : "not supported"}`,
+                          class: "flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
                         }, [
-                          createBaseVNode("path", { d: "M5 12h14M12 5l7 7-7 7" })
-                        ])
-                      ],
-                      -1
-                      /* CACHED */
+                          createBaseVNode("div", _hoisted_18, [
+                            createBaseVNode(
+                              "div",
+                              {
+                                class: normalizeClass([
+                                  "w-8 h-8 rounded-xl flex items-center justify-center transition-colors shadow-sm flex-shrink-0",
+                                  site.has2FA ? "bg-emerald-100 text-emerald-500" : "bg-gray-100 text-gray-400"
+                                ]),
+                                "aria-hidden": "true"
+                              },
+                              [
+                                site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_19, [..._cache[6] || (_cache[6] = [
+                                  createBaseVNode(
+                                    "path",
+                                    { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  ),
+                                  createBaseVNode(
+                                    "polyline",
+                                    { points: "9 11 11 13 15 9" },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  )
+                                ])])) : (openBlock(), createElementBlock("svg", _hoisted_20, [..._cache[7] || (_cache[7] = [
+                                  createBaseVNode(
+                                    "path",
+                                    { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  ),
+                                  createBaseVNode(
+                                    "line",
+                                    {
+                                      x1: "15",
+                                      y1: "9",
+                                      x2: "9",
+                                      y2: "15"
+                                    },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  ),
+                                  createBaseVNode(
+                                    "line",
+                                    {
+                                      x1: "9",
+                                      y1: "9",
+                                      x2: "15",
+                                      y2: "15"
+                                    },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  )
+                                ])]))
+                              ],
+                              2
+                              /* CLASS */
+                            ),
+                            createBaseVNode("div", null, [
+                              createBaseVNode(
+                                "div",
+                                _hoisted_21,
+                                toDisplayString(site.domain),
+                                1
+                                /* TEXT */
+                              ),
+                              site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_222, [
+                                (openBlock(true), createElementBlock(
+                                  Fragment,
+                                  null,
+                                  renderList(site.methods.slice(0, 2), (m) => {
+                                    return openBlock(), createBlock($setup["MethodBadge"], {
+                                      key: m,
+                                      method: m,
+                                      compact: "",
+                                      side: "bottom"
+                                    }, null, 8, ["method"]);
+                                  }),
+                                  128
+                                  /* KEYED_FRAGMENT */
+                                )),
+                                site.methods.length > 2 ? (openBlock(), createElementBlock(
+                                  "span",
+                                  _hoisted_232,
+                                  " +" + toDisplayString(site.methods.length - 2),
+                                  1
+                                  /* TEXT */
+                                )) : createCommentVNode("v-if", true)
+                              ])) : (openBlock(), createElementBlock("div", _hoisted_242, "No 2FA"))
+                            ])
+                          ]),
+                          _cache[8] || (_cache[8] = createBaseVNode(
+                            "div",
+                            {
+                              class: "opacity-0 group-hover:opacity-100 p-2 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100 flex-shrink-0",
+                              "aria-hidden": "true"
+                            },
+                            [
+                              createBaseVNode("svg", {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                class: "w-4 h-4",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "currentColor",
+                                "stroke-width": "2.5",
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round"
+                              }, [
+                                createBaseVNode("path", { d: "M5 12h14M12 5l7 7-7 7" })
+                              ])
+                            ],
+                            -1
+                            /* CACHED */
+                          ))
+                        ], 40, _hoisted_172);
+                      }),
+                      128
+                      /* KEYED_FRAGMENT */
                     ))
-                  ], 8, _hoisted_102);
-                }),
-                128
-                /* KEYED_FRAGMENT */
-              ))
-            ])) : $setup.settings.search ? (openBlock(), createElementBlock("div", _hoisted_17, [
-              createBaseVNode(
-                "p",
-                _hoisted_18,
-                'No sites found matching "' + toDisplayString($setup.settings.search) + '"',
-                1
-                /* TEXT */
-              )
-            ])) : createCommentVNode("v-if", true)
-          ]))
+                  ])
+                ])) : $setup.settings.search && !$setup.filteredSites.length ? (openBlock(), createElementBlock(
+                  Fragment,
+                  { key: 1 },
+                  [
+                    createCommentVNode(" No results "),
+                    createBaseVNode("div", _hoisted_252, [
+                      createBaseVNode(
+                        "p",
+                        _hoisted_26,
+                        'No sites found matching "' + toDisplayString($setup.settings.search) + '"',
+                        1
+                        /* TEXT */
+                      ),
+                      _cache[9] || (_cache[9] = createBaseVNode(
+                        "p",
+                        { class: "text-xs text-gray-300 mt-1" },
+                        'Try a domain like "google.com"',
+                        -1
+                        /* CACHED */
+                      ))
+                    ])
+                  ],
+                  2112
+                  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+                )) : (openBlock(), createElementBlock(
+                  Fragment,
+                  { key: 2 },
+                  [
+                    createCommentVNode(" Empty state: popular sites "),
+                    createBaseVNode("div", _hoisted_27, [
+                      _cache[10] || (_cache[10] = createBaseVNode(
+                        "p",
+                        { class: "text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3" },
+                        "Popular sites",
+                        -1
+                        /* CACHED */
+                      )),
+                      createBaseVNode("div", _hoisted_28, [
+                        (openBlock(), createElementBlock(
+                          Fragment,
+                          null,
+                          renderList($setup.popularSites, (popular) => {
+                            return createBaseVNode("button", {
+                              key: popular.domain,
+                              onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(popular.domain),
+                              class: "flex items-center gap-2 p-2.5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                            }, [
+                              createBaseVNode(
+                                "div",
+                                _hoisted_30,
+                                toDisplayString(popular.label.charAt(0)),
+                                1
+                                /* TEXT */
+                              ),
+                              createBaseVNode(
+                                "span",
+                                _hoisted_31,
+                                toDisplayString(popular.label),
+                                1
+                                /* TEXT */
+                              )
+                            ], 8, _hoisted_29);
+                          }),
+                          64
+                          /* STABLE_FRAGMENT */
+                        ))
+                      ])
+                    ])
+                  ],
+                  2112
+                  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+                ))
+              ])
+            ],
+            2112
+            /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+          ))
         ],
         512
         /* NEED_PATCH */
       ), [
         [vShow, $setup.currentTab === "allSites"]
       ]),
+      createCommentVNode(" Current Site Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_19,
+        _hoisted_322,
         [
-          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_20, [..._cache[9] || (_cache[9] = [
+          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_332, [..._cache[11] || (_cache[11] = [
             createBaseVNode(
               "div",
-              { class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" },
+              {
+                class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin",
+                role: "status",
+                "aria-label": "Checking site security"
+              },
               null,
               -1
               /* CACHED */
@@ -27420,14 +28076,19 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       ), [
         [vShow, $setup.currentTab === "currentSite"]
       ]),
+      createCommentVNode(" FAQ Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_21,
+        _hoisted_342,
         [
-          $setup.faqs.loading ? (openBlock(), createElementBlock("div", _hoisted_222, [..._cache[10] || (_cache[10] = [
+          $setup.faqs.loading ? (openBlock(), createElementBlock("div", _hoisted_352, [..._cache[12] || (_cache[12] = [
             createBaseVNode(
               "div",
-              { class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" },
+              {
+                class: "w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin",
+                role: "status",
+                "aria-label": "Loading FAQs"
+              },
               null,
               -1
               /* CACHED */
@@ -27439,143 +28100,121 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
               -1
               /* CACHED */
             )
-          ])])) : (openBlock(), createElementBlock("div", _hoisted_232, [
-            createCommentVNode(" Intro "),
-            _cache[13] || (_cache[13] = createBaseVNode(
-              "div",
-              { class: "bg-white rounded-xl p-6 border border-gray-100 text-center mb-2" },
-              [
-                createBaseVNode("h3", { class: "text-sm font-bold text-gray-900" }, "How can we help?"),
-                createBaseVNode("p", { class: "text-xs text-gray-500 mt-1" }, "Common questions and simple answers.")
-              ],
-              -1
-              /* CACHED */
-            )),
-            createCommentVNode(" FAQ Groups "),
-            (openBlock(true), createElementBlock(
-              Fragment,
-              null,
-              renderList($setup.faqs.categories, (cat, catId) => {
-                return openBlock(), createElementBlock("div", {
-                  key: catId,
-                  class: "space-y-3"
-                }, [
-                  createBaseVNode("div", _hoisted_242, [
-                    createBaseVNode(
-                      "span",
-                      _hoisted_252,
-                      toDisplayString(cat.icon),
-                      1
-                      /* TEXT */
-                    ),
-                    createBaseVNode(
-                      "h4",
-                      _hoisted_26,
-                      toDisplayString(cat.name),
-                      1
-                      /* TEXT */
-                    )
-                  ]),
-                  createBaseVNode("div", _hoisted_27, [
-                    (openBlock(true), createElementBlock(
-                      Fragment,
-                      null,
-                      renderList($setup.faqs.faqs.filter((f) => f.category === catId), (faq) => {
-                        return openBlock(), createElementBlock("div", {
-                          key: faq.id,
-                          class: "bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
-                        }, [
-                          createBaseVNode("button", {
-                            onClick: ($event) => $setup.toggleAccordion(faq.id),
-                            class: "w-full flex items-center justify-between p-4 text-left group"
-                          }, [
-                            createBaseVNode(
-                              "span",
-                              _hoisted_29,
-                              toDisplayString(faq.question),
-                              1
-                              /* TEXT */
-                            ),
-                            createBaseVNode(
-                              "div",
-                              {
-                                class: normalizeClass([
-                                  "w-6 h-6 rounded-lg flex items-center justify-center transition-all flex-shrink-0",
-                                  $setup.itemsOpen[faq.id] ? "bg-blue-50 text-blue-600 rotate-180" : "bg-gray-50 text-gray-400 group-hover:bg-blue-50 group-hover:text-blue-500"
-                                ])
-                              },
-                              [..._cache[11] || (_cache[11] = [
-                                createBaseVNode(
-                                  "svg",
-                                  {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    class: "w-4 h-4",
-                                    viewBox: "0 0 24 24",
-                                    fill: "none",
-                                    stroke: "currentColor",
-                                    "stroke-width": "2.5",
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round"
-                                  },
-                                  [
-                                    createBaseVNode("polyline", { points: "6 9 12 15 18 9" })
-                                  ],
-                                  -1
-                                  /* CACHED */
-                                )
-                              ])],
-                              2
-                              /* CLASS */
-                            )
-                          ], 8, _hoisted_28),
-                          withDirectives(createBaseVNode(
-                            "div",
-                            _hoisted_30,
+          ])])) : (openBlock(), createElementBlock("div", _hoisted_36, [
+            createCommentVNode(" Category pill filters "),
+            createBaseVNode("div", _hoisted_37, [
+              createBaseVNode("button", {
+                onClick: _cache[2] || (_cache[2] = ($event) => $setup.selectedFaqCategory = null),
+                class: normalizeClass([
+                  "px-3 py-1 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1",
+                  $setup.selectedFaqCategory === null ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600"
+                ]),
+                "aria-pressed": $setup.selectedFaqCategory === null
+              }, " All ", 10, _hoisted_38),
+              (openBlock(true), createElementBlock(
+                Fragment,
+                null,
+                renderList($setup.faqs.categories, (cat, catId) => {
+                  return openBlock(), createElementBlock("button", {
+                    key: catId,
+                    onClick: ($event) => $setup.selectedFaqCategory = catId,
+                    class: normalizeClass([
+                      "px-3 py-1 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1",
+                      $setup.selectedFaqCategory === catId ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600"
+                    ]),
+                    "aria-pressed": $setup.selectedFaqCategory === catId
+                  }, toDisplayString(cat.name), 11, _hoisted_39);
+                }),
+                128
+                /* KEYED_FRAGMENT */
+              ))
+            ]),
+            createCommentVNode(" FAQ Accordion "),
+            createBaseVNode("div", _hoisted_40, [
+              (openBlock(true), createElementBlock(
+                Fragment,
+                null,
+                renderList($setup.filteredFaqsByCategory, (faq) => {
+                  return openBlock(), createElementBlock("div", {
+                    key: faq.id,
+                    class: "bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
+                  }, [
+                    createBaseVNode("button", {
+                      id: `faq-btn-${faq.id}`,
+                      onClick: ($event) => $setup.toggleAccordion(faq.id),
+                      "aria-expanded": $setup.itemsOpen[faq.id] || false,
+                      "aria-controls": `faq-panel-${faq.id}`,
+                      class: "w-full flex items-center justify-between p-4 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500"
+                    }, [
+                      createBaseVNode(
+                        "span",
+                        _hoisted_422,
+                        toDisplayString(faq.question),
+                        1
+                        /* TEXT */
+                      ),
+                      createBaseVNode(
+                        "div",
+                        {
+                          class: normalizeClass([
+                            "w-6 h-6 rounded-lg flex items-center justify-center transition-all flex-shrink-0",
+                            $setup.itemsOpen[faq.id] ? "bg-blue-50 text-blue-600 rotate-180" : "bg-gray-50 text-gray-400 group-hover:bg-blue-50 group-hover:text-blue-500"
+                          ]),
+                          "aria-hidden": "true"
+                        },
+                        [..._cache[13] || (_cache[13] = [
+                          createBaseVNode(
+                            "svg",
+                            {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              class: "w-4 h-4",
+                              viewBox: "0 0 24 24",
+                              fill: "none",
+                              stroke: "currentColor",
+                              "stroke-width": "2.5",
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round"
+                            },
                             [
-                              _cache[12] || (_cache[12] = createBaseVNode(
-                                "div",
-                                { class: "h-px bg-gray-50 mb-3" },
-                                null,
-                                -1
-                                /* CACHED */
-                              )),
-                              createBaseVNode("div", _hoisted_31, [
-                                (openBlock(true), createElementBlock(
-                                  Fragment,
-                                  null,
-                                  renderList(faq.answer.split(". ").filter((s) => s.trim()), (p2, i) => {
-                                    return openBlock(), createElementBlock(
-                                      "p",
-                                      {
-                                        key: i,
-                                        class: "text-sm text-gray-500 leading-relaxed font-normal"
-                                      },
-                                      toDisplayString(p2.endsWith(".") ? p2 : p2 + "."),
-                                      1
-                                      /* TEXT */
-                                    );
-                                  }),
-                                  128
-                                  /* KEYED_FRAGMENT */
-                                ))
-                              ])
+                              createBaseVNode("polyline", { points: "6 9 12 15 18 9" })
                             ],
-                            512
-                            /* NEED_PATCH */
-                          ), [
-                            [vShow, $setup.itemsOpen[faq.id]]
-                          ])
-                        ]);
-                      }),
-                      128
-                      /* KEYED_FRAGMENT */
-                    ))
-                  ])
-                ]);
-              }),
-              128
-              /* KEYED_FRAGMENT */
-            ))
+                            -1
+                            /* CACHED */
+                          )
+                        ])],
+                        2
+                        /* CLASS */
+                      )
+                    ], 8, _hoisted_41),
+                    withDirectives(createBaseVNode("div", {
+                      id: `faq-panel-${faq.id}`,
+                      role: "region",
+                      "aria-labelledby": `faq-btn-${faq.id}`,
+                      class: "px-4 pb-4"
+                    }, [
+                      _cache[14] || (_cache[14] = createBaseVNode(
+                        "div",
+                        { class: "h-px bg-gray-50 mb-3" },
+                        null,
+                        -1
+                        /* CACHED */
+                      )),
+                      createBaseVNode(
+                        "p",
+                        _hoisted_44,
+                        toDisplayString(faq.answer),
+                        1
+                        /* TEXT */
+                      )
+                    ], 8, _hoisted_432), [
+                      [vShow, $setup.itemsOpen[faq.id]]
+                    ])
+                  ]);
+                }),
+                128
+                /* KEYED_FRAGMENT */
+              ))
+            ])
           ]))
         ],
         512
@@ -27586,135 +28225,153 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       createCommentVNode(" Tips Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_322,
+        _hoisted_45,
         [
-          _cache[16] || (_cache[16] = createBaseVNode(
-            "div",
-            { class: "bg-white rounded-xl p-6 border border-gray-100 text-center mb-2" },
-            [
-              createBaseVNode("h3", { class: "text-sm font-bold text-gray-900" }, "Security Tips"),
-              createBaseVNode("p", { class: "text-xs text-gray-500 mt-1" }, "Quick wins to level up your digital security.")
-            ],
-            -1
-            /* CACHED */
-          )),
-          createBaseVNode("div", _hoisted_332, [
+          createCommentVNode(" Header + Progress "),
+          createBaseVNode("div", _hoisted_46, [
+            _cache[16] || (_cache[16] = createBaseVNode(
+              "h3",
+              { class: "text-sm font-bold text-gray-900 mb-1" },
+              "Security Tips",
+              -1
+              /* CACHED */
+            )),
+            _cache[17] || (_cache[17] = createBaseVNode(
+              "p",
+              { class: "text-xs text-gray-500 mb-4" },
+              "Quick wins to level up your digital security.",
+              -1
+              /* CACHED */
+            )),
+            createBaseVNode("div", _hoisted_47, [
+              _cache[15] || (_cache[15] = createBaseVNode(
+                "span",
+                { class: "text-gray-500" },
+                "Progress",
+                -1
+                /* CACHED */
+              )),
+              createBaseVNode(
+                "span",
+                {
+                  class: normalizeClass($setup.tipsProgress.done === $setup.tipsProgress.total && $setup.tipsProgress.total > 0 ? "text-emerald-600" : "text-blue-600")
+                },
+                toDisplayString($setup.tipsProgress.done) + " / " + toDisplayString($setup.tipsProgress.total) + " done ",
+                3
+                /* TEXT, CLASS */
+              )
+            ]),
+            createBaseVNode("div", {
+              class: "w-full h-1.5 bg-gray-100 rounded-full overflow-hidden",
+              role: "progressbar",
+              "aria-valuenow": $setup.tipsProgress.done,
+              "aria-valuemin": 0,
+              "aria-valuemax": $setup.tipsProgress.total,
+              "aria-label": `${$setup.tipsProgress.done} of ${$setup.tipsProgress.total} tips completed`
+            }, [
+              createBaseVNode(
+                "div",
+                {
+                  class: normalizeClass(["h-full rounded-full transition-all duration-500", $setup.tipsProgress.done === $setup.tipsProgress.total && $setup.tipsProgress.total > 0 ? "bg-emerald-500" : "bg-blue-500"]),
+                  style: normalizeStyle({ width: $setup.tipsProgress.pct + "%" })
+                },
+                null,
+                6
+                /* CLASS, STYLE */
+              )
+            ], 8, _hoisted_48)
+          ]),
+          createCommentVNode(" Tip cards "),
+          createBaseVNode("div", _hoisted_49, [
             (openBlock(true), createElementBlock(
               Fragment,
               null,
               renderList($setup.orderedTips, (tip) => {
-                return openBlock(), createElementBlock("div", {
-                  key: tip.id,
-                  class: "bg-white p-4 rounded-xl border border-gray-100 hover:border-emerald-100 transition-all group shadow-sm"
-                }, [
-                  createBaseVNode("div", _hoisted_342, [
-                    createBaseVNode(
-                      "div",
-                      {
-                        class: normalizeClass([
-                          "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors",
-                          tip.priority === "high" ? "bg-orange-50 text-orange-600" : "bg-emerald-50 text-emerald-600"
-                        ])
-                      },
-                      [
-                        tip.priority === "high" ? (openBlock(), createElementBlock("svg", _hoisted_35, [..._cache[14] || (_cache[14] = [
-                          createBaseVNode(
-                            "path",
-                            { d: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" },
-                            null,
-                            -1
-                            /* CACHED */
-                          ),
-                          createBaseVNode(
-                            "line",
-                            {
-                              x1: "12",
-                              y1: "9",
-                              x2: "12",
-                              y2: "13"
-                            },
-                            null,
-                            -1
-                            /* CACHED */
-                          ),
-                          createBaseVNode(
-                            "line",
-                            {
-                              x1: "12",
-                              y1: "17",
-                              x2: "12.01",
-                              y2: "17"
-                            },
-                            null,
-                            -1
-                            /* CACHED */
-                          )
-                        ])])) : (openBlock(), createElementBlock("svg", _hoisted_36, [..._cache[15] || (_cache[15] = [
-                          createBaseVNode(
-                            "circle",
-                            {
-                              cx: "12",
-                              cy: "12",
-                              r: "10"
-                            },
-                            null,
-                            -1
-                            /* CACHED */
-                          ),
-                          createBaseVNode(
-                            "line",
-                            {
-                              x1: "12",
-                              y1: "16",
-                              x2: "12",
-                              y2: "12"
-                            },
-                            null,
-                            -1
-                            /* CACHED */
-                          ),
-                          createBaseVNode(
-                            "line",
-                            {
-                              x1: "12",
-                              y1: "8",
-                              x2: "12.01",
-                              y2: "8"
-                            },
-                            null,
-                            -1
-                            /* CACHED */
-                          )
-                        ])]))
-                      ],
-                      2
-                      /* CLASS */
-                    ),
-                    createBaseVNode("div", _hoisted_37, [
-                      createBaseVNode("div", _hoisted_38, [
-                        createBaseVNode(
-                          "span",
-                          {
-                            class: normalizeClass([
-                              "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md",
-                              tip.priority === "high" ? "bg-orange-100 text-orange-700" : "bg-emerald-100 text-emerald-700"
-                            ])
-                          },
-                          toDisplayString(tip.priority) + " priority ",
-                          3
-                          /* TEXT, CLASS */
-                        )
-                      ]),
-                      createBaseVNode(
-                        "p",
-                        _hoisted_39,
-                        toDisplayString(tip.text),
-                        1
-                        /* TEXT */
-                      )
+                return openBlock(), createElementBlock(
+                  "div",
+                  {
+                    key: tip.id,
+                    class: normalizeClass([
+                      "bg-white p-4 rounded-xl border transition-all group",
+                      $setup.isTipDone(tip.id) ? "border-emerald-100 opacity-70" : "border-gray-100 hover:border-emerald-100 shadow-sm"
                     ])
-                  ])
-                ]);
+                  },
+                  [
+                    createBaseVNode("div", _hoisted_50, [
+                      createCommentVNode(" Priority dot "),
+                      createBaseVNode("div", {
+                        class: normalizeClass([
+                          "w-2 h-2 rounded-full mt-1.5 flex-shrink-0",
+                          tip.priority === "high" ? "bg-red-300" : tip.priority === "medium" ? "bg-amber-200" : "bg-emerald-200"
+                        ]),
+                        "aria-label": `${tip.priority} priority`
+                      }, null, 10, _hoisted_51),
+                      createBaseVNode("div", _hoisted_522, [
+                        createBaseVNode("div", _hoisted_532, [
+                          createBaseVNode("div", null, [
+                            createBaseVNode(
+                              "span",
+                              {
+                                class: normalizeClass([
+                                  "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md inline-block mb-1",
+                                  tip.priority === "high" ? "bg-red-100 text-red-700" : tip.priority === "medium" ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-700"
+                                ])
+                              },
+                              toDisplayString(tip.priority),
+                              3
+                              /* TEXT, CLASS */
+                            ),
+                            createBaseVNode(
+                              "p",
+                              {
+                                class: normalizeClass(["text-[13px] font-bold leading-snug", $setup.isTipDone(tip.id) ? "text-gray-400 line-through" : "text-gray-800"])
+                              },
+                              toDisplayString(tip.text),
+                              3
+                              /* TEXT, CLASS */
+                            )
+                          ]),
+                          createCommentVNode(" Done toggle "),
+                          createBaseVNode("label", {
+                            class: "flex-shrink-0 cursor-pointer mt-0.5",
+                            "aria-label": $setup.isTipDone(tip.id) ? `Mark '${tip.text}' as not done` : `Mark '${tip.text}' as done`
+                          }, [
+                            createBaseVNode("input", {
+                              type: "checkbox",
+                              class: "sr-only",
+                              checked: $setup.isTipDone(tip.id),
+                              onChange: ($event) => $setup.toggleTip(tip.id)
+                            }, null, 40, _hoisted_55),
+                            createBaseVNode(
+                              "div",
+                              {
+                                class: normalizeClass([
+                                  "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all",
+                                  $setup.isTipDone(tip.id) ? "bg-emerald-500 border-emerald-500" : "border-gray-200 hover:border-emerald-400"
+                                ])
+                              },
+                              [
+                                $setup.isTipDone(tip.id) ? (openBlock(), createElementBlock("svg", _hoisted_56, [..._cache[18] || (_cache[18] = [
+                                  createBaseVNode(
+                                    "polyline",
+                                    { points: "20 6 9 17 4 12" },
+                                    null,
+                                    -1
+                                    /* CACHED */
+                                  )
+                                ])])) : createCommentVNode("v-if", true)
+                              ],
+                              2
+                              /* CLASS */
+                            )
+                          ], 8, _hoisted_54)
+                        ])
+                      ])
+                    ])
+                  ],
+                  2
+                  /* CLASS */
+                );
               }),
               128
               /* KEYED_FRAGMENT */
@@ -27727,7 +28384,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         [vShow, $setup.currentTab === "tips"]
       ])
     ]),
-    _cache[17] || (_cache[17] = createStaticVNode('<footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" data-v-ea994a51><p class="pb-1.5 font-medium" data-v-ea994a51>Made with \u2764\uFE0F by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank" data-v-ea994a51>Nick Cotterill</a></p><p data-v-ea994a51>Data sourced from <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2fa.directory/gb/" target="_blank" data-v-ea994a51>2FA Directory</a> by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2factorauth-org.pages.dev/" target="_blank" data-v-ea994a51>2factorauth</a></p></footer>', 1))
+    _cache[19] || (_cache[19] = createStaticVNode('<footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" data-v-ea994a51><p class="pb-1.5 font-medium" data-v-ea994a51>Made with \u2764\uFE0F by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank" rel="noopener noreferrer" data-v-ea994a51>Nick Cotterill</a></p><p data-v-ea994a51>Data sourced from <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2fa.directory/gb/" target="_blank" rel="noopener noreferrer" data-v-ea994a51>2FA Directory</a> by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2factorauth-org.pages.dev/" target="_blank" rel="noopener noreferrer" data-v-ea994a51>2factorauth</a></p></footer>', 1))
   ]);
 }
 

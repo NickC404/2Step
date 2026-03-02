@@ -6,6 +6,7 @@ async function loadSitesData() {
         // Fetch the sites.json from the extension's folder
         const url = chrome.runtime.getURL('2fa.directory/sites.json');
         const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         sitesData = await response.json();
         return sitesData;
     } catch (e) {

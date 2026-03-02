@@ -1,8 +1,6 @@
 // src/wrapper.js
-console.log("Wrapper loaded in privileged context");
-var extensionOrigin = new URL(chrome.runtime.getURL("")).origin;
 var sandboxFrame = document.getElementById("sandbox-frame");
-sandboxFrame.src = `ui.html?origin=${encodeURIComponent(extensionOrigin)}`;
+sandboxFrame.src = "ui.html";
 var sandbox = sandboxFrame.contentWindow;
 window.addEventListener("message", async (event) => {
   if (event.origin !== "null") {

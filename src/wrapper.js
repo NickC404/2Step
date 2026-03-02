@@ -1,8 +1,5 @@
-console.log('Wrapper loaded in privileged context');
-const extensionOrigin = new URL(chrome.runtime.getURL('')).origin;
 const sandboxFrame = document.getElementById('sandbox-frame');
-// Pass extension origin to sandbox via URL parameter
-sandboxFrame.src = `ui.html?origin=${encodeURIComponent(extensionOrigin)}`;
+sandboxFrame.src = 'ui.html';
 const sandbox = sandboxFrame.contentWindow;
 
 // This script allows communication between the sandboxed UI and the background script

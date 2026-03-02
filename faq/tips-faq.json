@@ -250,33 +250,27 @@
   "categories": {
     "basics": {
       "name": "Basics",
-      "description": "New to 2FA? Start here",
-      "icon": "📚"
+      "description": "New to 2FA? Start here"
     },
     "getting-started": {
       "name": "Getting Started",
-      "description": "How to set up and use 2FA",
-      "icon": "🚀"
+      "description": "How to set up and use 2FA"
     },
     "methods": {
       "name": "2FA Methods",
-      "description": "Understanding different types of 2FA",
-      "icon": "🔐"
+      "description": "Understanding different types of 2FA"
     },
     "troubleshooting": {
       "name": "Troubleshooting",
-      "description": "Common problems and solutions",
-      "icon": "🔧"
+      "description": "Common problems and solutions"
     },
     "advanced": {
       "name": "Advanced",
-      "description": "For experienced users",
-      "icon": "⚡"
+      "description": "For experienced users"
     },
     "privacy": {
       "name": "Privacy",
-      "description": "How 2Step protects your privacy",
-      "icon": "🔒"
+      "description": "How 2Step protects your privacy"
     }
   }
 }
