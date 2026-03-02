@@ -12,7 +12,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/cli": "^4.1.18",
     "esbuild": "^0.27.2",
     "esbuild-plugin-vue3": "^0.5.1",
