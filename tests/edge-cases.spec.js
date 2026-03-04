@@ -50,7 +50,6 @@ test.describe('Edge Cases and Error Handling', () => {
 
         await page.click('button:has-text("Directory")');
 
-        // Test special characters that shouldn't break the search
         const specialSearches = ['@test', '!domain', 'test.com-test', 'test_domain'];
 
         for (const searchTerm of specialSearches) {
@@ -58,7 +57,7 @@ test.describe('Edge Cases and Error Handling', () => {
             await page.waitForTimeout(300);
 
             // Should either show results or "no results" message without errors
-            const hasResults = await page.locator('[class*="space-y-3"] > div').count() > 0;
+            const hasResults = await page.locator('div[role="button"]').count() > 0;
             const hasNoResults = await page.locator('text=/No sites found/i').isVisible();
 
             expect(hasResults || hasNoResults).toBe(true);
@@ -92,10 +91,8 @@ test.describe('Edge Cases and Error Handling', () => {
         await page.fill('input[placeholder*="Search domains"]', 'test');
         await page.fill('input[placeholder*="Search domains"]', '');
 
-        // Should show all sites again
-        const results = page.locator('[class*="space-y-3"] > div');
-        const count = await results.count();
-        expect(count).toBeGreaterThan(0);
+        // When search is empty, popular sites grid is shown
+        await expect(page.locator('text=Popular sites')).toBeVisible();
 
         await page.close();
     });
@@ -138,8 +135,7 @@ test.describe('Edge Cases and Error Handling', () => {
         await popup.goto(`chrome-extension://${extensionId}/popup/ui.html`);
         await popup.waitForTimeout(1000);
 
-        // Should handle gracefully (might show a default or message)
-        // Extension should not crash
+        // Extension should not crash — header should be visible
         await expect(popup.locator('h1')).toBeVisible();
 
         await popup.close();
@@ -150,7 +146,6 @@ test.describe('Edge Cases and Error Handling', () => {
         // Skipped: Requires external network access to mail.google.com
         const page = await context.newPage();
 
-        // Navigate to a subdomain
         await page.goto('https://mail.google.com');
         await page.waitForTimeout(1500);
 
@@ -158,12 +153,10 @@ test.describe('Edge Cases and Error Handling', () => {
         await popup.goto(`chrome-extension://${extensionId}/popup/ui.html`);
         await popup.waitForTimeout(1000);
 
-        // Should detect parent domain (google.com)
         const hasGoogleDomain = await popup.locator('text=/google.com/i').isVisible();
 
-        // Should show 2FA available (google has 2FA)
         if (hasGoogleDomain) {
-            await expect(popup.locator('text=/2FA Available/i')).toBeVisible();
+            await expect(popup.locator('text=/2FA Supported/i')).toBeVisible();
         }
 
         await popup.close();
@@ -174,7 +167,6 @@ test.describe('Edge Cases and Error Handling', () => {
         // Skipped: Requires external network access to www.github.com
         const page = await context.newPage();
 
-        // Navigate to www version
         await page.goto('https://www.github.com');
         await page.waitForTimeout(1500);
 
@@ -182,7 +174,6 @@ test.describe('Edge Cases and Error Handling', () => {
         await popup.goto(`chrome-extension://${extensionId}/popup/ui.html`);
         await popup.waitForTimeout(1000);
 
-        // Should strip www and show github.com
         await expect(popup.locator('text=/github.com/i')).toBeVisible();
 
         await popup.close();
@@ -199,7 +190,6 @@ test.describe('Edge Cases and Error Handling', () => {
         const result = page.locator('div', { hasText: 'github.com' }).first();
         await result.click();
 
-        // Close popup
         await page.close();
 
         // Reopen popup
@@ -207,7 +197,7 @@ test.describe('Edge Cases and Error Handling', () => {
         await page2.goto(`chrome-extension://${extensionId}/popup/ui.html`);
         await page2.waitForTimeout(1000);
 
-        // Should load fresh (state doesn't persist between popup opens)
+        // Should load fresh — header should be visible
         await expect(page2.locator('h1')).toBeVisible();
 
         await page2.close();
@@ -243,7 +233,6 @@ test.describe('Edge Cases and Error Handling', () => {
         const result = page.locator('div', { hasText: 'google.com' }).first();
         await result.click();
 
-        // Check setup guide link
         const setupGuide = page.locator('a:has-text("Setup Guide")');
         if (await setupGuide.count() > 0) {
             const target = await setupGuide.getAttribute('target');
@@ -264,14 +253,15 @@ test.describe('Edge Cases and Error Handling', () => {
 
         const firstFaq = page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
 
-        // Toggle multiple times
+        // Toggle multiple times — odd number of clicks leaves it open
         for (let i = 0; i < 5; i++) {
             await firstFaq.click();
             await page.waitForTimeout(200);
         }
 
-        // Should still work correctly (will be in open state after odd number of clicks)
-        await expect(page.locator('p.text-sm.text-gray-500').first()).toBeVisible();
+        // After 5 clicks (odd), accordion is open — answer paragraph should be visible
+        // Use leading-relaxed to distinguish FAQ answers from loading state text
+        await expect(page.locator('p.text-sm.text-gray-500.leading-relaxed').first()).toBeVisible();
 
         await page.close();
     });
@@ -279,7 +269,6 @@ test.describe('Edge Cases and Error Handling', () => {
     test('should maintain UI consistency with no active tab', async () => {
         const page = await context.newPage();
 
-        // Don't navigate anywhere, stay on blank page
         await page.goto('about:blank');
         await page.waitForTimeout(1000);
 
@@ -290,12 +279,11 @@ test.describe('Edge Cases and Error Handling', () => {
         // Extension should still load and show UI
         await expect(popup.locator('h1')).toBeVisible();
 
-        // Should show some default content
-        const hasContent = await popup.locator('text=/github.com|Directory|FAQ|Tips/i').count() > 0;
+        // Should show the tab bar at minimum
+        const hasContent = await popup.locator('text=/Directory|FAQ|Tips/i').count() > 0;
         expect(hasContent).toBe(true);
 
         await popup.close();
         await page.close();
     });
 });
-

@@ -50,16 +50,17 @@ test.describe('Accessibility and User Experience', () => {
 
         await page.waitForTimeout(1000);
 
-        // Focus on first tab button
+        // Focus on the active tab button (only active tab has tabindex=0)
         await page.keyboard.press('Tab');
-        await page.keyboard.press('Tab');
+        await page.waitForTimeout(100);
 
-        // Press Enter to activate
-        await page.keyboard.press('Enter');
+        // Navigate to next tab using ArrowRight (standard ARIA tab keyboard pattern)
+        await page.keyboard.press('ArrowRight');
+        await page.waitForTimeout(300);
 
-        // Should navigate to a different tab
+        // Should navigate to a different tab — check for any of the tab panel contents
         const directoryVisible = await page.locator('text=Directory Search').isVisible().catch(() => false);
-        const faqVisible = await page.locator('text=How can we help?').isVisible().catch(() => false);
+        const faqVisible = await page.locator('text=What is two-factor authentication').isVisible().catch(() => false);
         const tipsVisible = await page.locator('text=Security Tips').isVisible().catch(() => false);
 
         // At least one of these should be visible
@@ -92,12 +93,10 @@ test.describe('Accessibility and User Experience', () => {
         await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
 
         // On first load, might briefly show loading
-        // Check if loading elements exist in DOM
         const hasLoadingSpinner = await page.locator('.animate-spin').count() > 0;
         const hasLoadingText = await page.locator('text=/Checking security/i').count() > 0;
 
-        // Either loading is shown briefly, or content loads immediately
-        // Both are acceptable
+        // Either loading is shown briefly, or content loads immediately — both acceptable
         expect(hasLoadingSpinner || hasLoadingText || true).toBe(true);
 
         await page.close();
@@ -142,7 +141,6 @@ test.describe('Accessibility and User Experience', () => {
                 el.scrollTop = 100;
             });
 
-            // Wait a bit
             await page.waitForTimeout(500);
 
             // Check scroll position maintained
@@ -159,17 +157,15 @@ test.describe('Accessibility and User Experience', () => {
 
         await page.click('button:has-text("Tips")');
 
-        // Should have tips displayed
         await expect(page.locator('text=Security Tips')).toBeVisible();
 
-        // Should have priority badges
-        const highPriority = page.locator('text=/high priority/i');
-        const mediumPriority = page.locator('text=/medium priority/i');
+        // Priority dots have aria-label attributes — use those to detect them
+        const highPriority = page.locator('[aria-label="high priority"]');
+        const mediumPriority = page.locator('[aria-label="medium priority"]');
 
         const hasHighPriority = await highPriority.count() > 0;
         const hasMediumPriority = await mediumPriority.count() > 0;
 
-        // Should have at least some priority badges
         expect(hasHighPriority || hasMediumPriority).toBe(true);
 
         await page.close();
@@ -181,7 +177,6 @@ test.describe('Accessibility and User Experience', () => {
 
         await page.waitForTimeout(1000);
 
-        // Rapidly switch between tabs (reduced iterations to prevent timeout)
         for (let i = 0; i < 2; i++) {
             await page.click('button:has-text("Directory")');
             await page.waitForTimeout(150);
@@ -217,16 +212,17 @@ test.describe('Accessibility and User Experience', () => {
         await page.close();
     });
 
-    test('should display FAQ categories with icons', async () => {
+    test('should display FAQ category filters', async () => {
         const page = await context.newPage();
         await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
 
         await page.click('button:has-text("FAQ")');
 
-        // Should have category headers with emojis/icons
-        const categoryHeaders = page.locator('[class*="uppercase tracking-widest"]');
-        const count = await categoryHeaders.count();
+        // Category filter buttons should be present
+        const filterGroup = page.locator('[role="group"][aria-label*="Filter FAQs"]');
+        await expect(filterGroup).toBeVisible();
 
+        const count = await filterGroup.locator('button').count();
         expect(count).toBeGreaterThan(0);
 
         await page.close();
@@ -238,21 +234,18 @@ test.describe('Accessibility and User Experience', () => {
 
         await page.click('button:has-text("FAQ")');
 
-        // Get all FAQ buttons
         const faqButtons = page.locator('button').filter({ hasText: /\?$/ });
         const buttonCount = await faqButtons.count();
 
         if (buttonCount >= 2) {
-            // Click first FAQ
             await faqButtons.nth(0).click();
             await page.waitForTimeout(300);
 
-            // Click second FAQ
             await faqButtons.nth(1).click();
             await page.waitForTimeout(300);
 
-            // Both should be visible (accordion allows multiple open)
-            const visibleAnswers = page.locator('p.text-sm.text-gray-500');
+            // FAQ answer paragraphs use leading-relaxed (distinct from loading state)
+            const visibleAnswers = page.locator('p.text-sm.text-gray-500.leading-relaxed');
             const answerCount = await visibleAnswers.count();
 
             expect(answerCount).toBeGreaterThanOrEqual(2);
@@ -261,4 +254,3 @@ test.describe('Accessibility and User Experience', () => {
         await page.close();
     });
 });
-

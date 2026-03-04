@@ -113,17 +113,17 @@ test.describe('2Step Extension', () => {
 
     test('should load the popup and show current site status', async () => {
         const page = await context.newPage();
-        await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
+        // Load via index.html so the sandbox iframe gets the extension origin and shows site data
+        await page.goto(`chrome-extension://${extensionId}/popup/index.html`);
 
-        // Wait for the fallback detection (500ms in App.vue)
-        await page.waitForTimeout(1000);
+        const frame = page.frameLocator('#sandbox-frame');
 
-        // Check if "github.com" is shown (the default fallback)
-        const siteTitle = page.locator('h2', { hasText: 'github.com' });
-        await expect(siteTitle).toBeVisible();
+        // Should show 2FA status for whatever the current active tab is
+        const statusText = frame.locator('text=/2FA (Supported|Not Supported)/i');
+        await expect(statusText).toBeVisible({ timeout: 10000 });
 
-        // Check if 2FA status is shown (case insensitive match)
-        await expect(page.locator('text=/2FA Available/i')).toBeVisible();
+        // Tab bar should be visible
+        await expect(frame.locator('button:has-text("Current")')).toBeVisible({ timeout: 10000 });
     });
 
     test('should switch tabs', async () => {
@@ -136,7 +136,7 @@ test.describe('2Step Extension', () => {
 
         // Click on FAQ tab
         await page.click('button:has-text("FAQ")');
-        await expect(page.locator('text=How can we help?')).toBeVisible();
+        await expect(page.locator('text=What is two-factor authentication')).toBeVisible();
 
         // Click on Tips tab
         await page.click('button:has-text("Tips")');
@@ -174,9 +174,8 @@ test.describe('2Step Extension', () => {
         const firstFaq = page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
         await firstFaq.click();
 
-        // Check if answer is visible
-        // Updated selector to match text-gray-500
-        await expect(page.locator('p.text-sm.text-gray-500').first()).toBeVisible();
+        // Check if answer is visible — use leading-relaxed to distinguish from loading text
+        await expect(page.locator('p.text-sm.text-gray-500.leading-relaxed').first()).toBeVisible();
     });
 
     test('should show security tips', async () => {
@@ -187,7 +186,7 @@ test.describe('2Step Extension', () => {
 
         // Check for a specific tip
         await expect(page.locator('text=Enable 2FA on your email first').first()).toBeVisible();
-        await expect(page.locator('text=high priority').first()).toBeVisible();
+        await expect(page.locator('[aria-label="high priority"]').first()).toBeVisible();
     });
 
     test('should load the main index.html and render the iframe contents', async () => {
@@ -201,7 +200,7 @@ test.describe('2Step Extension', () => {
         await expect(frame.locator('h1')).toContainText('2Step', { timeout: 10000 });
 
         // Verify that the site details section is eventually shown
-        const statusText = frame.locator('text=/2FA (Available|Not Supported)/i');
+        const statusText = frame.locator('text=/2FA (Supported|Not Supported)/i');
         await expect(statusText).toBeVisible({ timeout: 10000 });
     });
 });

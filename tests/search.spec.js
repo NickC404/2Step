@@ -91,10 +91,8 @@ test.describe('Search and Filter Functionality', () => {
         // Clear search
         await page.fill('input[placeholder*="Search domains"]', '');
 
-        // Should show multiple results again (not filtered)
-        const results = page.locator('[class*="space-y-3"] > div');
-        const count = await results.count();
-        expect(count).toBeGreaterThan(5);
+        // When search is cleared, popular sites grid is shown
+        await expect(page.locator('text=Popular sites')).toBeVisible();
 
         await page.close();
     });

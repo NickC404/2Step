@@ -115,8 +115,9 @@ test.describe('Component Functionality', () => {
         const currentTabButton = page.locator('button', { hasText: 'Current' });
         const classes = await currentTabButton.getAttribute('class');
 
+        // Active tab has bg-white/15 and text-white
         expect(classes).toContain('bg-white');
-        expect(classes).toContain('text-blue-600');
+        expect(classes).toContain('text-white');
 
         await page.close();
     });
@@ -134,7 +135,7 @@ test.describe('Component Functionality', () => {
         // Directory button should now have active styling
         const classes = await directoryButton.getAttribute('class');
         expect(classes).toContain('bg-white');
-        expect(classes).toContain('text-blue-600');
+        expect(classes).toContain('text-white');
 
         // Current button should not have active styling
         const currentButton = page.locator('button', { hasText: 'Current' });
@@ -173,8 +174,8 @@ test.describe('Component Functionality', () => {
 
         await page.click('button:has-text("Directory")');
 
-        // Should show total number of sites
-        const siteCountText = page.locator('text=/Search through \\d+ sites/i');
+        // Should show total number of sites — text is "Search X,XXX sites in the 2FA Directory."
+        const siteCountText = page.locator('text=/Search [\\d,]+ sites/i');
         await expect(siteCountText).toBeVisible();
 
         const text = await siteCountText.textContent();
@@ -182,7 +183,7 @@ test.describe('Component Functionality', () => {
 
         if (match) {
             const count = parseInt(match[1]);
-            expect(count).toBeGreaterThan(100); // Should have many sites
+            expect(count).toBeGreaterThan(100);
         }
 
         await page.close();
@@ -249,23 +250,22 @@ test.describe('Component Functionality', () => {
         await page.close();
     });
 
-    test('should display all FAQ categories with icons', async () => {
+    test('should display all FAQ category filters', async () => {
         const page = await context.newPage();
         await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
 
         await page.click('button:has-text("FAQ")');
 
-        // Should have category headers with emojis
-        const categoryIcons = page.locator('span.text-lg');
-        const iconCount = await categoryIcons.count();
+        // Should have category filter buttons (All + each category)
+        const filterGroup = page.locator('[role="group"][aria-label*="Filter FAQs"]');
+        await expect(filterGroup).toBeVisible();
 
-        expect(iconCount).toBeGreaterThan(0);
+        const categoryButtons = filterGroup.locator('button');
+        const count = await categoryButtons.count();
+        expect(count).toBeGreaterThan(1); // At least "All" + one category
 
-        // Each category should have a name
-        const categoryNames = page.locator('h4.uppercase.tracking-widest');
-        const nameCount = await categoryNames.count();
-
-        expect(nameCount).toBeGreaterThan(0);
+        // Should include an "All" button
+        await expect(filterGroup.locator('button', { hasText: 'All' })).toBeVisible();
 
         await page.close();
     });
@@ -280,8 +280,8 @@ test.describe('Component Functionality', () => {
         await firstFaq.click();
         await page.waitForTimeout(300);
 
-        // Check that answer paragraphs end with periods
-        const answerParagraphs = page.locator('p.text-sm.text-gray-500');
+        // FAQ answer paragraphs have leading-relaxed class (distinct from loading state)
+        const answerParagraphs = page.locator('p.text-sm.text-gray-500.leading-relaxed');
         const count = await answerParagraphs.count();
 
         if (count > 0) {
@@ -298,45 +298,37 @@ test.describe('Component Functionality', () => {
 
         await page.click('button:has-text("Tips")');
 
-        // Wait for tips section to fully render
         await expect(page.locator('text=Security Tips')).toBeVisible();
         await expect(page.locator('text=Quick wins')).toBeVisible();
-        await page.waitForTimeout(1500);
 
-        // Look for any element containing "high priority" text
-        const highPriorityElements = page.locator('text=/high priority/i');
+        // Priority dots have aria-label="high priority" / "medium priority"
+        const highPriorityElements = page.locator('[aria-label="high priority"]');
         const highCount = await highPriorityElements.count();
 
-        // Look for any element containing "medium priority" text
-        const mediumPriorityElements = page.locator('text=/medium priority/i');
+        const mediumPriorityElements = page.locator('[aria-label="medium priority"]');
         const mediumCount = await mediumPriorityElements.count();
 
-        // Should have some priority indicators
         const totalCount = highCount + mediumCount;
         expect(totalCount).toBeGreaterThan(0);
-
-        // Should have high priority tips (they should be ordered first)
         expect(highCount).toBeGreaterThan(0);
 
         await page.close();
     });
 
-    test('should display different icons for high vs medium priority tips', async () => {
+    test('should display different colours for high vs medium priority tips', async () => {
         const page = await context.newPage();
         await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
 
         await page.click('button:has-text("Tips")');
         await page.waitForTimeout(500);
 
-        // High priority tips should have warning triangle icon
-        const highPriorityTips = page.locator('div').filter({ has: page.locator('text=/high priority/i') });
-        const highCount = await highPriorityTips.count();
+        // Priority dots use aria-label for accessibility
+        const highPriorityDots = page.locator('[aria-label="high priority"]');
+        const highCount = await highPriorityDots.count();
 
-        // Medium priority tips should have info circle icon
-        const mediumPriorityTips = page.locator('div').filter({ has: page.locator('text=/medium priority/i') });
-        const mediumCount = await mediumPriorityTips.count();
+        const mediumPriorityDots = page.locator('[aria-label="medium priority"]');
+        const mediumCount = await mediumPriorityDots.count();
 
-        // Should have both types
         expect(highCount + mediumCount).toBeGreaterThan(0);
 
         await page.close();
@@ -358,4 +350,3 @@ test.describe('Component Functionality', () => {
         await page.close();
     });
 });
-

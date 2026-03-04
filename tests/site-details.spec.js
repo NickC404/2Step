@@ -56,10 +56,10 @@ test.describe('Site Details Component', () => {
 
         // Should show site details
         await expect(page.locator('h2', { hasText: 'google.com' })).toBeVisible();
-        await expect(page.locator('text=/2FA Available/i')).toBeVisible();
+        await expect(page.locator('text=/2FA Supported/i')).toBeVisible();
 
-        // Should show security methods section
-        await expect(page.locator('text=/Security Methods/i')).toBeVisible();
+        // Should show authentication methods section
+        await expect(page.locator('h3', { hasText: /Authentication Methods/i })).toBeVisible();
 
         // Should have method badges
         const badges = page.locator('[class*="rounded"]').filter({ hasText: /.+/ });
@@ -103,7 +103,7 @@ test.describe('Site Details Component', () => {
         await page.waitForTimeout(1000);
 
         // Get all search result items - exact selector from App.vue
-        const allResults = page.locator('div.flex.items-center.justify-between.p-4.rounded-xl.border');
+        const allResults = page.locator('div.flex.items-center.justify-between.p-3.rounded-xl.border');
         const totalCount = await allResults.count();
 
         // Skip test if no results at all

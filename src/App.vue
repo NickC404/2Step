@@ -431,9 +431,12 @@
     },
   };
 
-  const doneTipIds = ref(
-    JSON.parse(safeStorage.get('2step-done-tips') || '[]')
-  );
+  const doneTipIds = ref((() => {
+    try {
+      const parsed = JSON.parse(safeStorage.get('2step-done-tips') || '[]');
+      return Array.isArray(parsed) ? parsed : [];
+    } catch { return []; }
+  })());
 
   const isTipDone = (id) => doneTipIds.value.includes(id);
 
