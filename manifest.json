@@ -2,6 +2,7 @@
     "manifest_version": 3,
     "name": "2Step",
     "version": "0.2.1",
+    "version_name": "0.2.1 beta",
     "description": "See whether the site you're on supports two-factor authentication, which methods it offers, and how to turn it on.",
     "permissions": [
         "tabs"
