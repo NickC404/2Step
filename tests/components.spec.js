@@ -140,7 +140,7 @@ test.describe('Component Functionality', () => {
         // Current button should not have active styling
         const currentButton = page.locator('button', { hasText: 'Current' });
         const currentClasses = await currentButton.getAttribute('class');
-        expect(currentClasses).toContain('text-blue-100');
+        expect(currentClasses).toContain('text-blue-50');
 
         await page.close();
     });

@@ -9,26 +9,7 @@
 </head>
 
 <body>
-    <div id="app" v-cloak>
-        <!-- Header -->
-        <header style="background-color: #4257AC">
-            <div class="tabs">
-                <button v-for="tab in tabs" :key="tab" :class="{ active: currentTab === tab }"
-                    @click="currentTab = tab">
-                    {{ tab }}
-                </button>
-            </div>
-        </header>
-        <!-- Main Content -->
-        <main>
-            <div v-if="currentTab === 'allSites'">
-
-            </div>
-            <div v-else="currentTab === 'currentSite'">
-
-            </div>
-        </main>
-    </div>
+    <div id="app" v-cloak></div>
     <script src="ui-logic.js" type="module"></script>
 </body>
 

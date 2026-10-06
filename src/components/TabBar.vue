@@ -15,23 +15,12 @@
       :tabindex="modelValue === tab.id ? 0 : -1"
       @click="$emit('update:modelValue', tab.id)"
       :class="[
-        'relative flex items-center gap-1.5 px-3 py-1 rounded-md text-[12px] font-bold transition-all duration-200 cursor-pointer uppercase tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-blue-600',
+        'relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold transition-all duration-200 cursor-pointer uppercase tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-blue-700',
         modelValue === tab.id
-          ? 'bg-white/15 text-white'
-          : 'text-blue-100 hover:bg-white/10 hover:text-white'
+          ? 'bg-white/15 text-white font-bold'
+          : 'text-blue-50 hover:bg-white/10 hover:text-white'
       ]"
     >
-      <!-- 2FA status dot on Current tab -->
-      <span
-        v-if="tab.id === 'currentSite' && has2FA !== null"
-        :class="[
-          'w-1.5 h-1.5 rounded-full flex-shrink-0',
-          has2FA ? 'bg-emerald-400' : 'bg-amber-400'
-        ]"
-        :aria-label="has2FA ? '2FA supported' : '2FA not supported'"
-        aria-hidden="true"
-      ></span>
-
       {{ tab.label }}
 
       <!-- Active underline indicator -->
@@ -53,10 +42,6 @@ const props = defineProps({
   modelValue: {
     type: String,
     required: true
-  },
-  has2FA: {
-    type: Boolean,
-    default: null
   }
 });
 

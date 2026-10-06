@@ -57,8 +57,9 @@ test.describe('Edge Cases and Error Handling', () => {
             await page.waitForTimeout(300);
 
             // Should either show results or "no results" message without errors
+            // (target the visible, quoted message — not the sr-only live region).
             const hasResults = await page.locator('div[role="button"]').count() > 0;
-            const hasNoResults = await page.locator('text=/No sites found/i').isVisible();
+            const hasNoResults = await page.locator('text=/No sites found matching "/i').isVisible();
 
             expect(hasResults || hasNoResults).toBe(true);
         }
@@ -75,8 +76,8 @@ test.describe('Edge Cases and Error Handling', () => {
         const longQuery = 'a'.repeat(200);
         await page.fill('input[placeholder*="Search domains"]', longQuery);
 
-        // Should show no results without crashing
-        await expect(page.locator('text=/No sites found/i')).toBeVisible();
+        // Should show no results without crashing (visible, quoted message).
+        await expect(page.locator('text=/No sites found matching "/i')).toBeVisible();
 
         await page.close();
     });

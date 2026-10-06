@@ -34,3 +34,6 @@ blob-report/
 
 # Misc
 .eslintcache
+
+# Web Store packages
+*.zip

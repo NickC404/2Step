@@ -118,8 +118,9 @@ test.describe('2Step Extension', () => {
 
         const frame = page.frameLocator('#sandbox-frame');
 
-        // Should show 2FA status for whatever the current active tab is
-        const statusText = frame.locator('text=/2FA (Supported|Not Supported)/i');
+        // The active tab in the test harness is the extension's own page, so the
+        // Current panel shows either a 2FA verdict or the "can't be checked" state.
+        const statusText = frame.locator("text=/2FA (Supported|Not Supported)|can't be checked/i");
         await expect(statusText).toBeVisible({ timeout: 10000 });
 
         // Tab bar should be visible
@@ -185,7 +186,7 @@ test.describe('2Step Extension', () => {
         await page.click('button:has-text("Tips")');
 
         // Check for a specific tip
-        await expect(page.locator('text=Enable 2FA on your email first').first()).toBeVisible();
+        await expect(page.locator('text=Start with your email').first()).toBeVisible();
         await expect(page.locator('[aria-label="high priority"]').first()).toBeVisible();
     });
 
@@ -199,8 +200,9 @@ test.describe('2Step Extension', () => {
         // Wait for the iframe content to load (App.vue mounts or ui.html title)
         await expect(frame.locator('h1')).toContainText('2Step', { timeout: 10000 });
 
-        // Verify that the site details section is eventually shown
-        const statusText = frame.locator('text=/2FA (Supported|Not Supported)/i');
+        // Verify the Current panel renders — either a 2FA verdict or, for the
+        // extension's own page, the "can't be checked" state.
+        const statusText = frame.locator("text=/2FA (Supported|Not Supported)|can't be checked/i");
         await expect(statusText).toBeVisible({ timeout: 10000 });
     });
 });

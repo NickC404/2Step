@@ -2,7 +2,7 @@
   <div class="h-full bg-gray-50 flex flex-col">
 
     <!-- Header -->
-    <header class="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 text-white shadow-md z-10">
+    <header class="bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600 text-white shadow-md z-10">
       <div class="flex items-center justify-between px-4 py-3">
         <!-- Logo + title -->
         <div class="flex items-center gap-2">
@@ -22,7 +22,7 @@
             :class="['w-1.5 h-1.5 rounded-full flex-shrink-0', currentSite.has2FA ? 'bg-emerald-400' : 'bg-amber-400']"
             aria-hidden="true"
           ></span>
-          <span class="text-xs font-medium text-white/90 truncate">{{ currentSite.domain }}</span>
+          <span class="text-xs font-medium text-white truncate">{{ currentSite.domain }}</span>
         </div>
         <div v-else-if="currentSite.loading" class="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" aria-label="Loading current site" role="status"></div>
       </div>
@@ -30,7 +30,6 @@
       <TabBar
         :tabs="tabs"
         v-model="currentTab"
-        :has2FA="currentSite.loading ? null : currentSite.has2FA"
       />
     </header>
 
@@ -69,16 +68,18 @@
               <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </div>
-              <h3 class="text-sm font-bold text-gray-900">Directory Search</h3>
+              <h2 class="text-sm font-bold text-gray-900">Directory Search</h2>
               <p class="text-xs text-gray-500 mt-1">Search {{ Object.keys(sitesData).length.toLocaleString() }} sites in the 2FA Directory.</p>
             </div>
             <Input ref="searchInputRef" v-model="settings.search" placeholder="Search domains (e.g. google.com)..." aria-label="Search sites" />
+            <!-- Screen-reader-only announcement of search results -->
+            <p class="sr-only" role="status" aria-live="polite">{{ searchStatus }}</p>
           </div>
 
           <!-- Results with count -->
           <div v-if="settings.search && filteredSites.length" class="pb-4">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-6 mb-2">
-              {{ filteredSites.length }} result{{ filteredSites.length !== 1 ? 's' : '' }} for "{{ settings.search }}"
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-6 mb-2">
+              {{ filteredCount }} result{{ filteredCount !== 1 ? 's' : '' }} for "{{ settings.search }}"<span v-if="filteredCount > filteredSites.length"> · showing first {{ filteredSites.length }}</span>
             </p>
             <div class="space-y-1 max-h-[300px] overflow-y-auto px-3 custom-scrollbar">
               <div
@@ -105,20 +106,21 @@
                     </svg>
                   </div>
                   <div>
-                    <div class="text-[14px] font-extrabold text-gray-900 tracking-tight">{{ site.domain }}</div>
+                    <div class="text-[14px] font-semibold text-gray-900 tracking-tight">{{ site.domain }}</div>
                     <div v-if="site.has2FA" class="flex gap-1 mt-1 flex-wrap">
                       <MethodBadge
                         v-for="m in site.methods.slice(0, 2)"
                         :key="m"
                         :method="m"
                         compact
+                        presentational
                         side="bottom"
                       />
                       <span v-if="site.methods.length > 2" class="text-[10px] px-2 py-0.5 bg-gray-50 border border-gray-100 text-gray-500 rounded-lg font-bold">
                         +{{ site.methods.length - 2 }}
                       </span>
                     </div>
-                    <div v-else class="text-[10px] text-gray-400 mt-0.5">No 2FA</div>
+                    <div v-else class="text-[10px] text-gray-500 mt-0.5">No 2FA</div>
                   </div>
                 </div>
                 <div class="opacity-0 group-hover:opacity-100 p-2 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100 flex-shrink-0" aria-hidden="true">
@@ -130,13 +132,13 @@
 
           <!-- No results -->
           <div v-else-if="settings.search && !filteredSites.length" class="text-center py-8 px-6">
-            <p class="text-sm text-gray-400">No sites found matching "{{ settings.search }}"</p>
-            <p class="text-xs text-gray-300 mt-1">Try a domain like "google.com"</p>
+            <p class="text-sm text-gray-500">No sites found matching "{{ settings.search }}"</p>
+            <p class="text-xs text-gray-500 mt-1">Try a domain like "google.com"</p>
           </div>
 
           <!-- Empty state: popular sites -->
           <div v-else class="px-6 pb-6">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Popular sites</p>
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Popular sites</p>
             <div class="grid grid-cols-2 gap-2">
               <button
                 v-for="popular in popularSites"
@@ -147,7 +149,7 @@
                 <div class="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
                   {{ popular.label.charAt(0) }}
                 </div>
-                <span class="text-xs font-bold text-gray-700 group-hover:text-blue-600 transition-colors">{{ popular.label }}</span>
+                <span class="text-xs font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">{{ popular.label }}</span>
               </button>
             </div>
           </div>
@@ -168,6 +170,15 @@
           <p class="text-sm text-gray-500 font-medium">Checking security...</p>
         </div>
 
+        <!-- Pages that can't be checked (chrome://, new tab, local files, etc.) -->
+        <div v-else-if="currentSite.unknown" class="bg-white rounded-xl shadow-sm border border-gray-100 px-6 py-8 text-center">
+          <div class="w-12 h-12 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center mx-auto mb-3" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <h2 class="text-sm font-bold text-gray-900">This page can't be checked</h2>
+          <p class="text-xs text-gray-500 mt-1 leading-relaxed">2Step works on regular websites. Open a site, then reopen 2Step to see its 2FA options — or use the <span class="font-semibold text-gray-700">Directory</span> tab above to look one up.</p>
+        </div>
+
         <SiteDetails v-else :site="currentSite" />
       </div>
 
@@ -186,12 +197,13 @@
         </div>
 
         <div v-else class="space-y-5">
+          <h2 class="sr-only">Frequently asked questions</h2>
           <!-- Category pill filters -->
           <div class="flex gap-2 flex-wrap" role="group" aria-label="Filter FAQs by category">
             <button
               @click="selectedFaqCategory = null"
               :class="[
-                'px-3 py-1 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1',
+                'px-3 py-1.5 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1',
                 selectedFaqCategory === null
                   ? 'bg-blue-600 text-white'
                   : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600'
@@ -205,7 +217,7 @@
               :key="catId"
               @click="selectedFaqCategory = catId"
               :class="[
-                'px-3 py-1 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1',
+                'px-3 py-1.5 rounded-full text-[11px] font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1',
                 selectedFaqCategory === catId
                   ? 'bg-blue-600 text-white'
                   : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600'
@@ -230,7 +242,7 @@
                 :aria-controls="`faq-panel-${faq.id}`"
                 class="w-full flex items-center justify-between p-4 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500"
               >
-                <span class="text-[14px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4">
+                <span class="text-[14px] font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4">
                   {{ faq.question }}
                 </span>
                 <div :class="[
@@ -267,7 +279,7 @@
       >
         <!-- Header + Progress -->
         <div class="bg-white rounded-xl p-5 border border-gray-100">
-          <h3 class="text-sm font-bold text-gray-900 mb-1">Security Tips</h3>
+          <h2 class="text-sm font-bold text-gray-900 mb-1">Security Tips</h2>
           <p class="text-xs text-gray-500 mb-4">Quick wins to level up your digital security.</p>
 
           <div class="flex items-center justify-between text-[11px] font-bold mb-2">
@@ -310,19 +322,19 @@
                     ]">
                       {{ tip.priority }}
                     </span>
-                    <p :class="['text-[13px] font-bold leading-snug', isTipDone(tip.id) ? 'text-gray-400 line-through' : 'text-gray-800']">
+                    <p :class="['text-[13px] font-semibold leading-snug', isTipDone(tip.id) ? 'text-gray-500 line-through' : 'text-gray-800']">
                       {{ tip.text }}
                     </p>
                   </div>
 
                   <!-- Done toggle -->
-                  <label class="flex-shrink-0 cursor-pointer mt-0.5" :aria-label="isTipDone(tip.id) ? `Mark '${tip.text}' as not done` : `Mark '${tip.text}' as done`">
-                    <input
-                      type="checkbox"
-                      class="sr-only"
-                      :checked="isTipDone(tip.id)"
-                      @change="toggleTip(tip.id)"
-                    />
+                  <button
+                    type="button"
+                    class="flex-shrink-0 p-1.5 -m-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 rounded-lg"
+                    :aria-label="isTipDone(tip.id) ? `Mark '${tip.text}' as not done` : `Mark '${tip.text}' as done`"
+                    :aria-pressed="isTipDone(tip.id)"
+                    @click="toggleTip(tip.id)"
+                  >
                     <div :class="[
                       'w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all',
                       isTipDone(tip.id)
@@ -331,7 +343,7 @@
                     ]">
                       <svg v-if="isTipDone(tip.id)" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                  </label>
+                  </button>
                 </div>
               </div>
             </div>
@@ -340,9 +352,9 @@
       </div>
     </main>
 
-    <footer class="px-4 py-4 text-center text-[10px] text-gray-400 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
-      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://nickcotterill.co.uk" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
-      <p>Data sourced from <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2fa.directory/gb/" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-blue-500 hover:text-blue-600 transition-colors" href="https://2factorauth-org.pages.dev/" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
+    <footer class="px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
+      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
+      <p>Data sourced from <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
     </footer>
   </div>
 </template>
@@ -390,7 +402,8 @@
     has2FA: false,
     methods: [],
     documentation: '',
-    loading: true
+    loading: true,
+    unknown: false
   });
 
   const faqs = ref({
@@ -407,12 +420,12 @@
 
   // Popular sites for directory empty state
   const popularSites = [
-    { domain: 'google.com',    label: 'Google' },
-    { domain: 'github.com',    label: 'GitHub' },
-    { domain: 'amazon.com',    label: 'Amazon' },
-    { domain: 'paypal.com',    label: 'PayPal' },
-    { domain: 'twitter.com',   label: 'Twitter' },
-    { domain: 'microsoft.com', label: 'Microsoft' },
+    { domain: 'gmail.com',   label: 'Gmail' },
+    { domain: 'github.com',  label: 'GitHub' },
+    { domain: 'amazon.com',  label: 'Amazon' },
+    { domain: 'paypal.com',  label: 'PayPal' },
+    { domain: 'twitter.com', label: 'Twitter' },
+    { domain: 'outlook.com', label: 'Outlook' },
   ];
 
   // FAQ filtering
@@ -421,22 +434,9 @@
     return faqs.value.faqs.filter(f => f.category === selectedFaqCategory.value);
   });
 
-  // Tips with localStorage persistence (guarded — popup may run in a sandboxed context)
-  const safeStorage = {
-    get(key, fallback = null) {
-      try { return localStorage.getItem(key); } catch { return fallback; }
-    },
-    set(key, value) {
-      try { localStorage.setItem(key, value); } catch { /* sandboxed — ignore */ }
-    },
-  };
-
-  const doneTipIds = ref((() => {
-    try {
-      const parsed = JSON.parse(safeStorage.get('2step-done-tips') || '[]');
-      return Array.isArray(parsed) ? parsed : [];
-    } catch { return []; }
-  })());
+  // Tips persistence — routed through the wrapper (non-sandboxed) via postMessage,
+  // because ui.html runs in a sandboxed context where localStorage is blocked.
+  const doneTipIds = ref([]);
 
   const isTipDone = (id) => doneTipIds.value.includes(id);
 
@@ -447,7 +447,7 @@
     } else {
       doneTipIds.value.push(id);
     }
-    safeStorage.set('2step-done-tips', JSON.stringify(doneTipIds.value));
+    window.parent.postMessage({ type: 'SAVE_TIPS', ids: [...doneTipIds.value] }, '*');
   };
 
   const orderedTips = computed(() => {
@@ -464,23 +464,50 @@
   });
 
   // Directory helpers
-  const filteredSites = computed(() => {
+  const MAX_RESULTS = 50;
+
+  // All domains matching the query (used for an accurate total count).
+  const matchedDomains = computed(() => {
     const query = settings.value.search.toLowerCase().trim();
     if (!query) return [];
+    return Object.entries(sitesData).filter(([domain]) => domain.includes(query));
+  });
 
-    return Object.entries(sitesData)
-      .filter(([domain]) => domain.includes(query))
-      .slice(0, 50)
-      .map(([domain, data]) => ({
-        domain,
-        has2FA: !!(data.methods?.length || data.documentation),
-        methods: data.methods || []
-      }));
+  const filteredCount = computed(() => matchedDomains.value.length);
+
+  // The capped slice that actually gets rendered.
+  const filteredSites = computed(() =>
+    matchedDomains.value.slice(0, MAX_RESULTS).map(([domain, data]) => ({
+      domain,
+      has2FA: !!(data.methods?.length || data.documentation),
+      methods: data.methods || []
+    }))
+  );
+
+  // Announced to screen readers when the search results change (WCAG 4.1.3).
+  const searchStatus = computed(() => {
+    const query = settings.value.search.trim();
+    if (!query) return '';
+    const total = filteredCount.value;
+    if (total === 0) return `No sites found matching ${query}`;
+    const shown = filteredSites.value.length;
+    const base = `${total} result${total !== 1 ? 's' : ''} for ${query}`;
+    return total > shown ? `${base}, showing the first ${shown}` : base;
   });
 
   const getSiteData = (domain) => {
-    const cleanDomain = domain.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
-    const siteData = sitesData[cleanDomain];
+    const cleanDomain = domain.toLowerCase().replace(/^www\./, '');
+    const parts = cleanDomain.split('.');
+    let siteData = null;
+    let matchedDomain = cleanDomain;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const candidate = parts.slice(i).join('.');
+      if (sitesData[candidate]) {
+        siteData = sitesData[candidate];
+        matchedDomain = candidate;
+        break;
+      }
+    }
     const has2FA = !!(siteData && (siteData.methods?.length || siteData.documentation));
 
     return {
@@ -488,7 +515,21 @@
       has2FA,
       methods: siteData?.methods || [],
       documentation: siteData?.documentation || '',
-      loading: false
+      loading: false,
+      unknown: false
+    };
+  };
+
+  // Used when the active tab isn't a checkable website
+  // (chrome:// pages, the new-tab page, local files, or an unreadable URL).
+  const setUncheckable = () => {
+    currentSite.value = {
+      domain: '',
+      has2FA: false,
+      methods: [],
+      documentation: '',
+      loading: false,
+      unknown: true
     };
   };
 
@@ -504,32 +545,46 @@
     currentSite.value = getSiteData(domain);
   };
 
-  // Derive the trusted parent origin from the browser-controlled ancestorOrigins list
-  // rather than a URL parameter that could be spoofed.
-  const extensionOrigin = location.ancestorOrigins?.[0] ?? null;
+  // Open external links via the wrapper — the sandboxed iframe can't do it itself.
+  const openExternal = (url) => {
+    window.parent.postMessage({ type: 'OPEN_URL', url }, '*');
+  };
 
   onMounted(() => {
     window.addEventListener('message', (event) => {
-      if (!extensionOrigin || event.origin !== extensionOrigin) {
+      // Only accept messages from extension pages (chrome-extension:// origin).
+      // ancestorOrigins is unreliable in Chrome's sandbox context, so we check the prefix.
+      if (!event.origin.startsWith('chrome-extension://')) {
         return;
       }
 
       if (event.data.type === 'TAB_URL') {
         try {
           const url = new URL(event.data.url);
-          checkSite(url.hostname);
+          if (url.protocol === 'http:' || url.protocol === 'https:') {
+            checkSite(url.hostname);
+          } else {
+            setUncheckable();
+          }
         } catch (e) {
-          currentSite.value.loading = false;
+          setUncheckable();
         }
+      }
+
+      if (event.data.type === 'TIPS_DATA') {
+        doneTipIds.value = Array.isArray(event.data.ids) ? event.data.ids : [];
       }
     });
 
-    if (!extensionOrigin) return;
-    window.parent.postMessage({ type: 'GET_TAB_URL' }, extensionOrigin);
+    // Use '*' as target — parent is always the extension popup page.
+    window.parent.postMessage({ type: 'GET_TAB_URL' }, '*');
+    window.parent.postMessage({ type: 'GET_TIPS' }, '*');
 
     setTimeout(() => {
       if (currentSite.value.loading) {
-        checkSite('github.com');
+        // No response in time — we can't determine the page, so show the
+        // "can't be checked" state rather than a misleading "not supported".
+        setUncheckable();
       }
     }, 500);
   });

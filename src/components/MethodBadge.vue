@@ -1,16 +1,18 @@
 <template>
   <div
     class="relative inline-block"
-    tabindex="0"
-    :aria-describedby="`tooltip-${method}`"
+    :tabindex="presentational ? undefined : 0"
+    :aria-describedby="presentational ? undefined : `tooltip-${method}`"
     @mouseenter="tooltipVisible = true"
     @mouseleave="tooltipVisible = false"
     @focus="tooltipVisible = true"
     @blur="tooltipVisible = false"
+    @keydown.esc="tooltipVisible = false"
   >
     <div
       :class="[
-        'border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all cursor-help',
+        'border rounded-lg font-bold uppercase tracking-tight flex items-center gap-1.5 transition-all',
+        presentational ? '' : 'cursor-help',
         siteColorClass,
         compact ? 'px-1.5 py-0.5 text-[10px]' : 'px-3 py-1.5 text-xs'
       ]"
@@ -21,6 +23,7 @@
 
     <!-- Tooltip -->
     <div
+      v-if="!presentational"
       :id="`tooltip-${method}`"
       role="tooltip"
       :class="[
@@ -67,6 +70,13 @@ const props = defineProps({
     type: String,
     default: 'top',
     validator: (v) => ['top', 'bottom'].includes(v)
+  },
+  // When true, render as a non-interactive label (no tooltip, not focusable).
+  // Used inside the directory result rows, which are themselves buttons —
+  // a nested focusable/tooltip there would be an invalid interactive nesting.
+  presentational: {
+    type: Boolean,
+    default: false
   }
 });
 

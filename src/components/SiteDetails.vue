@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
 
     <!-- Status Banner -->
     <div
@@ -52,7 +52,7 @@
       </div>
       <div>
         <h2 class="text-base font-bold text-gray-900 tracking-tight">{{ site.domain }}</h2>
-        <p class="text-xs text-gray-400 mt-0.5">
+        <p class="text-xs text-gray-500 mt-0.5">
           {{ site.has2FA
             ? `${site.methods.length} authentication method${site.methods.length !== 1 ? 's' : ''} available`
             : 'No 2FA methods available' }}
@@ -62,7 +62,7 @@
 
     <!-- Methods (if 2FA supported) -->
     <div v-if="site.has2FA && site.methods && site.methods.length" class="px-6 py-4 border-b border-gray-100">
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Authentication Methods</h3>
+      <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Authentication Methods</h3>
       <div class="space-y-2">
         <div
           v-for="method in rankedMethods"
@@ -77,7 +77,7 @@
           </div>
           <div class="flex-grow min-w-0">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="text-[13px] font-bold text-gray-800">{{ method.label }}</span>
+              <span class="text-[13px] font-semibold text-gray-800">{{ method.label }}</span>
               <span :class="['text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full flex-shrink-0', method.strengthBadgeClass]">
                 {{ method.strength }}
               </span>
@@ -90,10 +90,11 @@
       <div v-if="site.documentation" class="mt-4">
         <a
           :href="site.documentation"
+          @click.prevent="openUrl(site.documentation)"
           target="_blank"
           rel="noopener noreferrer"
           :aria-label="`Open 2FA setup guide for ${site.domain} (opens in new tab)`"
-          class="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors no-underline"
+          class="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Open Setup Guide
@@ -103,7 +104,7 @@
 
     <!-- No 2FA: Actionable advice -->
     <div v-if="!site.has2FA" class="px-6 py-4">
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">What you can do</h3>
+      <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">What you can do</h3>
       <div class="space-y-2">
         <div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
           <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
@@ -131,6 +132,11 @@ const props = defineProps({
   }
 });
 
+// The sandboxed iframe can't open tabs itself, so ask the wrapper to.
+const openUrl = (url) => {
+  if (url) window.parent.postMessage({ type: 'OPEN_URL', url }, '*');
+};
+
 const domainInitial = computed(() => {
   return (props.site.domain || '?').charAt(0).toUpperCase();
 });
@@ -153,27 +159,6 @@ const IconClock = defineComponent({
   render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('circle', { cx: '12', cy: '12', r: '10' }),
     h('polyline', { points: '12 6 12 12 16 14' }),
-  ])
-});
-
-const IconBell = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
-    h('path', { d: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9' }),
-    h('path', { d: 'M13.73 21a2 2 0 0 1-3.46 0' }),
-  ])
-});
-
-const IconFingerprint = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
-    h('path', { d: 'M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4' }),
-    h('path', { d: 'M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2' }),
-    h('path', { d: 'M17.29 21.02c.12-.6.43-2.3.5-3.02' }),
-    h('path', { d: 'M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4' }),
-    h('path', { d: 'M8.65 22c.21-.66.45-1.32.57-2' }),
-    h('path', { d: 'M14 13.12c0 2.38 0 6.38-1 8.88' }),
-    h('path', { d: 'M2 16h.01' }),
-    h('path', { d: 'M21.8 16c.2-2 .131-5.354 0-6' }),
-    h('path', { d: 'M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2' }),
   ])
 });
 
@@ -203,19 +188,15 @@ const IconMessage = defineComponent({
   ])
 });
 
-// Map method IDs to SVG icon components
+// Map method IDs to SVG icon components (mirrors methodConfig.js).
+// Unknown IDs fall back to IconLock below.
 const methodIcons = {
-  hardware:          IconHardwareKey,
   u2f:               IconHardwareKey,
   'custom-hardware': IconHardwareKey,
   totp:              IconClock,
-  software:          IconPhone,
   'custom-software': IconPhone,
-  push:              IconBell,
-  biometric:         IconFingerprint,
   email:             IconMail,
-  phone:             IconVoice,
-  prop:              IconLock,
+  call:              IconVoice,
   sms:               IconMessage,
 };
 
