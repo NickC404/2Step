@@ -26,6 +26,11 @@ const FIELDS = [
   ['recovery', 'recovery'],
 ];
 
+// Fields that hold links. The popup opens these, so anything that isn't a plain
+// http(s) URL is dropped at import time rather than shipped in the bundle.
+const URL_FIELDS = new Set(['documentation', 'recovery']);
+const isHttpUrl = (v) => typeof v === 'string' && /^https?:\/\//i.test(v);
+
 async function main() {
   console.log(`Fetching ${API} ...`);
   const res = await fetch(API);
@@ -33,16 +38,28 @@ async function main() {
   const entries = await res.json();
 
   const sites = {};
+  const rejected = [];
   for (const [, obj] of entries) {
     if (!obj || !obj.domain) continue;
     const val = {};
     for (const [src, dst] of FIELDS) {
       const v = obj[src];
-      if (v && (!Array.isArray(v) || v.length)) val[dst] = v;
+      if (!v || (Array.isArray(v) && !v.length)) continue;
+      if (URL_FIELDS.has(dst) && !isHttpUrl(v)) {
+        rejected.push(`${obj.domain} ${dst}: ${JSON.stringify(v)}`);
+        continue;
+      }
+      val[dst] = v;
     }
     for (const d of [obj.domain, ...(obj['additional-domains'] || [])]) {
       sites[d] = val;
     }
+  }
+
+  if (rejected.length) {
+    console.warn(`\n⚠ Dropped ${rejected.length} link(s) that are not http(s) URLs:`);
+    for (const r of rejected) console.warn(`  ${r}`);
+    console.warn('');
   }
 
   // Sort alphabetically by domain for stable, reviewable diffs.
