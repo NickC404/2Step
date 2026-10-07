@@ -884,6 +884,9 @@
     --tw-tracking: var(--tracking-widest);
     letter-spacing: var(--tracking-widest);
   }
+  .text-wrap {
+    text-wrap: wrap;
+  }
   .text-amber-600 {
     color: var(--color-amber-600);
   }

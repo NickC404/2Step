@@ -10,6 +10,7 @@
     "copy-files": "rm -rf dist && mkdir -p dist && cp -r manifest.json background.js icons popup 2fa.directory faq dist/",
     "update:sites": "node scripts/update-sites.js",
     "gen:icons": "node scripts/gen-icons.js",
+    "gen:store-assets": "node scripts/gen-store-assets.js",
     "test": "playwright test",
     "preview": "vite preview"
   },

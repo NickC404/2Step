@@ -97,8 +97,10 @@ async function updateAction(tabId, url) {
     const parts = domain.split('.');
     for (let i = 0; i < parts.length - 1; i++) {
         const checkDomain = parts.slice(i).join('.');
-        if (data[checkDomain]) {
-            has2FA = true;
+        const site = data[checkDomain];
+        if (site) {
+            // Sites listed with no methods or docs are known not to support 2FA
+            has2FA = !!(site.methods?.length || site.documentation);
             break;
         }
     }
