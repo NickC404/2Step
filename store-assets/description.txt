@@ -1,0 +1,26 @@
+2Step tells you whether the website you're on lets you protect your account with a second sign-in step, and how to switch it on.
+
+Passwords get leaked, guessed and reused. A second step, such as a code from an app or a tap on a security key, stops most account takeovers even when the password is known. The hard part is knowing which of your accounts offer it. 2Step answers that for the site in front of you.
+
+WHAT IT DOES
+
+• Toolbar icon at a glance: green when the current site supports two-factor authentication, red when it doesn't.
+• Methods, ranked by strength: see whether the site offers security keys, authenticator apps, email codes, voice calls or SMS, with the strongest options listed first.
+• Setup guide: one click opens the site's own instructions for turning it on, where available.
+• Directory search: look up any of more than 3,000 sites before you sign up.
+• Security tips: a 12-item checklist, ordered by importance, that you can tick off as you go.
+• FAQ: plain-English answers about how the different methods work and what to do if you lose your phone.
+
+PRIVATE BY DESIGN
+
+2Step works entirely on your device. The site list ships inside the extension, so checking a site never sends anything over the network. There are no accounts, no analytics and no tracking. The extension reads the address of the current tab only to look it up in that bundled list.
+
+WHERE THE DATA COMES FROM
+
+Site information comes from 2FA Directory (2fa.directory), a community-maintained open project by 2factorauth. If a site is missing or out of date, you can contribute a correction there and it will reach 2Step in a later update.
+
+OPEN SOURCE
+
+2Step is free and MIT licensed. Source code, bug reports and feature requests: https://github.com/NickC404/2Step
+
+2Step is an independent project. It is not affiliated with or endorsed by Google, 2factorauth, or any of the websites listed in the directory.

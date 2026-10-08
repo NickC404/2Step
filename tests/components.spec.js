@@ -44,29 +44,17 @@ test.describe('Component Functionality', () => {
         }
     });
 
-    test('should display method badge tooltips on hover', async () => {
+    test('should describe each method on the site details view', async () => {
         const page = await context.newPage();
         await page.goto(`chrome-extension://${extensionId}/popup/ui.html`);
 
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
+        await page.locator('#directory-results button', { hasText: 'github.com' }).first().click();
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
-        await result.click();
-
-        // Find a method badge
-        const badge = page.locator('[class*="uppercase tracking-tight"]').filter({ hasText: /totp|sms|u2f/i }).first();
-
-        if (await badge.count() > 0) {
-            // Hover over badge
-            await badge.hover();
-            await page.waitForTimeout(300);
-
-            // Tooltip should become visible (checking for descriptive text)
-            const tooltip = page.locator('text=/authenticator|hardware|code|password/i');
-            const hasTooltip = await tooltip.count() > 0;
-            expect(hasTooltip).toBe(true);
-        }
+        // Each method is listed with a plain-English description
+        const descriptions = page.locator('text=/authenticator|hardware|code|password/i');
+        expect(await descriptions.count()).toBeGreaterThan(0);
 
         await page.close();
     });
@@ -140,7 +128,7 @@ test.describe('Component Functionality', () => {
         // Current button should not have active styling
         const currentButton = page.locator('button', { hasText: 'Current' });
         const currentClasses = await currentButton.getAttribute('class');
-        expect(currentClasses).toContain('text-blue-100');
+        expect(currentClasses).toContain('text-white/80');
 
         await page.close();
     });
@@ -212,7 +200,7 @@ test.describe('Component Functionality', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
 
         // Hover over result
         await result.hover();
@@ -276,7 +264,7 @@ test.describe('Component Functionality', () => {
 
         await page.click('button:has-text("FAQ")');
 
-        const firstFaq = page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
+        const firstFaq = page.locator('summary').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
         await firstFaq.click();
         await page.waitForTimeout(300);
 
@@ -302,10 +290,10 @@ test.describe('Component Functionality', () => {
         await expect(page.locator('text=Quick wins')).toBeVisible();
 
         // Priority dots have aria-label="high priority" / "medium priority"
-        const highPriorityElements = page.locator('[aria-label="high priority"]');
+        const highPriorityElements = page.locator('[data-priority="high"]');
         const highCount = await highPriorityElements.count();
 
-        const mediumPriorityElements = page.locator('[aria-label="medium priority"]');
+        const mediumPriorityElements = page.locator('[data-priority="medium"]');
         const mediumCount = await mediumPriorityElements.count();
 
         const totalCount = highCount + mediumCount;
@@ -323,10 +311,10 @@ test.describe('Component Functionality', () => {
         await page.waitForTimeout(500);
 
         // Priority dots use aria-label for accessibility
-        const highPriorityDots = page.locator('[aria-label="high priority"]');
+        const highPriorityDots = page.locator('[data-priority="high"]');
         const highCount = await highPriorityDots.count();
 
-        const mediumPriorityDots = page.locator('[aria-label="medium priority"]');
+        const mediumPriorityDots = page.locator('[data-priority="medium"]');
         const mediumCount = await mediumPriorityDots.count();
 
         expect(highCount + mediumCount).toBeGreaterThan(0);

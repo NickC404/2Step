@@ -1,13 +1,16 @@
 {
   "name": "2step",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "npm run build:css && npm run build:js && npm run copy-files",
     "build:css": "tailwindcss -i ./src/input.css -o ./popup/style.css",
     "build:js": "node scripts/build.js",
     "dev": "npm run build:js -- --dev && tailwindcss -i ./src/input.css -o ./popup/style.css --watch",
-    "copy-files": "mkdir -p dist && cp -r manifest.json background.js popup 2fa.directory faq dist/",
+    "copy-files": "rm -rf dist && mkdir -p dist && cp -r manifest.json background.js icons popup 2fa.directory faq dist/",
+    "update:sites": "node scripts/update-sites.js",
+    "gen:icons": "node scripts/gen-icons.js",
+    "gen:store-assets": "node scripts/gen-store-assets.js",
     "test": "playwright test",
     "preview": "vite preview"
   },

@@ -68,10 +68,10 @@ test.describe('Data Loading and Integration', () => {
         await page.click('button:has-text("FAQ")');
 
         // Should show FAQ items
-        await expect(page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first()).toBeVisible();
+        await expect(page.locator('summary').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first()).toBeVisible();
 
         // Should have FAQ items
-        const faqButtons = page.locator('button').filter({ hasText: /\?$/ });
+        const faqButtons = page.locator('summary').filter({ hasText: /\?$/ });
         const count = await faqButtons.count();
 
         expect(count).toBeGreaterThan(0);
@@ -89,7 +89,7 @@ test.describe('Data Loading and Integration', () => {
         await expect(page.locator('text=Security Tips')).toBeVisible();
 
         // Should have tip items with priority indicators
-        const tips = page.locator('[aria-label*="priority"]');
+        const tips = page.locator('[data-priority]');
         const count = await tips.count();
 
         expect(count).toBeGreaterThan(0);
@@ -104,11 +104,11 @@ test.describe('Data Loading and Integration', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         // Should display multiple method rows (each method in its own card)
-        const methodRows = page.locator('div.flex.items-start.gap-3.p-3.rounded-xl.bg-gray-50');
+        const methodRows = page.locator('li.flex.items-start.gap-3.p-3.rounded-xl.bg-gray-50');
         const badgeCount = await methodRows.count();
 
         expect(badgeCount).toBeGreaterThan(1);
@@ -123,7 +123,7 @@ test.describe('Data Loading and Integration', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         // Should have setup guide button
@@ -188,7 +188,7 @@ test.describe('Data Loading and Integration', () => {
         await page.waitForTimeout(500);
 
         // Count the clickable site result divs - they have specific structure
-        const results = page.locator('div.flex.items-center.justify-between.p-3.rounded-xl');
+        const results = page.locator('#directory-results button');
         const count = await results.count();
 
         // Should be limited to 50 or fewer
@@ -206,7 +206,7 @@ test.describe('Data Loading and Integration', () => {
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
         // Sites with 2FA should have green shield icon
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         const greenShield = result.locator('.bg-emerald-100').first();
 
         await expect(greenShield).toBeVisible();
@@ -247,7 +247,7 @@ test.describe('Data Loading and Integration', () => {
 
         // Switch to FAQ
         await page.click('button:has-text("FAQ")');
-        await expect(page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first()).toBeVisible();
+        await expect(page.locator('summary').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first()).toBeVisible();
 
         // Switch back to Directory
         await page.click('button:has-text("Directory")');
@@ -267,7 +267,7 @@ test.describe('Data Loading and Integration', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await result.click();
 
         // Should show site details header
@@ -282,7 +282,7 @@ test.describe('Data Loading and Integration', () => {
         await page.close();
     });
 
-    test.skip('should handle message passing between wrapper and sandbox', async () => {
+    test.skip('should detect the current site from the active tab', async () => {
         // Skipped: Requires external network access to github.com
         const page = await context.newPage();
         await page.goto('https://github.com');
@@ -291,11 +291,10 @@ test.describe('Data Loading and Integration', () => {
         const popup = await context.newPage();
         await popup.goto(`chrome-extension://${extensionId}/popup/index.html`);
 
-        // Wait for iframe to load
         const frame = popup.frameLocator('#sandbox-frame');
         await expect(frame.locator('h1')).toContainText('2Step', { timeout: 10000 });
 
-        // Should detect current site via message passing
+        // Should detect the current site
         await expect(frame.locator('text=/github.com/i')).toBeVisible({ timeout: 5000 });
 
         await popup.close();

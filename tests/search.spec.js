@@ -73,7 +73,9 @@ test.describe('Search and Filter Functionality', () => {
 
         await page.fill('input[placeholder*="Search domains"]', 'thisdoesnotexist123456789.com');
 
-        await expect(page.locator('text=/No sites found/i')).toBeVisible();
+        // Target the visible message (quoted) — a separate sr-only live region
+        // also carries the announcement text.
+        await expect(page.locator('text=/No sites found matching "/i')).toBeVisible();
 
         await page.close();
     });
@@ -120,7 +122,7 @@ test.describe('Search and Filter Functionality', () => {
 
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const githubResult = page.locator('div', { hasText: 'github.com' }).first();
+        const githubResult = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await expect(githubResult).toBeVisible();
 
         // Should show at least one 2FA method badge

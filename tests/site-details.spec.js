@@ -51,7 +51,7 @@ test.describe('Site Details Component', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         // Should show site details
@@ -76,7 +76,7 @@ test.describe('Site Details Component', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         // Should show setup guide button
@@ -103,7 +103,7 @@ test.describe('Site Details Component', () => {
         await page.waitForTimeout(1000);
 
         // Get all search result items - exact selector from App.vue
-        const allResults = page.locator('div.flex.items-center.justify-between.p-3.rounded-xl.border');
+        const allResults = page.locator('#directory-results button');
         const totalCount = await allResults.count();
 
         // Skip test if no results at all
@@ -165,7 +165,7 @@ test.describe('Site Details Component', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await result.click();
 
         // Should show site details
@@ -190,7 +190,7 @@ test.describe('Site Details Component', () => {
         const searchTerm = 'github';
         await page.fill('input[placeholder*="Search domains"]', searchTerm);
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await result.click();
 
         await page.click('button:has-text("Back to list")');
@@ -210,7 +210,7 @@ test.describe('Site Details Component', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         // Method badges should be visible and have proper styling
