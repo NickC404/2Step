@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/cli": "^4.3.3",
     "esbuild": "^0.27.2",
     "esbuild-plugin-vue3": "^0.5.1",
     "tailwindcss": "^4.1.18"
