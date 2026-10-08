@@ -16,20 +16,21 @@ const OUT = resolve(__dirname, '../2fa.directory/sites.json');
 const API = 'https://api.2fa.directory/v3/all.json';
 
 // Upstream field -> local field. This order also defines the key order emitted
-// for each site, matching the existing file's convention.
+// for each site, matching the existing file's convention. Only fields the
+// extension uses are imported; anything else upstream sends is left out.
 const FIELDS = [
   ['tfa', 'methods'],
-  ['custom-software', 'custom-software'],
-  ['custom-hardware', 'custom-hardware'],
   ['documentation', 'documentation'],
-  ['notes', 'notes'],
-  ['recovery', 'recovery'],
 ];
 
-// Fields that hold links. The popup opens these, so anything that isn't a plain
-// http(s) URL is dropped at import time rather than shipped in the bundle.
-const URL_FIELDS = new Set(['documentation', 'recovery']);
+// The feed is third-party data, so each value is checked before it is kept.
+// Links are opened by the popup, so anything that isn't a plain http(s) URL is
+// dropped at import time rather than shipped in the bundle.
 const isHttpUrl = (v) => typeof v === 'string' && /^https?:\/\//i.test(v);
+const isMethodList = (v) => Array.isArray(v) && v.every((m) => typeof m === 'string' && /^[a-z0-9-]+$/.test(m));
+const VALID = { methods: isMethodList, documentation: isHttpUrl };
+
+const isDomain = (d) => typeof d === 'string' && /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(d);
 
 async function main() {
   console.log(`Fetching ${API} ...`);
@@ -37,7 +38,8 @@ async function main() {
   if (!res.ok) throw new Error(`HTTP ${res.status} fetching directory`);
   const entries = await res.json();
 
-  const sites = {};
+  // No prototype, so a domain can never collide with an inherited property.
+  const sites = Object.create(null);
   const rejected = [];
   for (const [, obj] of entries) {
     if (!obj || !obj.domain) continue;
@@ -45,25 +47,30 @@ async function main() {
     for (const [src, dst] of FIELDS) {
       const v = obj[src];
       if (!v || (Array.isArray(v) && !v.length)) continue;
-      if (URL_FIELDS.has(dst) && !isHttpUrl(v)) {
+      if (!VALID[dst](v)) {
         rejected.push(`${obj.domain} ${dst}: ${JSON.stringify(v)}`);
         continue;
       }
       val[dst] = v;
     }
-    for (const d of [obj.domain, ...(obj['additional-domains'] || [])]) {
+    const extra = Array.isArray(obj['additional-domains']) ? obj['additional-domains'] : [];
+    for (const d of [obj.domain, ...extra]) {
+      if (!isDomain(d)) {
+        rejected.push(`domain: ${JSON.stringify(d)}`);
+        continue;
+      }
       sites[d] = val;
     }
   }
 
   if (rejected.length) {
-    console.warn(`\n⚠ Dropped ${rejected.length} link(s) that are not http(s) URLs:`);
+    console.warn(`\n⚠ Dropped ${rejected.length} value(s) that failed validation:`);
     for (const r of rejected) console.warn(`  ${r}`);
     console.warn('');
   }
 
   // Sort alphabetically by domain for stable, reviewable diffs.
-  const sorted = {};
+  const sorted = Object.create(null);
   for (const d of Object.keys(sites).sort()) sorted[d] = sites[d];
 
   // Warn about method IDs the UI can't render (see src/methodConfig.js).

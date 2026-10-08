@@ -19,6 +19,13 @@ window.addEventListener('message', async (event) => {
     if (event.origin !== 'null') {
         return;
     }
+    // ...and only from our own sandbox frame, not any other opaque-origin window.
+    if (event.source !== sandboxFrame.contentWindow) {
+        return;
+    }
+    if (!event.data || typeof event.data !== 'object') {
+        return;
+    }
 
     if (event.data.type === 'GET_TAB_URL') {
         try {

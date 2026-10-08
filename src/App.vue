@@ -551,10 +551,17 @@
   };
 
   onMounted(() => {
+    // The sandbox has an opaque origin, but its URL still carries this
+    // extension's own origin (chrome-extension://<id>).
+    const extensionOrigin = new URL(window.location.href).origin;
+
     window.addEventListener('message', (event) => {
-      // Only accept messages from extension pages (chrome-extension:// origin).
-      // ancestorOrigins is unreliable in Chrome's sandbox context, so we check the prefix.
-      if (!event.origin.startsWith('chrome-extension://')) {
+      // Only accept messages from our own wrapper page: this extension's origin,
+      // sent by the parent window.
+      if (event.origin !== extensionOrigin || event.source !== window.parent) {
+        return;
+      }
+      if (!event.data || typeof event.data !== 'object') {
         return;
       }
 

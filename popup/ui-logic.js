@@ -8213,8 +8213,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297",
-    notes: "SMS is required as a backup method"
+    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297"
   },
   "15five.com": {
     methods: [
@@ -8227,9 +8226,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "1822TAN+"
-    ],
     documentation: "https://www.1822direkt.de/service/sicherheitsportal/sicheres-online-banking/"
   },
   "1password.ca": {
@@ -8239,16 +8235,7 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
-    ],
-    documentation: "https://support.1password.com/two-factor-authentication/",
-    notes: "Teams using Duo with 1Password can't enable other 2FA methods. Non-U2F Hardware tokens and custom software methods are only available through Duo.",
-    recovery: "https://support.1password.com/recovery/"
+    documentation: "https://support.1password.com/two-factor-authentication/"
   },
   "1password.com": {
     methods: [
@@ -8257,16 +8244,7 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
-    ],
-    documentation: "https://support.1password.com/two-factor-authentication/",
-    notes: "Teams using Duo with 1Password can't enable other 2FA methods. Non-U2F Hardware tokens and custom software methods are only available through Duo.",
-    recovery: "https://support.1password.com/recovery/"
+    documentation: "https://support.1password.com/two-factor-authentication/"
   },
   "1password.eu": {
     methods: [
@@ -8275,16 +8253,7 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
-    ],
-    documentation: "https://support.1password.com/two-factor-authentication/",
-    notes: "Teams using Duo with 1Password can't enable other 2FA methods. Non-U2F Hardware tokens and custom software methods are only available through Duo.",
-    recovery: "https://support.1password.com/recovery/"
+    documentation: "https://support.1password.com/two-factor-authentication/"
   },
   "20i.com": {
     methods: [
@@ -8310,8 +8279,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.3commas.io/en/articles/3424452",
-    recovery: "https://help.3commas.io/en/articles/3108967"
+    documentation: "https://help.3commas.io/en/articles/3424452"
   },
   "4cd.edu": {
     methods: [
@@ -8336,8 +8304,7 @@ var sites_default = {
   "99app.com": {
     methods: [
       "sms"
-    ],
-    notes: "DiDi decides when 2FA is required; user cannot enable 2FA for every login."
+    ]
   },
   "a2hosting.com": {
     methods: [
@@ -8381,11 +8348,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "HMRC App"
-    ],
-    documentation: "https://www.gov.uk/guidance/keeping-your-hmrc-login-details-safe#multi-factor-authentication",
-    recovery: "https://www.gov.uk/log-in-register-hmrc-online-services/problems-signing-in"
+    documentation: "https://www.gov.uk/guidance/keeping-your-hmrc-login-details-safe#multi-factor-authentication"
   },
   "account.meethue.com": {
     methods: [
@@ -8410,8 +8373,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.mozilla.org/en-US/kb/secure-firefox-account-two-step-authentication",
-    recovery: "https://support.mozilla.org/en-US/kb/what-if-im-locked-out-two-step-authentication"
+    documentation: "https://support.mozilla.org/en-US/kb/secure-firefox-account-two-step-authentication"
   },
   "accounts.lidl.com": {
     methods: [
@@ -8423,32 +8385,26 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://en-americas-support.nintendo.com/app/answers/detail/a_id/27496",
-    notes: "2FA not available for child accounts (users 12 years of age or younger) or supervised accounts (users 13 years of age or older attached to a parent account)."
+    documentation: "https://en-americas-support.nintendo.com/app/answers/detail/a_id/27496"
   },
   "acorns.com": {
     methods: [
       "sms",
       "email"
     ],
-    documentation: "https://www.acorns.com/support/how-do-i-turn-on-two-factor-authentication-on-my-account/",
-    notes: "You will need to verify email or phone in order to activate 2FA."
+    documentation: "https://www.acorns.com/support/how-do-i-turn-on-two-factor-authentication-on-my-account/"
   },
   "acquia.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://docs.acquia.com/cloud-platform/access/signin/",
-    notes: "SMS 2FA is only available for US or Canada phone numbers."
+    documentation: "https://docs.acquia.com/cloud-platform/access/signin/"
   },
   "actionnetwork.org": {
     methods: [
       "custom-software",
       "sms"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://help.actionnetwork.org/hc/en-us/articles/217206826"
   },
@@ -8469,8 +8425,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.activecampaign.com/hc/en-us/articles/360008574740",
-    recovery: "https://help.activecampaign.com/hc/en-us/articles/360019871579"
+    documentation: "https://help.activecampaign.com/hc/en-us/articles/360008574740"
   },
   "activecollab.com": {},
   "activestate.com": {
@@ -8499,9 +8454,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Addiko Mobile App"
-    ],
     documentation: "https://www.addiko.hr/static/uploads/mtoken-uputa-za-koristenje.pdf"
   },
   "adelaidebank.com.au": {
@@ -8510,12 +8462,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Bendigo Bank app",
-      "Symantec VIP Access"
-    ],
-    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication",
-    notes: "If the app hasn't been setup, only SMS and email tokens will work. If the app has been setup, only the app will work."
+    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication"
   },
   "adelaidebendigo.com.au": {
     methods: [
@@ -8523,12 +8470,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Bendigo Bank app",
-      "Symantec VIP Access"
-    ],
-    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication",
-    notes: "If the app hasn't been setup, only SMS and email tokens will work. If the app has been setup, only the app will work."
+    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication"
   },
   "adguard-dns.io": {
     methods: [
@@ -8555,11 +8497,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Adobe Account Access"
-    ],
-    documentation: "https://helpx.adobe.com/manage-account/using/secure-your-adobe-account.html",
-    recovery: "https://helpx.adobe.com/x-productkb/global/2-step-verification-account-security.html"
+    documentation: "https://helpx.adobe.com/manage-account/using/secure-your-adobe-account.html"
   },
   "adp.com": {},
   "adressa.no": {
@@ -8567,8 +8505,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "adt.com": {
     methods: [
@@ -8590,8 +8527,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://aero.zip/faq/2fa-support",
-    recovery: "https://aero.zip/faq/2fa-backup-codes"
+    documentation: "https://aero.zip/faq/2fa-support"
   },
   "aerolineas.com.ar": {},
   "aesop.com": {},
@@ -8613,10 +8549,6 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Token AFIP",
-      "AFIP OTP"
-    ],
     documentation: "https://www.afip.gob.ar/claveFiscal/informacion-basica/solicitud.asp"
   },
   "aftenbladet.no": {
@@ -8624,16 +8556,14 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "aftenposten.no": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "afternic.com": {
     methods: [
@@ -8666,8 +8596,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "agenziaentrate.gov.it": {},
   "agl.com.au": {
@@ -8684,11 +8613,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    documentation: "https://www.aha.io/support/ideas/ideas/settings/account-settings#security-and-single-sign-on",
-    notes: "2FA is only available through Duo."
+    documentation: "https://www.aha.io/support/ideas/ideas/settings/account-settings#security-and-single-sign-on"
   },
   "aidvantage.studentaid.gov": {},
   "airasia.com": {
@@ -8701,9 +8626,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "My Air"
-    ],
     documentation: "https://www.airbank.cz/co-vas-nejvic-zajima/jake-bezpecnostni-prvky-u-nas-mame"
   },
   "airbnb.com": {
@@ -8711,8 +8633,7 @@ var sites_default = {
       "email",
       "sms"
     ],
-    documentation: "https://www.airbnb.com/help/article/501",
-    notes: "Airbnb decides when 2FA is required; user cannot enable 2FA for every login."
+    documentation: "https://www.airbnb.com/help/article/501"
   },
   "airbrake.io": {
     methods: [
@@ -8734,8 +8655,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://docs.airship.com/tutorials/security/2fa/",
-    notes: "2FA is only available upon request for customers on their Essential and Comprehensive plans."
+    documentation: "https://docs.airship.com/tutorials/security/2fa/"
   },
   "airtable.com": {
     methods: [
@@ -8743,9 +8663,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://support.airtable.com/docs/enabling-two-factor-authentication",
-    notes: "SMS must be enabled first and software 2FA can be bypassed by SMS.",
-    recovery: "https://support.airtable.com/docs/enabling-two-factor-authentication#faqs"
+    documentation: "https://support.airtable.com/docs/enabling-two-factor-authentication"
   },
   "aiven.io": {
     methods: [
@@ -8775,8 +8693,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.alchemer.com/help/multi-factor-authentication#user",
-    notes: "SMS 2FA is only available for Enterprise accounts with an SMS 2FA provision."
+    documentation: "https://help.alchemer.com/help/multi-factor-authentication#user"
   },
   "alchemy.com": {},
   "aldimobile.com.au": {},
@@ -8785,8 +8702,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.algolia.com/doc/security/best-security-practices/#two-factor-authentication",
-    recovery: "https://support.algolia.com/hc/en-us/articles/4406975223569"
+    documentation: "https://www.algolia.com/doc/security/best-security-practices/#two-factor-authentication"
   },
   "alibabacloud.com": {
     methods: [
@@ -8813,8 +8729,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://allegro.pl/pomoc/dla-kupujacych/logowanie-i-haslo/dwustopniowe-logowanie-najczesciej-zadawane-pytania-dykqg9nMKSZ",
-    notes: "SMS 2FA cannot be disabled even when TOTP is enabled."
+    documentation: "https://allegro.pl/pomoc/dla-kupujacych/logowanie-i-haslo/dwustopniowe-logowanie-najczesciej-zadawane-pytania-dykqg9nMKSZ"
   },
   "alliantcreditunion.org": {
     methods: [
@@ -8845,8 +8760,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://altcointrader.zendesk.com/hc/en-gb/articles/360007179680",
-    recovery: "https://altcointrader.zendesk.com/hc/en-gb/articles/360007225480"
+    documentation: "https://altcointrader.zendesk.com/hc/en-gb/articles/360007179680"
   },
   "alterdice.com": {
     methods: [
@@ -8878,8 +8792,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.ca": {
     methods: [
@@ -8887,8 +8800,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.cn": {
     methods: [
@@ -8896,8 +8808,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.co.jp": {
     methods: [
@@ -8905,8 +8816,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.co.uk": {
     methods: [
@@ -8914,8 +8824,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.com": {
     methods: [
@@ -8923,8 +8832,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.com.au": {
     methods: [
@@ -8932,8 +8840,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.com.br": {
     methods: [
@@ -8941,8 +8848,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.com.mx": {
     methods: [
@@ -8950,8 +8856,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.com.tr": {
     methods: [
@@ -8959,8 +8864,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.de": {
     methods: [
@@ -8968,8 +8872,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.es": {
     methods: [
@@ -8977,8 +8880,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.fr": {
     methods: [
@@ -8986,8 +8888,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.in": {
     methods: [
@@ -8995,8 +8896,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.it": {
     methods: [
@@ -9004,8 +8904,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.nl": {
     methods: [
@@ -9013,8 +8912,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.sa": {
     methods: [
@@ -9022,8 +8920,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.se": {
     methods: [
@@ -9031,8 +8928,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "amazon.sg": {
     methods: [
@@ -9040,8 +8936,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "americafirst.com": {
     methods: [
@@ -9072,9 +8967,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Ameriprise Financial app"
-    ],
     documentation: "https://www.ameriprise.com/customer-service/2-step-verification-faq"
   },
   "amp.co.nz": {},
@@ -9091,8 +8983,7 @@ var sites_default = {
       "sms",
       "email"
     ],
-    documentation: "https://support.ancestry.com/s/article/MFA",
-    notes: "SMS 2FA is currently only available for customers with a U.S. based phone number."
+    documentation: "https://support.ancestry.com/s/article/MFA"
   },
   "andrewsfcu.org": {
     methods: [
@@ -9107,16 +8998,12 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.wellfound.com/article/1064--",
-    recovery: "https://help.wellfound.com/article/817--"
+    documentation: "https://help.wellfound.com/article/1064--"
   },
   "ankama.com": {
     methods: [
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Ankama Authenticator"
     ],
     documentation: "https://support.ankama.com/hc/en-us/articles/360019984217"
   },
@@ -9172,9 +9059,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "apoTAN"
-    ],
     documentation: "https://www.apobank.de/unsere-leistungen/konto-karte/mobile-banking/apotan"
   },
   "app.azendoo.com": {},
@@ -9188,9 +9072,6 @@ var sites_default = {
   "app.sendloop.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://www.notion.so/aa9e468f24cb4efab3cfef4e7ca4e41d"
   },
@@ -9227,11 +9108,7 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Apple Device Push Notification"
-    ],
-    documentation: "https://support.apple.com/en-us/HT204915",
-    notes: "U2F requires a minimum of two security keys to be registered."
+    documentation: "https://support.apple.com/en-us/HT204915"
   },
   "appodeal.com": {
     methods: [
@@ -9268,11 +9145,7 @@ var sites_default = {
     methods: [
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Aqara Home App"
-    ],
-    notes: "Email 2FA is always available as a backup."
+    ]
   },
   "arcadia.com": {},
   "arcaplanet.it": {},
@@ -9289,8 +9162,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.guildwars2.com/hc/en-us/articles/230672927",
-    recovery: "https://help.guildwars2.com/hc/en-us/articles/360000819168"
+    documentation: "https://help.guildwars2.com/hc/en-us/articles/230672927"
   },
   "argentina.gob.ar": {},
   "arin.net": {
@@ -9305,11 +9177,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Arlo Secure App"
-    ],
-    documentation: "https://kb.arlo.com/000062288",
-    notes: "Email 2FA is always available as a backup."
+    documentation: "https://kb.arlo.com/000062288"
   },
   "artifacthub.io": {
     methods: [
@@ -9327,21 +9195,13 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "ArtStation app"
-    ],
-    documentation: "https://help.artstation.com/hc/en-us/articles/360057111771",
-    notes: "2FA must be enabled from the app and requires email confirmation to setup."
+    documentation: "https://help.artstation.com/hc/en-us/articles/360057111771"
   },
   "arubacloud.com": {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Aruba OTP"
-    ],
-    documentation: "https://kb.cloud.it/computing/uso-e-tecnologie/accesso-al-pannello-di-controllo-con-otp.aspx",
-    notes: "Only the control panel supports 2FA (the main client area does not)."
+    documentation: "https://kb.cloud.it/computing/uso-e-tecnologie/accesso-al-pannello-di-controllo-con-otp.aspx"
   },
   "arubainstanton.com": {
     methods: [
@@ -9390,9 +9250,6 @@ var sites_default = {
       "sms",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
     documentation: "https://getprotected.asu.edu/services/identity-and-access-management/duo-two-factor-authentication"
   },
   "asus.com": {
@@ -9405,8 +9262,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.atera.com/hc/en-us/articles/360022522253",
-    notes: "2FA must be enabled by an admin before use."
+    documentation: "https://support.atera.com/hc/en-us/articles/360022522253"
   },
   "aternos.org": {
     methods: [
@@ -9426,8 +9282,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.mass.gov/doc/online-registration-renewal-instructions/download",
-    recovery: "https://www.mass.gov/how-to/update-your-myrmv-account"
+    documentation: "https://www.mass.gov/doc/online-registration-renewal-instructions/download"
   },
   "atriumhealth.org": {
     methods: [
@@ -9459,12 +9314,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://support.atu.edu/support/solutions/folders/7000078509"
   },
@@ -9534,11 +9383,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    "custom-software": [
-      "Auth0 Guardian"
-    ],
-    documentation: "https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa",
-    recovery: "https://auth0.com/docs/secure/multi-factor-authentication/reset-user-mfa"
+    documentation: "https://auth0.com/docs/secure/multi-factor-authentication/enable-mfa"
   },
   "autocode.com": {
     methods: [
@@ -9573,16 +9418,12 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://apps.availity.com/availity/Demos/QRG_AP_2step_Providers.pdf#%5B%7B%22num%22%3A38%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C72%2C724.504%2Cnull%5D",
-    notes: "Availity decides when 2FA is required; users cannot enable 2FA for every login."
+    documentation: "https://apps.availity.com/availity/Demos/QRG_AP_2step_Providers.pdf#%5B%7B%22num%22%3A38%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C72%2C724.504%2Cnull%5D"
   },
   "avanza.se": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.avanza.se/kundservice.html/1335/tvafaktorsinloggning/d264248e-bea3-48a0-bf2d-157309734649"
   },
@@ -9621,10 +9462,6 @@ var sites_default = {
       "custom-hardware",
       "u2f"
     ],
-    "custom-hardware": [
-      "SafeNet IDProve 110 6-digit OTP Token",
-      "SafeNet IDProve 700 OTP Card"
-    ],
     documentation: "https://aws.amazon.com/iam/features/mfa/"
   },
   "axios.com": {},
@@ -9655,9 +9492,6 @@ var sites_default = {
       "totp",
       "call"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://azure.microsoft.com/en-us/documentation/articles/multi-factor-authentication/"
   },
   "babbel.com": {},
@@ -9672,8 +9506,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.backblaze.com/hc/en-us/articles/217666588",
-    recovery: "https://help.backblaze.com/hc/en-us/articles/114094512533"
+    documentation: "https://help.backblaze.com/hc/en-us/articles/217666588"
   },
   "badoo.com": {},
   "bahn.com": {
@@ -9714,18 +9547,12 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Entrust Identity"
-    ],
     documentation: "https://www.bancoguayaquil.com/documents/files/Manual%20de%20uso%20de%20token%20de%20seguridad.pdf"
   },
   "bancointernacional.com.ec": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Entrust Identity"
     ],
     documentation: "https://www.bancointernacional.com.ec/storage/2020/11/BI-NBOE-TutorialPDF-12Softoken.pdf"
   },
@@ -9742,9 +9569,6 @@ var sites_default = {
   "bank99.at": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "okay99"
     ],
     documentation: "https://bank99.at/blog/okay99-app-sicher-im-online-banking"
   },
@@ -9778,8 +9602,7 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    documentation: "https://www.bankofamerica.com/security-center/online-banking/",
-    notes: "Mobile apps only use SMS 2FA"
+    documentation: "https://www.bankofamerica.com/security-center/online-banking/"
   },
   "bankofmelbourne.com.au": {},
   "bankofscotland.co.uk": {
@@ -9787,9 +9610,6 @@ var sites_default = {
       "custom-software",
       "call",
       "sms"
-    ],
-    "custom-software": [
-      "Bank of Scotland Mobile App"
     ],
     documentation: "https://www.bankofscotland.co.uk/aboutonline/changes-to-internet-banking.html"
   },
@@ -9801,19 +9621,12 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Barclays App PINsentry"
-    ],
-    "custom-hardware": [
-      "PINsentry card reader"
-    ],
     documentation: "https://www.barclays.co.uk/ways-to-bank/online-banking/pinsentry-guide/"
   },
   "baremetrics.com": {
     methods: [
       "totp"
-    ],
-    recovery: "https://help.baremetrics.com/en/articles/5380609"
+    ]
   },
   "barmenia.de": {
     methods: [
@@ -9841,9 +9654,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Battle.net app"
-    ],
     documentation: "https://battle.net/support/article/24520"
   },
   "bbbank.de": {
@@ -9851,21 +9661,12 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "BBBank SecureGo+"
-    ],
-    "custom-hardware": [
-      "Sm@rt-TAN card reader"
-    ],
     documentation: "https://www.bbbank.de/produkte/konten-und-karten/online-banking/tan-verfahren.html"
   },
   "bbva.com.ar": {},
   "bca.co.id": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "KeyBCA token"
     ],
     documentation: "https://www.bca.co.id/en/Individu/Produk/E-Banking/Klik-BCA"
   },
@@ -9906,12 +9707,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Bendigo Bank app",
-      "Symantec VIP Access"
-    ],
-    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication",
-    notes: "If the app hasn't been setup, only SMS and email tokens will work. If the app has been setup, only the app will work."
+    documentation: "https://www.bendigobank.com.au/support/e-banking/multi-factor-authentication"
   },
   "benefitscal.com": {
     methods: [
@@ -9927,13 +9723,6 @@ var sites_default = {
       "u2f",
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token",
-      "Feitian OTP c100 Token"
     ],
     documentation: "https://calnetweb.berkeley.edu/calnet-2-step"
   },
@@ -9957,8 +9746,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.bethesda.net/app/answers/detail/a_id/48931",
-    notes: "SMS requires TOTP to be set up"
+    documentation: "https://help.bethesda.net/app/answers/detail/a_id/48931"
   },
   "bethpagefcu.com": {
     methods: [
@@ -9985,9 +9773,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Symantec VIP"
-    ],
     documentation: "https://www.beyondbank.com.au/need-help/how-do-i-register-for-secure-sms-on-internet-banking"
   },
   "bge.com": {
@@ -10002,16 +9787,12 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.sf360.com.au/hc/en-au/articles/360020963051",
-    notes: "2FA covers Simple Fund 360, CAS 360, BGL API and BGL Account. It doesn't cover BGL Client Centre."
+    documentation: "https://support.sf360.com.au/hc/en-au/articles/360020963051"
   },
   "bgsaxo.it": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Saxo app"
     ]
   },
   "bhfcu.com": {
@@ -10035,18 +9816,12 @@ var sites_default = {
       "custom-software",
       "email"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
   "bigcommerce.co.uk": {
     methods: [
       "custom-software",
       "email"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
@@ -10055,18 +9830,12 @@ var sites_default = {
       "custom-software",
       "email"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
   "bigcommerce.com.au": {
     methods: [
       "custom-software",
       "email"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
@@ -10075,18 +9844,12 @@ var sites_default = {
       "custom-software",
       "email"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
   "bigcommerce.es": {
     methods: [
       "custom-software",
       "email"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
@@ -10095,9 +9858,6 @@ var sites_default = {
       "custom-software",
       "email"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
   "bigcommerce.it": {
@@ -10105,18 +9865,12 @@ var sites_default = {
       "custom-software",
       "email"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
   "bigcommerce.nl": {
     methods: [
       "custom-software",
       "email"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.bigcommerce.com/s/article/Setting-Up-2FA"
   },
@@ -10132,9 +9886,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "My Telstra app"
-    ],
     documentation: "https://www.telstra.com.au/mytelstra/my-telstra-security"
   },
   "bigpond.com.au": {
@@ -10142,9 +9893,6 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "My Telstra app"
     ],
     documentation: "https://www.telstra.com.au/mytelstra/my-telstra-security"
   },
@@ -10160,8 +9908,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "bilibili.com": {},
   "bill.com": {
@@ -10170,8 +9917,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://help.bill.com/hc/en-us/articles/360000023843",
-    notes: "2FA via phone call is available for US and CA only."
+    documentation: "https://help.bill.com/hc/en-us/articles/360000023843"
   },
   "binance.com": {
     methods: [
@@ -10193,33 +9939,26 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://bitbns.freshdesk.com/support/solutions/articles/35000047047",
-    notes: "SMS 2FA must be enabled before TOTP 2FA.",
-    recovery: "https://bitbns.freshdesk.com/support/solutions/articles/35000046996"
+    documentation: "https://bitbns.freshdesk.com/support/solutions/articles/35000047047"
   },
   "bitbucket.org": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://support.atlassian.com/bitbucket-cloud/docs/enable-two-step-verification/",
-    notes: "An SSH key must be associated with your account to enable 2FA."
+    documentation: "https://support.atlassian.com/bitbucket-cloud/docs/enable-two-step-verification/"
   },
   "bitbuy.ca": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://support.bitbuy.ca/hc/en-us/articles/360059151172",
-    notes: "SMS 2FA is only available for country code +1 (North America)"
+    documentation: "https://support.bitbuy.ca/hc/en-us/articles/360059151172"
   },
   "bitcoin.de": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://www.bitcoin.de/de/faq/was-ist-die-2-step-verification-2-faktor-authentifizierung/46.html"
   },
@@ -10235,8 +9974,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.bitfinex.com/hc/en-us/sections/900000097443",
-    recovery: "https://support.bitfinex.com/hc/en-us/articles/360021325054"
+    documentation: "https://support.bitfinex.com/hc/en-us/sections/900000097443"
   },
   "bitflyer.com": {
     methods: [
@@ -10259,17 +9997,13 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://www.bitget.com/support/articles/12560603808391",
-    recovery: "https://www.bitget.com/support/articles/12560603808511"
+    documentation: "https://www.bitget.com/support/articles/12560603808391"
   },
   "bitgo.com": {
     methods: [
       "totp",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ]
   },
   "bithumb.com": {
@@ -10290,11 +10024,7 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://blog.bitmex.com/use-two-factor-authentication-and-dont-reuse-passwords/",
-    notes: "At most one 2FA method can be enabled at any time."
+    documentation: "https://blog.bitmex.com/use-two-factor-authentication-and-dont-reuse-passwords/"
   },
   "bitnami.com": {},
   "bitpanda.com": {
@@ -10343,14 +10073,12 @@ var sites_default = {
     methods: [
       "email",
       "sms"
-    ],
-    recovery: "https://bitski.zendesk.com/hc/en-us/articles/4415800939028"
+    ]
   },
   "bitskins.com": {
     methods: [
       "totp"
-    ],
-    notes: "You need to verify your email address before enabling 2FA."
+    ]
   },
   "bitso.com": {
     methods: [
@@ -10386,14 +10114,7 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://help.bitwarden.com/article/setup-two-step-login/",
-    notes: "2FA methods vary depending on price plan. SMS & Call requires Duo integration"
+    documentation: "https://help.bitwarden.com/article/setup-two-step-login/"
   },
   "bk.mufg.jp": {},
   "bkex.com": {
@@ -10407,8 +10128,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://docs.blackbaud.com/bbid-docs/get-started/multi-factor-auth",
-    recovery: "https://docs.blackbaud.com/bbid-docs/faq/multi-factor-auth"
+    documentation: "https://docs.blackbaud.com/bbid-docs/get-started/multi-factor-auth"
   },
   "blacknight.com": {
     methods: [
@@ -10428,9 +10148,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Battle.net app"
-    ],
     documentation: "https://battle.net/support/article/24520"
   },
   "blockchain.com": {
@@ -10438,9 +10155,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://support.blockchain.com/hc/en-us/articles/4417080375316"
   },
@@ -10450,9 +10164,6 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://support.blockchain.com/hc/en-us/articles/4417080375316"
   },
   "blocket.se": {
@@ -10460,8 +10171,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "blockfi.com": {
     methods: [
@@ -10491,16 +10201,12 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.bluesnap.com/docs/two-factor_authentication",
-    notes: "2FA must be enabled by an admin before use."
+    documentation: "https://support.bluesnap.com/docs/two-factor_authentication"
   },
   "bmedonline.it": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Mediolanum app"
     ],
     documentation: "https://www.bancamediolanum.it/static-assets/documents/Codice_BMed_regole_e_funzionamento.pdf"
   },
@@ -10509,9 +10215,6 @@ var sites_default = {
       "sms",
       "call",
       "custom-software"
-    ],
-    "custom-software": [
-      "BMO App Push Notification"
     ],
     documentation: "https://www.bmo.com/en-ca/main/personal/security-centre/how-to-protect-yourself/"
   },
@@ -10542,9 +10245,6 @@ var sites_default = {
     methods: [
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "BOCHK Mobile Banking app"
-    ],
     documentation: "https://www.bochk.com/en/security/2factorauthentication.html"
   },
   "bofa.com": {
@@ -10553,8 +10253,7 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    documentation: "https://www.bankofamerica.com/security-center/online-banking/",
-    notes: "Mobile apps only use SMS 2FA"
+    documentation: "https://www.bankofamerica.com/security-center/online-banking/"
   },
   "bohemia.net": {
     methods: [
@@ -10566,11 +10265,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "BankID"
-    ],
-    documentation: "https://www.bokio.se/hjalp/bokio-medlemskap/ditt-bokiokonto/tvafaktor-autentisering-med-bokio/",
-    notes: "BankID only available for users using banking features"
+    documentation: "https://www.bokio.se/hjalp/bokio-medlemskap/ditt-bokiokonto/tvafaktor-autentisering-med-bokio/"
   },
   "bol.com": {},
   "bolt.eu": {
@@ -10605,8 +10300,7 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Setup requires SMS verification. Email is available via 'other options' at login."
+    ]
   },
   "boost.com.au": {
     methods: [
@@ -10683,9 +10377,6 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://www.braze.com/docs/user_guide/administrative/app_settings/company_settings/security_settings/"
   },
   "breeze.pm": {},
@@ -10709,8 +10400,7 @@ var sites_default = {
       "sms",
       "totp",
       "u2f"
-    ],
-    notes: "Set-up requires linking one of the following services with your BA account: Qatar, Iberia, Uber"
+    ]
   },
   "broadcom.com": {
     methods: [
@@ -10719,12 +10409,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify",
-      "Symantec VIP"
-    ],
-    documentation: "https://knowledge.broadcom.com/external/article?articleId=216428",
-    recovery: "https://knowledge.broadcom.com/external/article/213025"
+    documentation: "https://knowledge.broadcom.com/external/article?articleId=216428"
   },
   "browserstack.com": {},
   "bsag.de": {},
@@ -10743,16 +10428,14 @@ var sites_default = {
       "email",
       "sms"
     ],
-    documentation: "https://www.bt.com/help/security/two-step-authentication",
-    notes: "2FA can only be enabled via the website."
+    documentation: "https://www.bt.com/help/security/two-step-authentication"
   },
   "bt.no": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "btcbox.co.jp": {
     methods: [
@@ -10764,8 +10447,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.btcmarkets.net/frequently-asked-questions",
-    notes: "A mobile phone number is required to reset two-factor authentication."
+    documentation: "https://www.btcmarkets.net/frequently-asked-questions"
   },
   "btcpop.co": {
     methods: [
@@ -10788,9 +10470,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
     documentation: "https://www.bu.edu/tech/support/duo/"
   },
   "bubble.io": {
@@ -10810,8 +10489,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://buddy.works/docs/account/security#two-factor-authentication-2fa",
-    notes: "2FA is only available to users on paid plans."
+    documentation: "https://buddy.works/docs/account/security#two-factor-authentication-2fa"
   },
   "buffer.com": {
     methods: [
@@ -10837,11 +10515,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    documentation: "https://wiki.mozilla.org/BMO/UserGuide/Two-Factor_Authentication",
-    notes: "Proprietary 2FA methods are only available for Mozilla employees."
+    documentation: "https://wiki.mozilla.org/BMO/UserGuide/Two-Factor_Authentication"
   },
   "buhl.de": {
     methods: [
@@ -10854,8 +10528,7 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Automatically turned on for email. You are only allowed to have one method turned on at a time."
+    ]
   },
   "buildium.com": {
     methods: [
@@ -10934,12 +10607,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "BW-pushTAN"
-    ],
-    "custom-hardware": [
-      "chipTAN-QR card reader"
-    ],
     documentation: "https://meine.bw-bank.de/articles/am-14-september-tritt-psd2-in-kraft-was-bedeutet-das-fuer-sie"
   },
   "bybit.com": {
@@ -10955,8 +10622,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "byu.edu": {
     methods: [
@@ -10967,13 +10633,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token",
-      "Yubico OTP"
-    ],
     documentation: "https://duo.byu.edu/"
   },
   "cacoo.com": {},
@@ -10982,8 +10641,7 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Automatically turned on for email. You are only allowed to have one method turned on at a time."
+    ]
   },
   "caisse-epargne.fr": {},
   "cal.com": {
@@ -11018,12 +10676,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://calpoly.atlassian.net/wiki/spaces/CPKB/pages/3539066"
   },
   "caltech.edu": {
@@ -11031,14 +10683,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://www.imss.caltech.edu/services/security/mfa/self-enrollment",
-    notes: "SMS-capable phone required for initial setup."
+    documentation: "https://www.imss.caltech.edu/services/security/mfa/self-enrollment"
   },
   "cam.ac.uk": {
     methods: [
@@ -11047,12 +10692,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "call"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
     ],
     documentation: "https://help.uis.cam.ac.uk/service/accounts-passwords/set-multi-factor-authentication-your-university-microsoft-account"
   },
@@ -11128,9 +10767,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Capital One App"
-    ],
     documentation: "https://www.capitalone.com/digital/mobile-app-verification/"
   },
   "capsulecrm.com": {
@@ -11149,8 +10785,7 @@ var sites_default = {
   "cardmarket.com": {
     methods: [
       "totp"
-    ],
-    recovery: "https://cardmarket.com/en/Login/LostDevice"
+    ]
   },
   "care360.com": {},
   "caremark.com": {},
@@ -11159,15 +10794,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "RBC Caribbean app",
-      "Entrust Identity Guard"
-    ],
-    "custom-hardware": [
-      "RSA SecurID"
-    ],
-    documentation: "https://www.rbcroyalbank.com/caribbean/digital-hub/security-two-factor.html",
-    notes: "Hardware 2FA methods are only available for business customers."
+    documentation: "https://www.rbcroyalbank.com/caribbean/digital-hub/security-two-factor.html"
   },
   "carilionclinic.org": {},
   "carleton.ca": {
@@ -11176,12 +10803,6 @@ var sites_default = {
       "custom-hardware",
       "sms",
       "call"
-    ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token"
     ],
     documentation: "https://carleton.ca/its/duo/config/"
   },
@@ -11209,8 +10830,7 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://help.cashrewards.com.au/support/solutions/articles/1000304169",
-    notes: "Enabling 2FA requires email confirmation"
+    documentation: "https://help.cashrewards.com.au/support/solutions/articles/1000304169"
   },
   "caspio.com": {
     methods: [
@@ -11231,8 +10851,7 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://cbonline.cbq.qa/RIB/Common/FAQContent",
-    notes: "An SMS capable phone with a Qatar phone number is required."
+    documentation: "https://cbonline.cbq.qa/RIB/Common/FAQContent"
   },
   "cbtnuggets.com": {},
   "cc.ca": {},
@@ -11271,8 +10890,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.cex.io/en/articles/4814825",
-    recovery: "https://support.cex.io/en/articles/5029000"
+    documentation: "https://support.cex.io/en/articles/4814825"
   },
   "cgd.pt": {
     methods: [
@@ -11285,11 +10903,7 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://support.changelly.com/en/support/solutions/articles/14000111533",
-    recovery: "https://support.changelly.com/en/support/solutions/articles/14000111548"
+    documentation: "https://support.changelly.com/en/support/solutions/articles/14000111533"
   },
   "chargebee.com": {
     methods: [
@@ -11318,14 +10932,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Chase app"
-    ],
-    "custom-hardware": [
-      "RSA SecurID"
-    ],
-    documentation: "https://2fa.directory/notes/chase/",
-    notes: "Hardware tokens can be obtained through Chase support for high-risk accounts"
+    documentation: "https://2fa.directory/notes/chase/"
   },
   "chat.google.com": {
     methods: [
@@ -11335,12 +10942,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "chatgpt.com": {
     methods: [
@@ -11354,8 +10956,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support-en.chatwork.com/hc/en-us/articles/360023097632",
-    notes: "SMS 2FA is only available to users on paid plans"
+    documentation: "https://support-en.chatwork.com/hc/en-us/articles/360023097632"
   },
   "checkfront.com": {
     methods: [
@@ -11382,8 +10983,7 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Automatically turned on for email. You are only allowed to have one method turned on at a time."
+    ]
   },
   "chime.com": {
     methods: [
@@ -11404,9 +11004,6 @@ var sites_default = {
       "call",
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "CIBC app"
     ],
     documentation: "https://www.cibc.com/en/privacy-security/two-step-verification.html"
   },
@@ -11443,9 +11040,6 @@ var sites_default = {
       "sms",
       "call",
       "email"
-    ],
-    "custom-software": [
-      "Citadel App"
     ]
   },
   "citationsy.com": {},
@@ -11509,12 +11103,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://2fa.app.clemson.edu/"
   },
   "clever.com": {
@@ -11522,11 +11110,7 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://support.clever.com/hc/en-us/articles/202062333",
-    notes: "2FA is only available for district admins"
+    documentation: "https://support.clever.com/hc/en-us/articles/202062333"
   },
   "clevertap.com": {
     methods: [
@@ -11540,23 +11124,20 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.clickup.com/hc/en-us/articles/6327741965591",
-    notes: "SMS only available on Business and Enterprise price plans."
+    documentation: "https://help.clickup.com/hc/en-us/articles/6327741965591"
   },
   "clickworker.com": {},
   "cliniko.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.cliniko.com/en/articles/1023989",
-    notes: "Setting up 2FA requires adding a phone number."
+    documentation: "https://help.cliniko.com/en/articles/1023989"
   },
   "clio.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.clio.com/hc/en-us/articles/9284706542619",
-    recovery: "https://help.clio.com/hc/en-us/articles/9284748707739"
+    documentation: "https://help.clio.com/hc/en-us/articles/9284706542619"
   },
   "clippercard.com": {
     methods: [
@@ -11584,12 +11165,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "cloud.hashicorp.com": {
     methods: [
@@ -11620,10 +11196,6 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    "custom-software": [
-      "Duo",
-      "Oracle Mobile Authenticator"
-    ],
     documentation: "https://docs.oracle.com/en/cloud/paas/identity-cloud/uaids/configure-authentication-factors.html"
   },
   "cloud66.com": {
@@ -11638,8 +11210,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.cloudamqp.com/blog/two-factor-authentication.html",
-    notes: "SMS is required as a backup method"
+    documentation: "https://www.cloudamqp.com/blog/two-factor-authentication.html"
   },
   "cloudbees.com": {
     methods: [
@@ -11714,9 +11285,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "CM Authenticator"
-    ],
     documentation: "https://www.cm.com/customer-service/#36-69/Account/652/How%20do%20I%20enable%20Two-Factor%20Authentication?"
   },
   "cmore.dk": {},
@@ -11728,12 +11296,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://www.cmu.edu/computing/services/security/identity-access/authentication/how-to/use2fa-weblogin.html"
   },
@@ -11777,9 +11339,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://docs.codeclimate.com/docs/enabling-two-factor-authentication"
   },
   "codepen.io": {},
@@ -11797,15 +11356,13 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.coinbase.com/en/coinbase/getting-started/verify-my-account/how-do-i-set-up-2-factor-authentication",
-    recovery: "https://help.coinbase.com/en/coinbase/managing-my-account/get-back-into-my-account/2-step-verification-troubleshooting"
+    documentation: "https://help.coinbase.com/en/coinbase/getting-started/verify-my-account/how-do-i-set-up-2-factor-authentication"
   },
   "coinberry.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.coinberry.com/hc/en-us/articles/4505782775569",
-    recovery: "https://help.coinberry.com/hc/en-us/articles/4506298382993"
+    documentation: "https://help.coinberry.com/hc/en-us/articles/4505782775569"
   },
   "coincheck.com": {
     methods: [
@@ -11838,16 +11395,14 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.coingate.com/hc/en-us/articles/4402503798034",
-    recovery: "https://support.coingate.com/hc/en-us/articles/4402503851026"
+    documentation: "https://support.coingate.com/hc/en-us/articles/4402503798034"
   },
   "coingecko.com": {},
   "coinify.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.coinify.com/hc/en-us/articles/360014173320",
-    notes: "2FA is only available for merchant accounts. myCoinify trading accounts do not support 2FA."
+    documentation: "https://help.coinify.com/hc/en-us/articles/360014173320"
   },
   "coinigy.com": {
     methods: [
@@ -11884,14 +11439,12 @@ var sites_default = {
       "totp",
       "sms",
       "email"
-    ],
-    recovery: "https://www.coinpayments.net/supwiz-login-tfa"
+    ]
   },
   "coinpayu.com": {
     methods: [
       "totp"
-    ],
-    notes: "You need to verify email address before enable 2FA."
+    ]
   },
   "coinremitter.com": {
     methods: [
@@ -11933,8 +11486,7 @@ var sites_default = {
   "cointracking.info": {
     methods: [
       "totp"
-    ],
-    recovery: "https://cointracking.freshdesk.com/en/support/solutions/articles/29000021946"
+    ]
   },
   "cointraffic.io": {
     methods: [
@@ -11972,20 +11524,13 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    documentation: "https://oit.colorado.edu/services/identity-access-management/duo-multi-factor-authentication",
-    notes: "SMS required to setup TOTP 2FA."
+    documentation: "https://oit.colorado.edu/services/identity-access-management/duo-multi-factor-authentication"
   },
   "columbia.edu": {
     methods: [
       "call",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://www.cuit.columbia.edu/mfa"
   },
@@ -12001,23 +11546,13 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Xfinity Authenticator"
-    ],
-    documentation: "https://www.xfinity.com/support/articles/two-step-verification-xfinity-app-setup/",
-    notes: "Email 2FA requires the use of a non-Comcast.net email address."
+    documentation: "https://www.xfinity.com/support/articles/two-step-verification-xfinity-app-setup/"
   },
   "comdirect.de": {
     methods: [
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "comdirect photoTAN"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
     ],
     documentation: "https://www.comdirect.de/konto/psd2-phototan.html"
   },
@@ -12034,37 +11569,20 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "CommBank app"
-    ],
-    documentation: "https://www.commbank.com.au/digital-banking/netbank/multi-factor-authentication.html",
-    notes: "SMS is only available when setting up CommBank app."
+    documentation: "https://www.commbank.com.au/digital-banking/netbank/multi-factor-authentication.html"
   },
   "commercial.metrobankonline.co.uk": {
     methods: [
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Metro Bank Authenticator app"
-    ],
-    "custom-hardware": [
-      "Security device"
-    ],
-    documentation: "https://www.metrobankonline.co.uk/help-and-support/what-is-sca/#item17066",
-    notes: "Only available for Business Online Plus and Commercial Banking customers. Setup for authenticator app requires SMS verification. Only UK phone numbers can be used."
+    documentation: "https://www.metrobankonline.co.uk/help-and-support/what-is-sca/#item17066"
   },
   "commerzbank.de": {
     methods: [
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Commerzbank photoTAN"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
     ],
     documentation: "https://www.commerzbank.de/konten-zahlungsverkehr/service/tan-verfahren/"
   },
@@ -12083,8 +11601,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.comodo.com/topic-289-1-716-11276-.html",
-    notes: "SMS is only available for accounts with more than 50 devices."
+    documentation: "https://help.comodo.com/topic-289-1-716-11276-.html"
   },
   "compose.com": {
     methods: [
@@ -12097,9 +11614,6 @@ var sites_default = {
   "comviq.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "concur.ae": {
@@ -12289,11 +11803,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
-    documentation: "https://www.coned.com/-/media/files/coned/documents/small-medium-large-businesses/building-project-center/contractor-resources/user-registration-guide.pdf?la=en",
-    notes: "Requires phone number to set up. Can be bypassed by customer support."
+    documentation: "https://www.coned.com/-/media/files/coned/documents/small-medium-large-businesses/building-project-center/contractor-resources/user-registration-guide.pdf?la=en"
   },
   "connectwise.com": {
     methods: [
@@ -12301,9 +11811,6 @@ var sites_default = {
       "email",
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://docs.connectwise.com/ConnectWise_Control_Documentation/Get_started/Administration_page/Security_page/Enable_two-factor_authentication_for_host_accounts"
   },
@@ -12334,12 +11841,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Consorsbank SecurePlus"
-    ],
-    "custom-hardware": [
-      "SecurePlus card reader"
-    ],
     documentation: "https://www.consorsbank.de/ev/Service-Beratung/secureplus"
   },
   "constellix.com": {
@@ -12367,9 +11868,6 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://www.contentstack.com/docs/developers/two-factor-authentication/"
   },
   "convertkit.com": {
@@ -12396,9 +11894,6 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
   "cordial.com": {
@@ -12415,12 +11910,6 @@ var sites_default = {
       "custom-hardware",
       "u2f",
       "call"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://it.cornell.edu/twostep"
   },
@@ -12483,12 +11972,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://cpp.service-now.com/ehelp?id=kb_article&sys_id=ed4dcbc3dbeb1f449bba68461b96198e"
   },
   "cqu.edu.au": {
@@ -12497,9 +11980,6 @@ var sites_default = {
       "sms",
       "call",
       "custom-software"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ]
   },
   "cra-arc.gc.ca": {
@@ -12515,16 +11995,14 @@ var sites_default = {
       "totp",
       "email"
     ],
-    documentation: "https://support.crashplan.com/hc/articles/43858880152461",
-    recovery: "https://support.crashplan.com/hc/articles/43858283887373"
+    documentation: "https://support.crashplan.com/hc/articles/43858880152461"
   },
   "crashplanpro.com": {
     methods: [
       "totp",
       "email"
     ],
-    documentation: "https://support.crashplan.com/hc/articles/43858880152461",
-    recovery: "https://support.crashplan.com/hc/articles/43858283887373"
+    documentation: "https://support.crashplan.com/hc/articles/43858880152461"
   },
   "crazydomains.com": {
     methods: [
@@ -12546,17 +12024,12 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.credly.com/hc/articles/10479287806107",
-    notes: "Password reset also disables 2FA.",
-    recovery: "https://support.credly.com/hc/articles/360039330612"
+    documentation: "https://support.credly.com/hc/articles/10479287806107"
   },
   "cron-job.org": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ]
   },
   "cronometer.com": {
@@ -12601,9 +12074,6 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "Telegram"
-    ],
     documentation: "https://cryptonator.zendesk.com/hc/en-us/articles/201715352"
   },
   "cryptopanic.com": {},
@@ -12618,17 +12088,11 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "George Ceska Sporitelna"
-    ],
     documentation: "https://www.csas.cz/cs/mobilni-aplikace/george-klic"
   },
   "csn.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://tjanster.csn.se/bas/vanligaFragor.do"
   },
@@ -12636,9 +12100,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "\u010CSOB Smart key"
     ],
     documentation: "https://www.csob.cz/portal/people/accounts/internet-and-mobile-banking/csob-smart-key"
   },
@@ -12648,9 +12109,6 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.currencycloud.com/hc/en-gb/articles/360018656420"
   },
   "current-rms.com": {
@@ -12658,9 +12116,6 @@ var sites_default = {
       "totp",
       "custom-software",
       "sms"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://help.current-rms.com/en/articles/1767596"
   },
@@ -12688,12 +12143,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "DAB SecurePlus app"
-    ],
-    "custom-hardware": [
-      "QR TAN reader"
-    ],
     documentation: "https://b2b.dab-bank.de/Tradingcenter/Service-Infos/SecurePlus/"
   },
   "dan.com": {
@@ -12707,20 +12156,11 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "NemID app"
-    ],
-    "custom-hardware": [
-      "NemID code token"
-    ],
     documentation: "https://www.nemid.nu/dk-en/get_started/"
   },
   "danskebank.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://danskebank.se/privat/digitala-tjanster/ovriga-tjanster/bankid"
   },
@@ -12741,8 +12181,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://docs.datadoghq.com/account_management/multi-factor_authentication/",
-    recovery: "https://docs.datadoghq.com/account_management/multi-factor_authentication/#mfa-recovery"
+    documentation: "https://docs.datadoghq.com/account_management/multi-factor_authentication/"
   },
   "datarobot.com": {
     methods: [
@@ -12756,19 +12195,12 @@ var sites_default = {
       "sms",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "National identity card"
-    ],
-    documentation: "https://apps.datev.de/help-center/documents/1022726",
-    notes: "2FA only available for DATEV Arbeitnehmer online"
+    documentation: "https://apps.datev.de/help-center/documents/1022726"
   },
   "datto.com": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://help.workplace.datto.com/managerhelp/Content/3_ONLINE/Settings/2Factor_Authentication.htm"
   },
@@ -12777,15 +12209,11 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "dbs.com.sg": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "DBS iB Secure Device"
     ],
     documentation: "https://www.dbs.com.sg/personal/deposits/security-and-you/we-protect-you.page#slideToN10051"
   },
@@ -12806,12 +12234,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://help.deakin.edu.au/ithelp?id=kb_article&sysparm_article=KB0013804"
   },
   "dealabs.com": {},
@@ -12825,8 +12247,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.deepl.com/hc/articles/17764808297628",
-    recovery: "https://support.deepl.com/hc/articles/17765746756636"
+    documentation: "https://support.deepl.com/hc/articles/17764808297628"
   },
   "deezer.com": {},
   "degiro.at": {
@@ -12944,12 +12365,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Degussa Bank Banking+Brokerage"
-    ],
-    "custom-hardware": [
-      "Biometrics (via app)"
-    ],
     documentation: "https://www.degussa-bank.de/apptan-verfahren"
   },
   "deka.de": {},
@@ -12958,9 +12373,6 @@ var sites_default = {
       "call",
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://webfiles.dti.delaware.gov/pdfs/Setting-Up-Your-MFA.pdf"
   },
@@ -12984,9 +12396,6 @@ var sites_default = {
       "email",
       "custom-software",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo Push"
     ],
     documentation: "https://docs.delinea.com/ss/10.8.0/authentication/two-factor-authentication"
   },
@@ -13029,9 +12438,6 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Fly Delta app"
     ]
   },
   "deltadental.com": {
@@ -13196,16 +12602,13 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://depophelp.zendesk.com/hc/en-gb/articles/360017103878",
-    notes: "2FA can only be enabled via the app. Recovery codes can only be used via the app.",
-    recovery: "https://depophelp.zendesk.com/hc/en-gb/articles/360017003737"
+    documentation: "https://depophelp.zendesk.com/hc/en-gb/articles/360017103878"
   },
   "deputy.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.deputy.com/hc/en-au/articles/4621532398351",
-    recovery: "https://help.deputy.com/hc/en-us/articles/5082880153615"
+    documentation: "https://help.deputy.com/hc/en-au/articles/4621532398351"
   },
   "desertfinancial.com": {
     methods: [
@@ -13219,9 +12622,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Desjardins Mobile Services App"
     ],
     documentation: "https://www.desjardins.com/securite/validation-2-etapes/"
   },
@@ -13239,21 +12639,11 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Deutsche Bank Mobile"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
-    ],
     documentation: "https://www.deutsche-bank.de/pk/lp/psd2.html"
   },
   "deutsche-rentenversicherung.de": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "National identity card",
-      "Signature card"
     ],
     documentation: "https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/unsere_online-dienste.html"
   },
@@ -13273,8 +12663,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.deviantartsupport.com/kb/en/article/what-is-two-factor-authentication-and-how-do-i-enable-or-disable-it",
-    notes: "2FA can only be setup if you have a Core membership. 2FA setup is required in order to withdraw earnings regardless of membership status"
+    documentation: "https://www.deviantartsupport.com/kb/en/article/what-is-two-factor-authentication-and-how-do-i-enable-or-disable-it"
   },
   "dext.com": {
     methods: [
@@ -13292,14 +12681,12 @@ var sites_default = {
   "didiglobal.com": {
     methods: [
       "sms"
-    ],
-    notes: "DiDi decides when 2FA is required; user cannot enable 2FA for every login."
+    ]
   },
   "didimobility.co.jp": {
     methods: [
       "sms"
-    ],
-    notes: "DiDi decides when 2FA is required; user cannot enable 2FA for every login."
+    ]
   },
   "digicert.com": {
     methods: [
@@ -13312,9 +12699,6 @@ var sites_default = {
       "sms",
       "call",
       "custom-software"
-    ],
-    "custom-software": [
-      "DigiD"
     ],
     documentation: "https://www.digid.nl/nl/vraag-en-antwoord/hoe-kan-ik-de-sms-controle-toevoegen/"
   },
@@ -13341,8 +12725,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.digitalsurge.com.au/en/articles/5573002",
-    notes: "A mobile phone number is required to set up two-factor authentication."
+    documentation: "https://help.digitalsurge.com.au/en/articles/5573002"
   },
   "digitec.ch": {
     methods: [
@@ -13374,9 +12757,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://directnic.com/knowledge/article/137"
   },
@@ -13426,12 +12806,7 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Yandex.Key"
-    ],
-    documentation: "https://yandex.com/support/id/authorization/twofa.html",
-    notes: "SMS-capable phone required for initial setup.",
-    recovery: "https://yandex.com/support/id/authorization/twofa-restore.html"
+    documentation: "https://yandex.com/support/id/authorization/twofa.html"
   },
   "disneyplus.com": {},
   "displate.com": {},
@@ -13446,14 +12821,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "DKB app",
-      "DKB-Banking",
-      "DKB-TAN2go"
-    ],
-    "custom-hardware": [
-      "chipTAN card reader"
     ],
     documentation: "https://www.dkb.de/info/neue-anmeldung"
   },
@@ -13474,8 +12841,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.dmm.com/accounts/article/46818",
-    recovery: "https://support.dmm.com/accounts/article/46834"
+    documentation: "https://support.dmm.com/accounts/article/46818"
   },
   "dmoj.ca": {
     methods: [
@@ -13488,12 +12854,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "sms"
-    ],
-    "custom-software": [
-      "BankID app"
-    ],
-    "custom-hardware": [
-      "BankID card reader"
     ],
     documentation: "https://www.dnb.no/privat/kundeservice/innlogging-nettbank.html"
   },
@@ -13514,8 +12874,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://docs.docker.com/docker-hub/2fa/",
-    recovery: "https://docs.docker.com/docker-hub/2fa/recover-hub-account/"
+    documentation: "https://docs.docker.com/docker-hub/2fa/"
   },
   "doctolib.com": {
     methods: [
@@ -13588,8 +12947,7 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://help.domain.com.au/hc/en-us/articles/360012412713",
-    notes: "2FA is not available on the app."
+    documentation: "https://help.domain.com.au/hc/en-us/articles/360012412713"
   },
   "domaintools.com": {},
   "domeneshop.no": {
@@ -13597,8 +12955,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://domeneshop.no/faq?id=344",
-    notes: "SMS available only to customers in Norway, Sweden and Denmark."
+    documentation: "https://domeneshop.no/faq?id=344"
   },
   "dominionenergy.com": {
     methods: [
@@ -13655,18 +13012,12 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.drchrono.com/hc/en-us/articles/200030385"
   },
   "dreamhost.com": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://help.dreamhost.com/hc/en-us/articles/216013897"
   },
@@ -13684,12 +13035,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "drop.com": {},
   "dropbox.com": {
@@ -13698,9 +13044,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.dropbox.com/account-access/enable-2-factor-authentication",
-    notes: "Hardware 2FA requires also enabling Software or SMS 2FA as a back-up.",
-    recovery: "https://help.dropbox.com/account-access/issues-2-factor-authentication"
+    documentation: "https://help.dropbox.com/account-access/enable-2-factor-authentication"
   },
   "drs.ct.gov": {
     methods: [
@@ -13730,12 +13074,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://idms-mfa.oit.duke.edu/mfa/help"
   },
@@ -13770,8 +13108,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "ea.com": {
     methods: [
@@ -13801,9 +13138,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "easybank Security App"
-    ],
     documentation: "https://www.easybank.at/easybank/faq#Zeichnungsverfahren"
   },
   "easydmarc.com": {
@@ -13832,12 +13166,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "SecureGo plus"
-    ],
-    "custom-hardware": [
-      "photoTAN generator"
-    ],
     documentation: "https://www.eb.de/institutionen_cf/zahlungsverkehr/online-banking.html"
   },
   "ebay-kleinanzeigen.de": {
@@ -13852,9 +13180,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.be": {
@@ -13862,9 +13187,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13874,9 +13196,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.ch": {
@@ -13884,9 +13203,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13896,9 +13212,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.co.jp": {
@@ -13906,9 +13219,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13918,9 +13228,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.com": {
@@ -13928,9 +13235,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13940,9 +13244,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.com.hk": {
@@ -13950,9 +13251,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13962,9 +13260,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.com.sg": {
@@ -13972,9 +13267,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -13984,9 +13276,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.de": {
@@ -13994,9 +13283,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -14006,9 +13292,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.fr": {
@@ -14016,9 +13299,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -14028,9 +13308,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.in": {
@@ -14038,9 +13315,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -14050,9 +13324,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.nl": {
@@ -14060,9 +13331,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -14072,9 +13340,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "eBay app"
-    ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
   "ebay.pl": {
@@ -14082,9 +13347,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "eBay app"
     ],
     documentation: "https://www.ebay.com/help/account/protecting-account/tips-keeping-ebay-account-secure?id=4872#section2"
   },
@@ -14127,8 +13389,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.switch.ch/eduid/faqs/?lang=en#mfa",
-    recovery: "https://help.switch.ch/eduid/faqs/?lang=en#mfa-lost-mobile"
+    documentation: "https://help.switch.ch/eduid/faqs/?lang=en#mfa"
   },
   "eduonix.com": {},
   "edwardjones.ca": {
@@ -14152,15 +13413,11 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://ee.co.uk/help/profile/registration-setup/account-authentication",
-    notes: "Once enabled you cannot disable it again. You can only change the phone number you receive the code on."
+    documentation: "https://ee.co.uk/help/profile/registration-setup/account-authentication"
   },
   "efirstbank.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "FirstBank App"
     ],
     documentation: "https://www.efirstbank.com/internet-banking/login-options.htm"
   },
@@ -14171,11 +13428,7 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://helpdesk.egnyte.com/hc/en-us/articles/360028032991",
-    notes: "Availability of 2FA options depends on your account type."
+    documentation: "https://helpdesk.egnyte.com/hc/en-us/articles/360028032991"
   },
   "eki-net.com": {},
   "elastic.co": {
@@ -14224,14 +13477,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "ElsterSecure"
-    ],
-    "custom-hardware": [
-      "National identity card",
-      "G&D StarSign Crypto Key",
-      "Signature card"
-    ],
     documentation: "https://www.elster.de/eportal/helpGlobal?themaGlobal=help_eop"
   },
   "elv.com": {},
@@ -14245,12 +13490,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://www.emich.edu/it/security/esp/duo.php"
   },
@@ -14315,12 +13554,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Entrust IdentityGuard"
-    ],
-    "custom-hardware": [
-      "eGrid"
-    ],
     documentation: "https://www.entrust.com/knowledgebase/ssl/multifactor-authentication-faq"
   },
   "envato.com": {
@@ -14352,10 +13585,6 @@ var sites_default = {
       "email",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Epic Games app",
-      "Epic Games Store app"
     ],
     documentation: "https://www.epicgames.com/help/c74/c112/a3218"
   },
@@ -14392,9 +13621,6 @@ var sites_default = {
       "call",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ]
   },
   "ergon.com.au": {},
@@ -14402,12 +13628,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "George App"
-    ],
-    "custom-hardware": [
-      "Display card"
     ],
     documentation: "https://www.erstebank.hr/hr/sigurnost#/modalComponent/isOpen/true/url/%2Fhr%2Fconfiguration%2Fleads%2Fsigurnost0%2Fsigurno-online-bankarenje.modal"
   },
@@ -14440,12 +13660,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Symantec VIP Access"
-    ],
-    "custom-hardware": [
-      "Symantec hardware token"
     ],
     documentation: "https://us.etrade.com/security-center/securityid"
   },
@@ -14506,8 +13720,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://help.evernote.com/hc/en-us/articles/208314238",
-    notes: "SMS and phone call are always enabled as backup methods for TOTP."
+    documentation: "https://help.evernote.com/hc/en-us/articles/208314238"
   },
   "eversign.com": {},
   "eversource.com": {},
@@ -14599,8 +13812,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://www.facebook.com/help/148233965247823",
-    recovery: "https://www.facebook.com/help/147926301947841"
+    documentation: "https://www.facebook.com/help/148233965247823"
   },
   "faceit.com": {
     methods: [
@@ -14636,10 +13848,6 @@ var sites_default = {
       "email",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Epic Games app",
-      "Epic Games Store app"
     ],
     documentation: "https://www.epicgames.com/help/c74/c112/a3218"
   },
@@ -14694,11 +13902,7 @@ var sites_default = {
       "custom-hardware",
       "u2f"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://www.fastmail.com/help/account/2fa.html",
-    notes: "Setup requires SMS verification."
+    documentation: "https://www.fastmail.com/help/account/2fa.html"
   },
   "fastspring.com": {},
   "fathomhq.com": {
@@ -14719,8 +13923,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://faq.faucetpay.io/knowledge-base/what-is-2fa-and-how-do-i-enable-it-in-my-account/",
-    recovery: "https://faq.faucetpay.io/knowledge-base/i-accidentally-removed-the-2fa-application-from-my-mobile-what-should-do-i-now/"
+    documentation: "https://faq.faucetpay.io/knowledge-base/what-is-2fa-and-how-do-i-enable-it-in-my-account/"
   },
   "fauna.com": {
     methods: [
@@ -14760,12 +13963,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "fiber.google.com": {
     methods: [
@@ -14775,12 +13973,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "fidelity.com": {
     methods: [
@@ -14788,9 +13981,6 @@ var sites_default = {
       "call",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Fidelity Investments app"
     ],
     documentation: "https://www.fidelity.com/security/extra-security-login"
   },
@@ -14820,9 +14010,6 @@ var sites_default = {
       "u2f",
       "totp"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://www.files.com/docs/features/twofactor-authentication-2fa"
   },
   "filmweb.pl": {},
@@ -14830,8 +14017,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.finary.com/en/articles/6518627",
-    recovery: "https://help.finary.com/en/articles/6519234"
+    documentation: "https://help.finary.com/en/articles/6518627"
   },
   "findmyshift.com": {
     methods: [
@@ -14844,9 +14030,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Fineco app"
-    ],
     documentation: "https://finecobank.com/it/online/sicurezza/"
   },
   "finn.no": {
@@ -14854,8 +14037,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "finnair.com": {
     methods: [
@@ -14869,9 +14051,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Fio Smartbanking CZ"
-    ],
     documentation: "https://www.fio.cz/bank-services/internetbanking/security"
   },
   "firmex.com": {
@@ -14880,8 +14059,7 @@ var sites_default = {
       "sms",
       "email"
     ],
-    documentation: "https://support.firmex.com/hc/en-us/articles/204467648",
-    notes: "2FA must be enabled by a site administrator before use."
+    documentation: "https://support.firmex.com/hc/en-us/articles/204467648"
   },
   "firstcommunity.com": {
     methods: [
@@ -14896,12 +14074,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Digital Secure Key (first direct app)"
-    ],
-    "custom-hardware": [
-      "Physical Secure Key"
-    ],
     documentation: "https://www1.firstdirect.com/help/secure-key/"
   },
   "firsthorizon.com": {},
@@ -14914,12 +14086,6 @@ var sites_default = {
       "email",
       "totp"
     ],
-    "custom-software": [
-      "Entrust Identity Guard"
-    ],
-    "custom-hardware": [
-      "Entrust Hardware Token"
-    ],
     documentation: "https://www.firsttechfed.com/help/security/prevent#multifunction"
   },
   "fisglobal.com": {},
@@ -14931,12 +14097,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "fitbit.com": {
     methods: [
@@ -14946,12 +14107,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "fiverr.com": {
     methods: [
@@ -14969,8 +14125,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://docs.flexera.com/svm/Content/helplibrary/Configure_Two_Factor_Authentication__2FA_.htm",
-    recovery: "https://docs.flexera.com/svm/Content/helplibrary/Two_Factor_Authentication_Recovery.htm"
+    documentation: "https://docs.flexera.com/svm/Content/helplibrary/Configure_Two_Factor_Authentication__2FA_.htm"
   },
   "flickr.com": {},
   "flightaware.com": {
@@ -15070,8 +14225,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.formsite.com/hc/en-us/articles/360000686614",
-    notes: "2FA is only available for Pro 3 accounts or higher."
+    documentation: "https://support.formsite.com/hc/en-us/articles/360000686614"
   },
   "formspree.io": {
     methods: [
@@ -15093,10 +14247,6 @@ var sites_default = {
       "email",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Epic Games app",
-      "Epic Games Store app"
     ],
     documentation: "https://www.epicgames.com/help/c74/c112/a3218"
   },
@@ -15139,8 +14289,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://support.frame.io/en/articles/4766302",
-    notes: "2FA is only available for Enterprise users with mandated 2FA."
+    documentation: "https://support.frame.io/en/articles/4766302"
   },
   "freeagent.com": {
     methods: [
@@ -15226,8 +14375,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.frontify.com/en/articles/3947094",
-    notes: "2FA is only available for Enterprise users with a security package."
+    documentation: "https://help.frontify.com/en/articles/3947094"
   },
   "ftb.ca.gov": {
     methods: [
@@ -15242,8 +14390,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "fxhome.com": {},
   "gaijin.net": {
@@ -15253,11 +14400,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Gaijin Pass"
-    ],
-    documentation: "https://support.gaijin.net/hc/en-us/articles/203623622",
-    notes: "Software 2FA requires linking a phone number."
+    documentation: "https://support.gaijin.net/hc/en-us/articles/203623622"
   },
   "galaxus.ch": {
     methods: [
@@ -15292,11 +14435,7 @@ var sites_default = {
   "garena.sg": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Garena Authenticator"
-    ],
-    notes: "A mobile phone is required for 2FA."
+    ]
   },
   "garmin.com": {
     methods: [
@@ -15320,9 +14459,6 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
     documentation: "https://oit.gatech.edu/two-factor-authentication"
   },
   "gatehub.net": {
@@ -15338,8 +14474,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor",
-    notes: "Email 2FA is always enabled."
+    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor"
   },
   "geico.com": {
     methods: [
@@ -15354,18 +14489,12 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://support.gemini.com/hc/en-us/articles/204732985"
   },
   "georgetown.edu": {
     methods: [
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://uis.georgetown.edu/security/duo/"
   },
@@ -15383,9 +14512,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.dropbox.com/account-access/enable-2-factor-authentication",
-    notes: "Hardware 2FA requires also enabling Software or SMS 2FA as a back-up.",
-    recovery: "https://help.dropbox.com/account-access/issues-2-factor-authentication"
+    documentation: "https://help.dropbox.com/account-access/enable-2-factor-authentication"
   },
   "getflywheel.com": {
     methods: [
@@ -15398,8 +14525,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.mozilla.org/en-US/kb/secure-firefox-account-two-step-authentication",
-    recovery: "https://support.mozilla.org/en-US/kb/what-if-im-locked-out-two-step-authentication"
+    documentation: "https://support.mozilla.org/en-US/kb/secure-firefox-account-two-step-authentication"
   },
   "getresponse.com": {
     methods: [
@@ -15408,9 +14534,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "GetResponse app"
-    ],
     documentation: "https://www.getresponse.com/help/how-to-use-two-factor-authentication-in-getresponse.html"
   },
   "getscreen.me": {
@@ -15418,9 +14541,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Telegram"
     ],
     documentation: "https://getscreen.me/en/docs/dashboard#account-authentication"
   },
@@ -15439,12 +14559,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "GitHub Mobile"
-    ],
-    documentation: "https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication",
-    notes: "Hardware tokens must have a backup method, either SMS or software token.",
-    recovery: "https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa/recovering-your-account-if-you-lose-your-2fa-credentials"
+    documentation: "https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication"
   },
   "gitlab.com": {
     methods: [
@@ -15474,12 +14589,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "SecureGo plus"
-    ],
-    "custom-hardware": [
-      "Sm@rtTAN"
-    ],
     documentation: "https://www.gls.de/privatkunden/faq/onlinebanking/was-ist-die-zwei-faktor-authentifizierung-2fa-1/"
   },
   "gm.com": {
@@ -15487,8 +14596,7 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Automatically turned on for email. You are only allowed to have one method turned on at a time."
+    ]
   },
   "gmail.com": {
     methods: [
@@ -15498,20 +14606,14 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "gmc.com": {
     methods: [
       "sms",
       "email",
       "totp"
-    ],
-    notes: "Automatically turned on for email. You are only allowed to have one method turned on at a time."
+    ]
   },
   "gmo-aozora.com": {},
   "gmu.edu": {
@@ -15521,35 +14623,25 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://its.gmu.edu/knowledge-base/list-of-2fa-authentication-options/",
-    recovery: "https://its.gmu.edu/knowledge-base/how-to-request-a-bypass-code-emergency/"
+    documentation: "https://its.gmu.edu/knowledge-base/list-of-2fa-authentication-options/"
   },
   "gmx.at": {
     methods: [
       "totp"
     ],
-    documentation: "https://hilfe.gmx.net/sicherheit/2fa/einrichten.html",
-    notes: "Setup requires SMS verification."
+    documentation: "https://hilfe.gmx.net/sicherheit/2fa/einrichten.html"
   },
   "gmx.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.gmx.com/security/2fa/setup-twofactor.html#indexlink_help_security_2fa",
-    notes: "Setup requires SMS verification."
+    documentation: "https://support.gmx.com/security/2fa/setup-twofactor.html#indexlink_help_security_2fa"
   },
   "gmx.net": {
     methods: [
       "totp"
     ],
-    documentation: "https://hilfe.gmx.net/sicherheit/2fa/einrichten.html",
-    notes: "Setup requires SMS verification."
+    documentation: "https://hilfe.gmx.net/sicherheit/2fa/einrichten.html"
   },
   "go.wepay.com": {
     methods: [
@@ -15584,32 +14676,28 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://www.godaddy.com/help/enable-two-step-verification-7502",
-    notes: "If hardware 2FA enabled, customer support by phone requires enabling back-up method."
+    documentation: "https://www.godaddy.com/help/enable-two-step-verification-7502"
   },
   "godt.no": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "gofundme.com": {
     methods: [
       "sms",
       "call"
     ],
-    documentation: "https://support.gofundme.com/hc/en-us/articles/360001980947",
-    notes: "2FA only for North American customers that create Personal campaigns."
+    documentation: "https://support.gofundme.com/hc/en-us/articles/360001980947"
   },
   "gog.com": {
     methods: [
       "email",
       "totp"
     ],
-    documentation: "https://support.gog.com/hc/en-us/articles/115003660533",
-    notes: "Only one method of authentication can be used at a time."
+    documentation: "https://support.gog.com/hc/en-us/articles/115003660533"
   },
   "gogetssl.com": {},
   "golem.de": {},
@@ -15622,19 +14710,13 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "gopro.com": {
     methods: [
       "sms"
     ],
-    documentation: "https://community.gopro.com/t5/en/Setting-Up-Two-Step-Verification/ta-p/395873",
-    notes: "2FA only applies on the GoPro website, not the app."
+    documentation: "https://community.gopro.com/t5/en/Setting-Up-Two-Step-Verification/ta-p/395873"
   },
   "gosquared.com": {
     methods: [
@@ -15648,9 +14730,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Electronic Digital Signature (EDS) device"
     ],
     documentation: "https://www.gosuslugi.ru/help/faq/login/101923"
   },
@@ -15753,8 +14832,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.guildwars2.com/hc/en-us/articles/230672927",
-    recovery: "https://help.guildwars2.com/hc/en-us/articles/360000819168"
+    documentation: "https://help.guildwars2.com/hc/en-us/articles/230672927"
   },
   "gumlet.com": {
     methods: [
@@ -15785,9 +14863,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://it.gwu.edu/two-step-authentication"
   },
   "gyazo.com": {
@@ -15800,8 +14875,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://docs.hackerone.com/hackers/two-factor-authentication.html",
-    notes: "SMS-capable phone required for initial setup."
+    documentation: "https://docs.hackerone.com/hackers/two-factor-authentication.html"
   },
   "hackerrank.com": {},
   "hackster.io": {},
@@ -15809,22 +14883,17 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.hackthebox.com/articles/5185265",
-    recovery: "https://help.hackthebox.com/articles/5208737"
+    documentation: "https://help.hackthebox.com/articles/5185265"
   },
   "hackthebox.eu": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.hackthebox.com/articles/5185265",
-    recovery: "https://help.hackthebox.com/articles/5208737"
+    documentation: "https://help.hackthebox.com/articles/5185265"
   },
   "halebop.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "halifax-online.co.uk": {
@@ -15844,17 +14913,11 @@ var sites_default = {
   "hallon.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "handelsbanken.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.handelsbanken.se/shb/INeT/ICentSv.nsf/Default/qAE99695C4C1D033DC12579120036EB43?Opendocument"
   },
@@ -15878,13 +14941,6 @@ var sites_default = {
       "totp",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo",
-      "Okta Verify"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://huit.harvard.edu/twostep"
   },
@@ -15947,12 +15003,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "healthcare.gov": {
     methods: [
@@ -15967,16 +15018,14 @@ var sites_default = {
       "sms",
       "email"
     ],
-    documentation: "https://personifyhealth.zendesk.com/hc/articles/28007677707675",
-    notes: "SMS 2FA is only available for US and Canada phone numbers."
+    documentation: "https://personifyhealth.zendesk.com/hc/articles/28007677707675"
   },
   "healthequity.com": {},
   "heap.io": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.heap.io/heap-administration/secure-access/2fa/",
-    notes: "2FA is only available for users on the Business plan."
+    documentation: "https://help.heap.io/heap-administration/secure-access/2fa/"
   },
   "heartinternet.uk": {},
   "heathrow.com": {
@@ -16011,8 +15060,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://faq.hellosign.com/hc/en-us/articles/360025164091",
-    notes: "SMS Two-factor authentication is only available to paid Business plan senders and above."
+    documentation: "https://faq.hellosign.com/hc/en-us/articles/360025164091"
   },
   "hellostake.com": {
     methods: [
@@ -16034,22 +15082,12 @@ var sites_default = {
       "custom-hardware",
       "u2f"
     ],
-    "custom-software": [
-      "Salesforce Authenticator"
-    ],
-    "custom-hardware": [
-      "Built-in Authenticator (Biometrics)"
-    ],
-    documentation: "https://devcenter.heroku.com/articles/multi-factor-authentication",
-    recovery: "https://devcenter.heroku.com/articles/recovery-codes"
+    documentation: "https://devcenter.heroku.com/articles/multi-factor-authentication"
   },
   "hetzner.com": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://docs.hetzner.com/accounts-panel/accounts/two-factor-authentication/"
   },
@@ -16064,9 +15102,6 @@ var sites_default = {
       "totp",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://support.hpe.com/hpesc/public/docDisplay?docId=sd00002926en_us&page=GUID-78722BEA-6517-4C6E-96F3-92E9D81903E2.html"
   },
@@ -16142,12 +15177,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://www.hmc.edu/cis/duo-two-factor-authentication/"
   },
   "holded.com": {
@@ -16160,11 +15189,7 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Holvi app"
-    ],
-    documentation: "https://support.holvi.com/hc/en-gb/articles/360002711557",
-    notes: "Setup requires SMS verification."
+    documentation: "https://support.holvi.com/hc/en-gb/articles/360002711557"
   },
   "home-assistant.io": {
     methods: [
@@ -16176,9 +15201,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Saxo app"
     ]
   },
   "home.sophos.com": {
@@ -16187,9 +15209,7 @@ var sites_default = {
       "email",
       "sms"
     ],
-    documentation: "https://support.home.sophos.com/hc/en-us/articles/360032204471",
-    notes: "Email and SMS 2FA can only be enabled as backup methods.",
-    recovery: "https://support.home.sophos.com/hc/en-us/articles/360032204591"
+    documentation: "https://support.home.sophos.com/hc/en-us/articles/360032204471"
   },
   "homedepot.com": {},
   "honeybadger.io": {
@@ -16204,8 +15224,7 @@ var sites_default = {
       "totp",
       "email"
     ],
-    documentation: "https://help.hootsuite.com/hc/en-us/articles/1260804307989",
-    notes: "Email is always enabled as backup method for Software Token."
+    documentation: "https://help.hootsuite.com/hc/en-us/articles/1260804307989"
   },
   "hostek.co.uk": {
     methods: [
@@ -16237,14 +15256,12 @@ var sites_default = {
       "totp",
       "email"
     ],
-    documentation: "https://support.hostinger.com/articles/4888148",
-    notes: "You can only have one 2FA option enabled at a time."
+    documentation: "https://support.hostinger.com/articles/4888148"
   },
   "hostiso.com": {
     methods: [
       "totp"
-    ],
-    notes: "While both the main client area and the shared hosting panel support 2FA, each system is separate and requires its own setup."
+    ]
   },
   "hostmonster.com": {
     methods: [
@@ -16354,8 +15371,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.hotjar.com/hc/en-us/articles/4406998019223",
-    notes: "2FA is not available for SAML SSO logins"
+    documentation: "https://help.hotjar.com/hc/en-us/articles/4406998019223"
   },
   "hotmail.com": {
     methods: [
@@ -16365,11 +15381,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "hotstar.com": {},
   "hotukdeals.com": {},
@@ -16391,9 +15403,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://support.hpe.com/hpesc/public/docDisplay?docId=sd00002926en_us&page=GUID-78722BEA-6517-4C6E-96F3-92E9D81903E2.html"
   },
   "hrblock.com": {
@@ -16409,21 +15418,12 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "HSBC UK Mobile Banking"
-    ],
-    "custom-hardware": [
-      "HSBC Physical Secure Key"
-    ],
     documentation: "https://www.hsbc.co.uk/help/security-centre/secure-key/secure-key-help/"
   },
   "hsbc.com.ar": {},
   "hsbc.com.au": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "HSBC Australia"
     ],
     documentation: "https://www.hsbc.com.au/ways-to-bank/support/digital-secure-key/"
   },
@@ -16520,8 +15520,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.hypixel.net/hc/en-us/articles/360019538060",
-    notes: "In-game 2FA is limited to Hypixel staff and players with the [YOUTUBE] rank; website 2FA is available to anyone."
+    documentation: "https://support.hypixel.net/hc/en-us/articles/360019538060"
   },
   "hypop.com.au": {},
   "hypovereinsbank.de": {
@@ -16529,12 +15528,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "HVB Mobile Banking"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
     ],
     documentation: "https://www.hypovereinsbank.de/hvb/services/digitales-banking/psd2/tan-verfahren"
   },
@@ -16544,8 +15537,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.hytale.com/hc/articles/44212029550491",
-    notes: "If totp is set-up, email cannot be enabled."
+    documentation: "https://support.hytale.com/hc/articles/44212029550491"
   },
   "hytale.net": {
     methods: [
@@ -16553,15 +15545,11 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.hytale.com/hc/articles/44212029550491",
-    notes: "If totp is set-up, email cannot be enabled."
+    documentation: "https://support.hytale.com/hc/articles/44212029550491"
   },
   "icabanken.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.icabanken.se/kundservice/hjalp-med-att-logga-in/"
   },
@@ -16593,11 +15581,7 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Apple Device Push Notification"
-    ],
-    documentation: "https://support.apple.com/en-us/HT204915",
-    notes: "U2F requires a minimum of two security keys to be registered."
+    documentation: "https://support.apple.com/en-us/HT204915"
   },
   "id.atlassian.com": {
     methods: [
@@ -16615,9 +15599,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "ID.me Authenticator"
-    ],
     documentation: "https://help.id.me/hc/en-us/articles/360018113053"
   },
   "id.nintendo.net": {},
@@ -16625,8 +15606,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476",
-    recovery: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3508"
+    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476"
   },
   "idrive.com": {
     methods: [
@@ -16647,9 +15627,6 @@ var sites_default = {
   "ig.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "IG Authentication"
     ],
     documentation: "https://www.ig.com/uk/help-and-support/accounts-and-statements/my-accounts/how-do-i-set-up-two-factor-authentication"
   },
@@ -16683,15 +15660,13 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://sicherheit.immobilienscout24.de/2-faktor-authentifizierung.html",
-    notes: "SMS is only available to commercial real estate providers."
+    documentation: "https://sicherheit.immobilienscout24.de/2-faktor-authentifizierung.html"
   },
   "immowelt.de": {
     methods: [
       "email"
     ],
-    documentation: "https://support.immowelt.de/immoweltde/faq/gewerbliche-anbieter/meine-immowelt/sichere-anmeldung.html",
-    notes: "2FA is only available for commercial partners."
+    documentation: "https://support.immowelt.de/immoweltde/faq/gewerbliche-anbieter/meine-immowelt/sichere-anmeldung.html"
   },
   "imperva.com": {
     methods: [
@@ -16760,9 +15735,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Infomaniak Auth"
-    ],
     documentation: "https://www.infomaniak.com/en/support/faq/1940"
   },
   "ing.com.au": {
@@ -16775,12 +15747,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "ING Banking to go"
-    ],
-    "custom-hardware": [
-      "photoTAN reader"
-    ],
     documentation: "https://www.ing.de/hilfe/auftraege-freigeben/"
   },
   "ing.it": {
@@ -16788,23 +15754,12 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "ING Italia"
-    ],
-    documentation: "https://www.ing.it/faq/codici-e-dati-anagrafici/token-cos-e-come-funziona.html",
-    notes: "The SMS One-Time Password service is available for a fee of \u20AC0.50/month.",
-    recovery: "https://www.ing.it/faq/sicurezza-e-phishing/cosa-fare-perdita-furto-cellulare.html"
+    documentation: "https://www.ing.it/faq/codici-e-dati-anagrafici/token-cos-e-come-funziona.html"
   },
   "ing.lu": {
     methods: [
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "LuxTrust Mobile App"
-    ],
-    "custom-hardware": [
-      "LuxTrust Token"
     ],
     documentation: "https://www.ing.lu/webing/content/siteing/en/Individuals/Onlineproduct/Contact/frequently-asked-questions/faq-online-banking-.html#accordion-16b6eafd77-item-36c4e5a172"
   },
@@ -16814,11 +15769,7 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Moje ING App"
-    ],
-    documentation: "https://www.ing.pl/indywidualni/bankowosc-internetowa/bezpieczenstwo/klucze-zabezpieczen-u2f",
-    notes: "The first U2F key requires confirmation at a bank branch."
+    documentation: "https://www.ing.pl/indywidualni/bankowosc-internetowa/bezpieczenstwo/klucze-zabezpieczen-u2f"
   },
   "inmotionhosting.com": {
     methods: [
@@ -16868,8 +15819,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://wiki.zoolz.com/how-do-i-enable-two-factor-authentication-on-my-zoolz-intelligent-account/",
-    notes: "Only available for business accounts."
+    documentation: "https://wiki.zoolz.com/how-do-i-enable-two-factor-authentication-on-my-zoolz-intelligent-account/"
   },
   "interactivebrokers.ca": {
     methods: [
@@ -16877,14 +15827,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.co.in": {
     methods: [
@@ -16892,14 +15835,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.co.jp": {
     methods: [
@@ -16907,14 +15843,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.co.uk": {
     methods: [
@@ -16922,14 +15851,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.com": {
     methods: [
@@ -16937,14 +15859,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.com.au": {
     methods: [
@@ -16952,14 +15867,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.com.hk": {
     methods: [
@@ -16967,14 +15875,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.hu": {
     methods: [
@@ -16982,14 +15883,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.ie": {
     methods: [
@@ -16997,14 +15891,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "interactivebrokers.sg": {
     methods: [
@@ -17012,14 +15899,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "IBKR Mobile"
-    ],
-    "custom-hardware": [
-      "Digital Security Card+"
-    ],
-    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log",
-    notes: "SMS 2FA only works as long as no other method has been enabled. Hardware 2FA is only available for certain customers."
+    documentation: "https://www.interactivebrokers.com/en/index.php?f=ibgStrength&p=log"
   },
   "intercom.com": {
     methods: [
@@ -17044,9 +15924,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "sms"
-    ],
-    "custom-software": [
-      "Intesa Sanpaolo Mobile app"
     ],
     documentation: "https://www.intesasanpaolo.com/content/internetbanking/it/faq/common/faqHome/app-intesa-sanpaolo-mobile.privati.html"
   },
@@ -17076,8 +15953,7 @@ var sites_default = {
       "sms",
       "call",
       "totp"
-    ],
-    recovery: "https://help.invictuscapital.com/en/articles/3561870"
+    ]
   },
   "invoice.2go.com": {
     methods: [
@@ -17090,9 +15966,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://docs.invoiced.com/faqs#wBTZz"
   },
@@ -17107,9 +15980,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "IONOS Mobile App"
     ],
     documentation: "https://www.ionos.com/help/web-security/two-factor-authentication-two-factor-authentication/set-up-two-factor-authentication/"
   },
@@ -17126,11 +15996,7 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "IKO App"
-    ],
-    documentation: "https://iko.pkobp.pl/funkcje/mobilna-autoryzacja/",
-    notes: "You can only register one U2F security key to your bank account"
+    documentation: "https://iko.pkobp.pl/funkcje/mobilna-autoryzacja/"
   },
   "ipvanish.com": {},
   "irccloud.com": {},
@@ -17146,9 +16012,6 @@ var sites_default = {
       "call",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "ID.me Authenticator"
     ],
     documentation: "https://www.irs.gov/privacy-disclosure/secure-access-how-to-register-for-certain-online-self-help-tools"
   },
@@ -17190,8 +16053,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.itslearning.com/en/support/solutions/articles/7000066757",
-    notes: "Only available to system administrators"
+    documentation: "https://support.itslearning.com/en/support/solutions/articles/7000066757"
   },
   "iubenda.com": {},
   "ivpn.net": {
@@ -17204,11 +16066,7 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://help.iwantmyname.com/hc/en-gb/articles/360014435197",
-    recovery: "https://help.iwantmyname.com/hc/en-gb/articles/360014825318"
+    documentation: "https://help.iwantmyname.com/hc/en-gb/articles/360014435197"
   },
   "jamfnow.com": {
     methods: [
@@ -17221,9 +16079,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "JEP Token"
     ]
   },
   "jetblue.com": {
@@ -17237,8 +16092,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://sales.jetbrains.com/hc/en-gb/articles/360013015240",
-    recovery: "https://sales.jetbrains.com/hc/en-gb/articles/360013090420"
+    documentation: "https://sales.jetbrains.com/hc/en-gb/articles/360013015240"
   },
   "jetstar.com": {
     methods: [
@@ -17251,11 +16105,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "WeChat"
-    ],
-    documentation: "https://help.jianguoyun.com/?p=1251",
-    notes: "SMS 2FA only available on certain pricing plans"
+    documentation: "https://help.jianguoyun.com/?p=1251"
   },
   "jitbit.com": {
     methods: [
@@ -17269,16 +16119,14 @@ var sites_default = {
   "join-lemmy.org": {
     methods: [
       "totp"
-    ],
-    notes: "2FA is only available on Lemmy instances using version 0.18 or later."
+    ]
   },
   "joinmastodon.org": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://github.com/McKael/mastodon-documentation/blob/master/Using-Mastodon/2FA.md",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://github.com/McKael/mastodon-documentation/blob/master/Using-Mastodon/2FA.md"
   },
   "joker.com": {
     methods: [
@@ -17327,8 +16175,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://jumpcloud.com/support/set-up-authenticator-app-for-user-account",
-    recovery: "https://jumpcloud.com/support/reset-mfa-in-user-portal"
+    documentation: "https://jumpcloud.com/support/set-up-authenticator-app-for-user-account"
   },
   "justgiving.com": {
     methods: [
@@ -17372,9 +16219,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "KakaoTalk app"
-    ],
     documentation: "https://cs.kakao.com/helps?service=52&category=1095"
   },
   "kanka.io": {
@@ -17390,8 +16234,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.kaspersky.com/KPC/1.0/en-US/152628.htm",
-    notes: "SMS 2FA must be enabled before TOTP 2FA can be set up. SMS 2FA cannot be disabled even when TOTP is enabled."
+    documentation: "https://help.kaspersky.com/KPC/1.0/en-US/152628.htm"
   },
   "kayako.com": {
     methods: [
@@ -17439,8 +16282,7 @@ var sites_default = {
       "totp",
       "email"
     ],
-    documentation: "https://support.kickex.com/hc/en-us/articles/360019513860",
-    recovery: "https://support.kickex.com/hc/en-us/articles/360019525000"
+    documentation: "https://support.kickex.com/hc/en-us/articles/360019513860"
   },
   "kickstarter.com": {
     methods: [
@@ -17448,8 +16290,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://help.kickstarter.com/hc/en-us/articles/115005127094",
-    notes: "Software 2FA requires setting up SMS 2FA as a fallback."
+    documentation: "https://help.kickstarter.com/hc/en-us/articles/115005127094"
   },
   "kijiji.ca": {},
   "kik.com": {},
@@ -17469,17 +16310,12 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://get.kintone.help/general/en/user/list_2fa/enable_2fa.html",
-    notes: "2FA must be enabled by an admin before use."
+    documentation: "https://get.kintone.help/general/en/user/list_2fa/enable_2fa.html"
   },
   "kit.edu": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "KIT Token"
     ],
     documentation: "https://www.scc.kit.edu/dienste/2fa.php"
   },
@@ -17489,29 +16325,20 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "BankID"
-    ],
-    documentation: "https://www.klarna.com/no/kundeservice/hvordan-logger-jeg-inn/",
-    recovery: "https://www.klarna.com/no/kundeservice/jeg-kan-ikke-logge-inn-hva-kan-jeg-gjore/"
+    documentation: "https://www.klarna.com/no/kundeservice/hvordan-logger-jeg-inn/"
   },
   "klarna.se": {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "BankID"
-    ],
-    documentation: "https://www.klarna.com/se/kundservice/hur-loggar-jag-in/",
-    recovery: "https://www.klarna.com/se/kundservice/jag-kan-inte-logga-in-vad-kan-jag-gora/"
+    documentation: "https://www.klarna.com/se/kundservice/hur-loggar-jag-in/"
   },
   "klart.se": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "klaviyo.com": {
     methods: [
@@ -17551,8 +16378,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://help.ko-fi.com/hc/en-us/articles/6355489342737",
-    notes: "TOTP is only available with SMS as a backup"
+    documentation: "https://help.ko-fi.com/hc/en-us/articles/6355489342737"
   },
   "kobo.com": {},
   "kohls.com": {},
@@ -17585,19 +16411,14 @@ var sites_default = {
       "u2f",
       "email"
     ],
-    "custom-hardware": [
-      "OATH OTP keys"
-    ],
-    documentation: "https://support.kraken.com/hc/en-us/articles/360000426923",
-    notes: "Email 2FA is mandatory for all users but only requested for unknown devices"
+    documentation: "https://support.kraken.com/hc/en-us/articles/360000426923"
   },
   "kriptomat.io": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://help.kriptomat.io/en/articles/1986160",
-    recovery: "https://help.kriptomat.io/en/articles/3650094"
+    documentation: "https://help.kriptomat.io/en/articles/1986160"
   },
   "krystal.uk": {
     methods: [
@@ -17616,9 +16437,6 @@ var sites_default = {
   "lansforsakringar.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.lansforsakringar.se/privat/att-vara-kund/digitala-tjanster-telefonbank/internetbanken/"
   },
@@ -17639,21 +16457,7 @@ var sites_default = {
       "u2f",
       "sms"
     ],
-    "custom-software": [
-      "LastPass Authenticator",
-      "Duo",
-      "RSA SecurID",
-      "Symantec VIP",
-      "SecureAuth Authenticate"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Windows Fingerprint",
-      "Smart Card"
-    ],
-    documentation: "https://support.logmeininc.com/lastpass/help/enable-multifactor-authentication-lp010002",
-    notes: "Availability of 2FA options depends on your account type. U2F is available through Duo integration on all plans. Yubico OTP is only available on paid plans.",
-    recovery: "https://support.logmeininc.com/lastpass/help/i-lost-my-phone-ndash-how-do-i-disable-multifactor-authentication-for-lastpass"
+    documentation: "https://support.logmeininc.com/lastpass/help/enable-multifactor-authentication-lp010002"
   },
   "latam.com": {},
   "latitudefinancial.com": {},
@@ -17670,9 +16474,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://www.latrobe.edu.au/students/support/it/mfa"
   },
   "launchdarkly.com": {
@@ -17685,11 +16486,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token",
-      "HOTP Token",
-      "OATH Token"
     ],
     documentation: "https://help.ubuntu.com/community/SSO/FAQs/2FA"
   },
@@ -17764,22 +16560,13 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.lexoffice.de/de-form/articles/4290490",
-    recovery: "https://support.lexoffice.de/de-form/articles/5250370"
+    documentation: "https://support.lexoffice.de/de-form/articles/4290490"
   },
   "lgeccu.org": {},
   "lhv.ee": {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "SmartID"
-    ],
-    "custom-hardware": [
-      "ID-card",
-      "mobile-ID",
-      "Security token"
     ]
   },
   "librarything.com": {},
@@ -17791,9 +16578,6 @@ var sites_default = {
   "lidentitenumerique.laposte.fr": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "L'Identit\xE9 Num\xE9rique La Poste app"
     ],
     documentation: "https://aide.lidentitenumerique.laposte.fr/kb/guide/fr/YapekkW4gf"
   },
@@ -17818,12 +16602,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "VR SecureGo plus"
-    ],
-    "custom-hardware": [
-      "Sm@rt-TAN card reader"
-    ],
     documentation: "https://www.ligabank.de/liga-direkt/faq-zum-online-banking.html#parsys_faqliste_330836501"
   },
   "lihkg.com": {
@@ -17845,9 +16623,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "LinkedIn App"
     ],
     documentation: "https://www.linkedin.com/help/linkedin/answer/544"
   },
@@ -17897,16 +16672,12 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.litebit.eu/hc/en-us/articles/115000953504",
-    recovery: "https://support.litebit.eu/hc/en-us/articles/360001555699"
+    documentation: "https://support.litebit.eu/hc/en-us/articles/115000953504"
   },
   "litmus.com": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://help.litmus.com/article/128--"
   },
@@ -17917,17 +16688,11 @@ var sites_default = {
       "call",
       "sms"
     ],
-    "custom-software": [
-      "Lloyds Bank Mobile Banking"
-    ],
     documentation: "https://www.lloydsbank.com/online-banking/changes-to-internet-banking.asp"
   },
   "lmcu.org": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Lake Michigan CU Mobile"
     ],
     documentation: "https://www.lmcu.org/personal/banking/services/mobile-authenticator/"
   },
@@ -17936,8 +16701,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.lnk.bio/en/articles/8372705",
-    recovery: "https://help.lnk.bio/en/articles/8377209"
+    documentation: "https://help.lnk.bio/en/articles/8372705"
   },
   "lobste.rs": {
     methods: [
@@ -17971,9 +16735,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://www.logicmonitor.com/support/settings/users-and-roles/two-factor-authentication"
   },
   "login.bce.baidu.com": {
@@ -17991,9 +16752,6 @@ var sites_default = {
       "u2f",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "PIV/CAC"
-    ],
     documentation: "https://www.login.gov/help/get-started/authentication-methods/"
   },
   "login.microsoftonline.com": {
@@ -18004,9 +16762,6 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
   "login.nvgs.nvidia.com": {
@@ -18015,8 +16770,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor",
-    notes: "Email 2FA is always enabled."
+    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor"
   },
   "login.sophos.com": {
     methods: [
@@ -18073,9 +16827,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://www.lonestar.edu/OTS-MFA.htm"
   },
   "looker.com": {
@@ -18088,9 +16839,6 @@ var sites_default = {
   "loopia.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://blogg.loopia.se/2015/03/16/nu-kan-du-logga-in-med-tvafaktorsautentiering-hos-loopia-genom-bankid/"
   },
@@ -18111,9 +16859,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://www.latrobe.edu.au/students/support/it/mfa"
   },
@@ -18148,8 +16893,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.luno.com/help/en/articles/1000203420",
-    notes: "A mobile phone number is required to set up two-factor authentication."
+    documentation: "https://www.luno.com/help/en/articles/1000203420"
   },
   "lyft.com": {},
   "lyyti.com": {},
@@ -18168,9 +16912,6 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
   "maccabi4u.co.il": {},
@@ -18178,11 +16919,7 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Macquarie Authenticator"
-    ],
-    documentation: "https://www.macquarie.com.au/help/personal/accessing-online-and-mobile-banking/macquarie-authenticator-and-multi-factor-authentication/set-up-macquarie-authenticator",
-    notes: "An SMS-capable phone is required for initial setup."
+    documentation: "https://www.macquarie.com.au/help/personal/accessing-online-and-mobile-banking/macquarie-authenticator-and-multi-factor-authentication/set-up-macquarie-authenticator"
   },
   "macro.com.ar": {},
   "macstadium.com": {
@@ -18216,8 +16953,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297",
-    notes: "SMS is required as a backup method"
+    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297"
   },
   "mail.aol.com": {
     methods: [
@@ -18233,8 +16969,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.mail.com/security/2fa/index.html",
-    notes: "A verified phone number is required to set up 2FA."
+    documentation: "https://support.mail.com/security/2fa/index.html"
   },
   "mail.de": {
     methods: [
@@ -18251,12 +16986,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "mail.riseup.net": {},
   "mail.ru": {
@@ -18279,20 +17009,12 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Yandex.Key"
-    ],
-    documentation: "https://yandex.com/support/id/authorization/twofa.html",
-    notes: "SMS-capable phone required for initial setup.",
-    recovery: "https://yandex.com/support/id/authorization/twofa-restore.html"
+    documentation: "https://yandex.com/support/id/authorization/twofa.html"
   },
   "mailbox.org": {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://kb.mailbox.org/de/privat/sicherheit-privatsphaere/die-zwei-faktor-authentifizierung-einrichten/"
   },
@@ -18339,9 +17061,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Mailo app"
-    ],
     documentation: "https://faq.mailo.com/acces/activer-la-double-authentification.htm"
   },
   "make.com": {
@@ -18369,9 +17088,6 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "M&T Mobile app"
     ],
     documentation: "https://www.mtb.com/help-center/banking-security/online-mobile-banking-security"
   },
@@ -18401,12 +17117,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Symantec VIP"
-    ],
-    "custom-hardware": [
-      "Symantec VIP Token"
     ]
   },
   "marktplaats.nl": {
@@ -18435,8 +17145,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://github.com/McKael/mastodon-documentation/blob/master/Using-Mastodon/2FA.md",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://github.com/McKael/mastodon-documentation/blob/master/Using-Mastodon/2FA.md"
   },
   "matalan.co.uk": {},
   "mathoverflow.net": {},
@@ -18488,9 +17197,6 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "MBNA Card Services App"
-    ],
     documentation: "https://www.mbna.co.uk/credit-cards/help-and-support/changes-to-online-shopping.html"
   },
   "mbna.com": {
@@ -18499,8 +17205,7 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    documentation: "https://www.bankofamerica.com/security-center/online-banking/",
-    notes: "Mobile apps only use SMS 2FA"
+    documentation: "https://www.bankofamerica.com/security-center/online-banking/"
   },
   "mcafee.com": {
     methods: [
@@ -18517,9 +17222,6 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://mcgill.service-now.com/itportal?id=kb_article_view&sys_kb_id=b1508e941be04910591ca9b7624bcb85"
   },
   "mebank.com.au": {},
@@ -18535,12 +17237,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "meetup.com": {},
   "mega.io": {
@@ -18620,8 +17317,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://suporte.mercadobitcoin.com.br/hc/pt-br/articles/360039357491",
-    recovery: "https://suporte.mercadobitcoin.com.br/hc/pt-br/articles/360059201631"
+    documentation: "https://suporte.mercadobitcoin.com.br/hc/pt-br/articles/360039357491"
   },
   "mercadolibre.cl": {
     methods: [
@@ -18760,9 +17456,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ]
   },
   "mercury.cash": {
@@ -18797,8 +17490,7 @@ var sites_default = {
       "sms",
       "email"
     ],
-    documentation: "https://support.messagebird.com/hc/en-us/articles/12896784423057",
-    notes: "Only one 2FA method can be active at any given time"
+    documentation: "https://support.messagebird.com/hc/en-us/articles/12896784423057"
   },
   "messenger.com": {
     methods: [
@@ -18806,8 +17498,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://www.facebook.com/help/148233965247823",
-    recovery: "https://www.facebook.com/help/147926301947841"
+    documentation: "https://www.facebook.com/help/148233965247823"
   },
   "meta.com": {
     methods: [
@@ -18850,12 +17541,6 @@ var sites_default = {
       "u2f",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://www.miamioh.edu/it-services/special-groups/info-security/duo/"
   },
   "michaels.com": {
@@ -18871,9 +17556,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
@@ -18894,9 +17576,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Migros Access app"
     ],
     documentation: "https://account.migros.ch/help#secureWhy2FactorPassword"
   },
@@ -18936,23 +17615,13 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "mines.edu": {
     methods: [
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://its.mines.edu/mfa/"
   },
@@ -18961,8 +17630,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "minna-no-ginko.com": {},
   "mint.intuit.com": {
@@ -18971,8 +17639,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://accounts-help.intuit.com/app/intuit/1995176",
-    notes: "Software 2FA requires enabling SMS or phone call as a back-up."
+    documentation: "https://accounts-help.intuit.com/app/intuit/1995176"
   },
   "mintos.com": {
     methods: [
@@ -18984,8 +17651,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.miro.com/hc/en-us/articles/7935469290002",
-    notes: "Only available for Enterprise plan accounts and must be enabled by a Company Admin"
+    documentation: "https://help.miro.com/hc/en-us/articles/7935469290002"
   },
   "misfit.com": {},
   "misshosting.bg": {
@@ -19057,12 +17723,6 @@ var sites_default = {
       "custom-hardware",
       "sms"
     ],
-    "custom-software": [
-      "SecureGo"
-    ],
-    "custom-hardware": [
-      "TAN generator"
-    ],
     documentation: "https://mlp.de/banking/konto-und-karte/psd2/"
   },
   "mobile.everyday.com.au": {
@@ -19097,19 +17757,12 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "mojedatovaschranka.cz": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "eGovernment Mobile Key"
     ],
     documentation: "https://www.mojedatovaschranka.cz/static/ISDS/help/page1.html#1_5_4"
   },
@@ -19125,9 +17778,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://www.monash.edu/esolutions/accounts-passwords/multi-factor-authentication"
   },
   "monash.edu.my": {
@@ -19136,9 +17786,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://www.monash.edu/esolutions/accounts-passwords/multi-factor-authentication"
   },
   "monday.com": {
@@ -19146,8 +17793,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://support.monday.com/hc/en-us/articles/360000787745",
-    notes: "Team admins must enable 2FA before members can use it."
+    documentation: "https://support.monday.com/hc/en-us/articles/360000787745"
   },
   "monex.co.jp": {
     methods: [
@@ -19177,9 +17823,6 @@ var sites_default = {
       "custom-software",
       "sms",
       "u2f"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://docs.atlas.mongodb.com/security-multi-factor-authentication/"
   },
@@ -19229,9 +17872,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://secureit.msu.edu/multi-factor/index.html"
   },
   "mtb.com": {
@@ -19240,9 +17880,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "M&T Mobile app"
-    ],
     documentation: "https://www.mtb.com/help-center/banking-security/online-mobile-banking-security"
   },
   "mulesoft.com": {
@@ -19250,9 +17887,6 @@ var sites_default = {
       "totp",
       "custom-software",
       "u2f"
-    ],
-    "custom-software": [
-      "Salesforce Authenticator"
     ],
     documentation: "https://docs.mulesoft.com/access-management/multi-factor-authentication"
   },
@@ -19269,8 +17903,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://it.muni.cz/en/services/muni-unified-login/multi-factor-authentication",
-    recovery: "https://service.support.muni.cz/servicedesk/customer/portal/1/group/52/create/937"
+    documentation: "https://it.muni.cz/en/services/muni-unified-login/multi-factor-authentication"
   },
   "mural.co": {
     methods: [
@@ -19288,8 +17921,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://mxtoolbox.com/support/knowledgebase/?faq=455",
-    notes: "2FA is only available on paid plans."
+    documentation: "https://mxtoolbox.com/support/knowledgebase/?faq=455"
   },
   "my.cigna.com": {
     methods: [
@@ -19311,9 +17943,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://dol.ny.gov/MFA"
   },
   "my.plesk.com": {
@@ -19328,16 +17957,13 @@ var sites_default = {
       "email",
       "sms"
     ],
-    documentation: "https://support.home.sophos.com/hc/en-us/articles/360032204471",
-    notes: "Email and SMS 2FA can only be enabled as backup methods.",
-    recovery: "https://support.home.sophos.com/hc/en-us/articles/360032204591"
+    documentation: "https://support.home.sophos.com/hc/en-us/articles/360032204471"
   },
   "my.webrootanywhere.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476",
-    recovery: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3508"
+    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476"
   },
   "myanimelist.net": {
     methods: [
@@ -19380,9 +18006,6 @@ var sites_default = {
       "totp",
       "u2f",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Smartphone biometrics (fingerprint, face recognition)"
     ],
     documentation: "https://en.avm.de/myfritz/faqs/security-tips-for-using-myfritz/"
   },
@@ -19434,9 +18057,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://help.myob.com/wiki/x/bwfq",
-    notes: "SMS available to selected new customers only.",
-    recovery: "https://help.myob.com/wiki/x/1ogHAQ"
+    documentation: "https://help.myob.com/wiki/x/bwfq"
   },
   "myob.com": {
     methods: [
@@ -19444,9 +18065,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://help.myob.com/wiki/x/bwfq",
-    notes: "SMS available to selected new customers only.",
-    recovery: "https://help.myob.com/wiki/x/1ogHAQ"
+    documentation: "https://help.myob.com/wiki/x/bwfq"
   },
   "myob.com.au": {
     methods: [
@@ -19454,9 +18073,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://help.myob.com/wiki/x/bwfq",
-    notes: "SMS available to selected new customers only.",
-    recovery: "https://help.myob.com/wiki/x/1ogHAQ"
+    documentation: "https://help.myob.com/wiki/x/bwfq"
   },
   "mypath.pa.gov": {
     methods: [
@@ -19513,9 +18130,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "N26 app"
-    ],
     documentation: "https://support.n26.com/en-eu/security/passwords-and-codes/how-to-log-in-with-two-factor-authentication"
   },
   "n8n.cloud": {
@@ -19536,8 +18150,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.naga.com/en/articles/5057605",
-    notes: "MFA can only be set up from the NAGA Web platform and not on iOS or Android Apps"
+    documentation: "https://support.naga.com/en/articles/5057605"
   },
   "nairaex.com": {
     methods: [
@@ -19554,16 +18167,14 @@ var sites_default = {
   "namebase.io": {
     methods: [
       "totp"
-    ],
-    recovery: "https://www.namebase.io/faq/#how-do-i-reset-my-2fa"
+    ]
   },
   "namecheap.com": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://www.namecheap.com/security/2fa-two-factor-authentication/",
-    notes: "Only one 2FA method can be active at any given time"
+    documentation: "https://www.namecheap.com/security/2fa-two-factor-authentication/"
   },
   "namehero.com": {
     methods: [
@@ -19610,17 +18221,11 @@ var sites_default = {
       "sms",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Card reader"
-    ],
     documentation: "https://www.nationwide.co.uk/support/security-centre/internet-banking-security/new-log-in-experience"
   },
   "natwest.com": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Card reader"
     ],
     documentation: "https://www.natwest.com/banking-with-natwest/how-to/card-reader.html"
   },
@@ -19628,20 +18233,13 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "NAVER app"
-    ],
-    documentation: "https://help.naver.com/service/5640/contents/21127?lang=en",
-    recovery: "https://help.naver.com/service/5640/contents/21129?lang=en"
+    documentation: "https://help.naver.com/service/5640/contents/21127?lang=en"
   },
   "navyfederal.org": {
     methods: [
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Navy Federal App"
     ],
     documentation: "https://www.navyfederal.org/services/security/two-step-verification.html"
   },
@@ -19667,11 +18265,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    documentation: "https://oit.ncsu.edu/it-security/2fa/",
-    recovery: "https://go.ncsu.edu/2fa-bypass"
+    documentation: "https://oit.ncsu.edu/it-security/2fa/"
   },
   "nd.edu": {
     methods: [
@@ -19680,9 +18274,6 @@ var sites_default = {
       "custom-software",
       "u2f",
       "totp"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://nd.service-now.com/nd_portal?id=kb_article_view&sysparm_article=KB0017218"
   },
@@ -19721,12 +18312,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://support.google.com/googlenest/answer/9295081",
-    notes: "Non-migrated accounts only have SMS & Email 2FA available."
+    documentation: "https://support.google.com/googlenest/answer/9295081"
   },
   "nest.google.com": {
     methods: [
@@ -19736,20 +18322,12 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://support.google.com/googlenest/answer/9295081",
-    notes: "Non-migrated accounts only have SMS & Email 2FA available."
+    documentation: "https://support.google.com/googlenest/answer/9295081"
   },
   "netacad.com": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://www.cisco.com/c/en/us/about/help/login-account-help.html#~change-password"
   },
@@ -19759,18 +18337,11 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "CommBank app"
-    ],
-    documentation: "https://www.commbank.com.au/digital-banking/netbank/multi-factor-authentication.html",
-    notes: "SMS is only available when setting up CommBank app."
+    documentation: "https://www.commbank.com.au/digital-banking/netbank/multi-factor-authentication.html"
   },
   "netbk.co.jp": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Sumishin SBI Net Bank app"
     ],
     documentation: "https://www.netbk.co.jp/contents/lineup/smartauth-neo/"
   },
@@ -19799,9 +18370,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "NETTELLER mobile"
     ],
     documentation: "https://www.neteller.com/en/support#/path/1362152022"
   },
@@ -19950,11 +18518,7 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://www.nicehash.com/support/general-help/security/how-to-setup-2fa-security",
-    recovery: "https://www.nicehash.com/support/general-help/security/lost-password-or-2fa-code"
+    documentation: "https://www.nicehash.com/support/general-help/security/how-to-setup-2fa-security"
   },
   "nicorgas.com": {},
   "nicovideo.jp": {
@@ -19974,8 +18538,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://nimbusweb.me/guides/settings/account-settings-2-step-verification-for-sign-in/",
-    notes: "Available for Pro and Business users only."
+    documentation: "https://nimbusweb.me/guides/settings/account-settings-2-step-verification-for-sign-in/"
   },
   "nitrotype.com": {
     methods: [
@@ -20001,28 +18564,18 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.nordvpn.com/hc/articles/19442299167889",
-    recovery: "https://support.nordvpn.com/hc/articles/20323778989969"
+    documentation: "https://support.nordvpn.com/hc/articles/19442299167889"
   },
   "nordea.fi": {
     methods: [
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Nordea ID"
-    ],
-    "custom-hardware": [
-      "Code calculator"
-    ],
     documentation: "https://www.nordea.fi/en/personal/our-services/online-mobile-services/access-codes.html"
   },
   "nordea.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.nordea.se/privat/vardagstjanster/internet-mobil-telefon/bank-id.html"
   },
@@ -20038,16 +18591,12 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.nordvpn.com/hc/articles/19442299167889",
-    recovery: "https://support.nordvpn.com/hc/articles/20323778989969"
+    documentation: "https://support.nordvpn.com/hc/articles/19442299167889"
   },
   "nordnet.fi": {},
   "nordnet.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "nordpass.com": {
@@ -20055,8 +18604,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.nordpass.com/hc/articles/360002770497",
-    recovery: "https://support.nordpass.com/hc/articles/360009699017"
+    documentation: "https://support.nordpass.com/hc/articles/360002770497"
   },
   "nordstellar.com": {
     methods: [
@@ -20071,8 +18619,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.nordvpn.com/hc/articles/19442299167889",
-    recovery: "https://support.nordvpn.com/hc/articles/20323778989969"
+    documentation: "https://support.nordvpn.com/hc/articles/19442299167889"
   },
   "norgesgruppen.no": {
     methods: [
@@ -20092,12 +18639,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "norisbank photoTAN"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
     ],
     documentation: "https://www.norisbank.de/service/zwei-faktor-authentifizierung.html"
   },
@@ -20129,8 +18670,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://notejoy.com/help/two-factor-authentication",
-    notes: "2FA is not available to Free plan users and is not available on the Android app."
+    documentation: "https://notejoy.com/help/two-factor-authentication"
   },
   "notesnook.com": {
     methods: [
@@ -20166,8 +18706,7 @@ var sites_default = {
     methods: [
       "u2f"
     ],
-    documentation: "https://docs.npmjs.com/configuring-two-factor-authentication",
-    recovery: "https://docs.npmjs.com/recovering-your-2fa-enabled-account"
+    documentation: "https://docs.npmjs.com/configuring-two-factor-authentication"
   },
   "ns1.com": {
     methods: [
@@ -20191,9 +18730,6 @@ var sites_default = {
       "u2f",
       "call"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://azure.microsoft.com/en-us/documentation/articles/multi-factor-authentication/"
   },
   "nulab.com": {
@@ -20209,8 +18745,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.personalinvesting.jpmorgan.com/?article=115000495111-How-to-set-up-and-manage-2-step-verification",
-    recovery: "https://support.personalinvesting.jpmorgan.com/?article=115002025671-Troubleshooting-2-step-verification-issues"
+    documentation: "https://support.personalinvesting.jpmorgan.com/?article=115000495111-How-to-set-up-and-manage-2-step-verification"
   },
   "nvidia.com": {
     methods: [
@@ -20218,17 +18753,13 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor",
-    notes: "Email 2FA is always enabled."
+    documentation: "https://login.nvgs.nvidia.com/v1/help/nfactor"
   },
   "nyu.edu": {
     methods: [
       "sms",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://www.nyu.edu/life/information-technology/accounts-and-access/access/mfa.html"
   },
@@ -20237,17 +18768,13 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "1login od WP"
-    ],
     documentation: "https://pomoc.o2.pl/1login/jak-wlaczyc-i-wylaczyc-logowanie-dwustopniowe"
   },
   "o2switch.fr": {
     methods: [
       "email",
       "totp"
-    ],
-    notes: "Email 2FA is always enabled on the billing panel. On the cPanel, only TOTP is available, and using SSH/FTP won't prompt for 2FA"
+    ]
   },
   "obsidian.md": {
     methods: [
@@ -20287,9 +18814,6 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
   "office.microsoft.com": {
@@ -20299,9 +18823,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
@@ -20313,9 +18834,6 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
   "officedepot.com": {},
@@ -20324,8 +18842,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "okcupid.com": {
     methods: [
@@ -20343,12 +18860,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://help.okta.com/en-us/content/topics/security/mfa/mfa-factors.htm"
   },
   "okx.com": {
@@ -20356,20 +18867,12 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.okx.com/help/how-do-i-link-an-authenticator-app",
-    recovery: "https://www.okx.com/help/what-if-mobile-email-google-verification-cannot-be-used"
+    documentation: "https://www.okx.com/help/how-do-i-link-an-authenticator-app"
   },
   "olb.de": {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "OLB appTAN",
-      "OLB photoTAN"
-    ],
-    "custom-hardware": [
-      "photoTAN reader"
     ],
     documentation: "https://www.olb.de/service/ihre-fragen/onlinebanking/psd2"
   },
@@ -20396,8 +18899,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "omny.info": {},
   "oncehub.com": {
@@ -20411,9 +18913,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "one.com companion"
-    ],
     documentation: "https://help.one.com/hc/en-us/articles/4404699986321"
   },
   "onedrive.live.com": {
@@ -20424,19 +18923,14 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/help/12408",
-    notes: "2FA phone calls may not be available in all regions."
+    documentation: "https://support.microsoft.com/help/12408"
   },
   "onehub.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://support.onehub.com/hc/en-us/articles/360039792571",
-    notes: "Software 2FA requires adding a phone number as a fallback."
+    documentation: "https://support.onehub.com/hc/en-us/articles/360039792571"
   },
   "onelogin.com": {
     methods: [
@@ -20445,15 +18939,6 @@ var sites_default = {
       "totp",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "OneLogin Protect",
-      "Duo",
-      "RSA SecurID",
-      "Symantec VIP"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://support.onelogin.com/kb/4266569"
   },
@@ -20480,9 +18965,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "SBI Secure OTP"
     ],
     documentation: "https://www.onlinesbi.com/sbijava/mobile/sbsecure_otp_app_faq.html"
   },
@@ -20520,8 +19002,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.openapply.com/hc/articles/9061135475865",
-    notes: "2FA can only be enabled for Admin users"
+    documentation: "https://help.openapply.com/hc/articles/9061135475865"
   },
   "openbank.es": {
     methods: [
@@ -20542,30 +19023,26 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://umbrella.cisco.com/blog/2014/05/22/launching-two-step-verification/",
-    notes: "Only available for enterprise accounts."
+    documentation: "https://umbrella.cisco.com/blog/2014/05/22/launching-two-step-verification/"
   },
   "openprovider.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.openprovider.eu/hc/en-us/articles/360019461160#h_01EZ761VFJZEZ95SJN3EYWXAMG",
-    recovery: "https://support.openprovider.eu/hc/en-us/articles/360001802288#h_01EHBRPT4STSYK9G5XFM7MFQ5Q"
+    documentation: "https://support.openprovider.eu/hc/en-us/articles/360019461160#h_01EZ761VFJZEZ95SJN3EYWXAMG"
   },
   "openprovider.eu": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.openprovider.eu/hc/en-us/articles/360019461160#h_01EZ761VFJZEZ95SJN3EYWXAMG",
-    recovery: "https://support.openprovider.eu/hc/en-us/articles/360001802288#h_01EHBRPT4STSYK9G5XFM7MFQ5Q"
+    documentation: "https://support.openprovider.eu/hc/en-us/articles/360019461160#h_01EZ761VFJZEZ95SJN3EYWXAMG"
   },
   "opensea.io": {
     methods: [
       "totp",
       "sms"
     ],
-    documentation: "https://support.opensea.io/articles/8866947",
-    notes: "SMS texts sent to your mobile device if you reside in the U.S. or Canada."
+    documentation: "https://support.opensea.io/articles/8866947"
   },
   "openshift.com": {},
   "opensrs.com": {
@@ -20606,10 +19083,6 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    "custom-software": [
-      "Duo",
-      "Oracle Mobile Authenticator"
-    ],
     documentation: "https://docs.oracle.com/en/cloud/paas/identity-cloud/uaids/configure-authentication-factors.html"
   },
   "orange.fr": {},
@@ -20624,12 +19097,6 @@ var sites_default = {
       "u2f",
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
     ],
     documentation: "https://oregonstate.teamdynamix.com/TDClient/1935/Portal/KB/?CategoryID=8235"
   },
@@ -20658,12 +19125,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://buckeyepass.osu.edu"
   },
   "osu.ppy.sh": {
@@ -20680,19 +19141,11 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator push notification",
-      "Authy"
-    ],
-    documentation: "https://otago.custhelp.com/app/answers/detail/a_id/3073",
-    notes: "U2F is available to staff only"
+    documentation: "https://otago.custhelp.com/app/answers/detail/a_id/3073"
   },
   "otpbanka.hr": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "OTP token device"
     ],
     documentation: "https://www.otpbanka.hr/hr/upute/otp-token-upute-za-koristenje"
   },
@@ -20718,11 +19171,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "outlook.live.com": {
     methods: [
@@ -20732,11 +19181,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "ov-chipkaart.nl": {},
   "overdrive.com": {},
@@ -20758,9 +19203,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "call"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://help.it.ox.ac.uk/mfa"
   },
@@ -20865,9 +19307,6 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://park.io/support"
   },
   "parsec.app": {
@@ -20894,11 +19333,7 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
-    documentation: "https://passpack.com/support/getting-started/two-factor-authentication/",
-    recovery: "https://passpack.com/support/faq/"
+    documentation: "https://passpack.com/support/getting-started/two-factor-authentication/"
   },
   "pastebin.com": {},
   "patelco.org": {
@@ -20914,9 +19349,6 @@ var sites_default = {
       "sms",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://patient.labcorp.com/help-center/q-and-a/8000/1"
   },
@@ -20944,8 +19376,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://paxful.com/support/en-us/articles/6469323062300",
-    recovery: "https://paxful.com/support/en-us/articles/360024668994"
+    documentation: "https://paxful.com/support/en-us/articles/6469323062300"
   },
   "paxos.com": {
     methods: [
@@ -20959,8 +19390,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4",
-    notes: "SMS or phone call required to enable 2FA. Enabling on Amazon.com activates 2FA on other regional Amazon sites, such as UK and DE."
+    documentation: "https://www.amazon.com/gp/help/customer/display.html?nodeId=G3PWZPU52FKN7PW4"
   },
   "pay.google.com": {
     methods: [
@@ -20970,19 +19400,11 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "payback.de": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Payback App"
     ],
     documentation: "https://www.payback.de/faq/2-schritt-verifizierung"
   },
@@ -21006,11 +19428,7 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Telegram"
-    ],
-    notes: "2FA via SMS costs 25\xA2 USD per message."
+    ]
   },
   "payfit.com": {
     methods: [
@@ -21037,16 +19455,14 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://www.paypal.com/us/cshelp/article/help167",
-    notes: "2FA can only be setup on the website. A backup 2FA method is needed to setup security key."
+    documentation: "https://www.paypal.com/us/cshelp/article/help167"
   },
   "paypal.com": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://www.paypal.com/us/cshelp/article/help167",
-    notes: "2FA can only be setup on the website. A backup 2FA method is needed to setup security key."
+    documentation: "https://www.paypal.com/us/cshelp/article/help167"
   },
   "paypay.ne.jp": {
     methods: [
@@ -21059,11 +19475,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "PaysafeCard app"
-    ],
-    documentation: "https://www.paysafecard.com/en/support/question/38/",
-    recovery: "https://www.paysafecard.com/en/support/question/41/"
+    documentation: "https://www.paysafecard.com/en/support/question/38/"
   },
   "paytm.com": {
     methods: [
@@ -21094,8 +19506,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://www.pcloud.com/help/general-help-center/how-can-i-set-up-two-factor-authentication",
-    recovery: "https://www.pcloud.com/help/general-help-center/troubleshooting-guide-for-two-factor-authentication"
+    documentation: "https://www.pcloud.com/help/general-help-center/how-can-i-set-up-two-factor-authentication"
   },
   "pcpartpicker.com": {},
   "peacocktv.com": {},
@@ -21116,9 +19527,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "PenFed App"
-    ],
     documentation: "https://home.penfed.org/help/s/article/PenFed-Security-Center"
   },
   "penpot.app": {},
@@ -21127,8 +19535,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "pepco.com": {
     methods: [
@@ -21157,12 +19564,7 @@ var sites_default = {
       "u2f",
       "call"
     ],
-    "custom-software": [
-      "Perimeter 81 App Push Notification",
-      "Duo"
-    ],
-    documentation: "https://support.perimeter81.com/docs/two-factor-authentication",
-    notes: "Hardware 2FA is only available via Duo."
+    documentation: "https://support.perimeter81.com/docs/two-factor-authentication"
   },
   "personal.com.ar": {},
   "personalcapital.com": {
@@ -21172,9 +19574,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Personal Capital App"
-    ],
     documentation: "https://support.personalcapital.com/hc/en-us/sections/200230560"
   },
   "personalinvesting.jpmorgan.com": {
@@ -21182,8 +19581,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.personalinvesting.jpmorgan.com/?article=115000495111-How-to-set-up-and-manage-2-step-verification",
-    recovery: "https://support.personalinvesting.jpmorgan.com/?article=115002025671-Troubleshooting-2-step-verification-issues"
+    documentation: "https://support.personalinvesting.jpmorgan.com/?article=115000495111-How-to-set-up-and-manage-2-step-verification"
   },
   "personalsavings.americanexpress.com": {
     methods: [
@@ -21198,8 +19596,7 @@ var sites_default = {
       "sms",
       "email"
     ],
-    documentation: "https://personifyhealth.zendesk.com/hc/articles/28007677707675",
-    notes: "SMS 2FA is only available for US and Canada phone numbers."
+    documentation: "https://personifyhealth.zendesk.com/hc/articles/28007677707675"
   },
   "pexels.com": {},
   "pge.com": {
@@ -21238,9 +19635,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Pichincha Token"
-    ],
     documentation: "https://www.pichincha.com/portal/Portals/0/manuales/InstructivoAutogestionToken.pdf"
   },
   "pinata.cloud": {
@@ -21260,11 +19654,7 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://help.pinterest.com/en/articles/two-factor-authentication",
-    notes: "SMS-capable phone required for initial setup."
+    documentation: "https://help.pinterest.com/en/articles/two-factor-authentication"
   },
   "pipedream.com": {},
   "pipedrive.com": {
@@ -21284,15 +19674,13 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.pivotaltracker.com/help/articles/two_factor_auth/",
-    notes: "2FA only works on the web version. If enabled, you will not be able to use the mobile apps."
+    documentation: "https://www.pivotaltracker.com/help/articles/two_factor_auth/"
   },
   "piwik.pro": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.piwik.pro/support/getting-started/two-factor-authentication/",
-    notes: "Contact customer support to enable 2FA."
+    documentation: "https://help.piwik.pro/support/getting-started/two-factor-authentication/"
   },
   "pixieset.com": {
     methods: [
@@ -21312,11 +19700,7 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "IKO App"
-    ],
-    documentation: "https://iko.pkobp.pl/funkcje/mobilna-autoryzacja/",
-    notes: "You can only register one U2F security key to your bank account"
+    documentation: "https://iko.pkobp.pl/funkcje/mobilna-autoryzacja/"
   },
   "placeit.net": {
     methods: [
@@ -21329,8 +19713,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://plaid.com/docs/account/security/#two-factor-authentication",
-    notes: "Software token is only available for developer accounts. It is not available for the my.plaid.com user portal."
+    documentation: "https://plaid.com/docs/account/security/#two-factor-authentication"
   },
   "plan.io": {
     methods: [
@@ -21395,12 +19778,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "playblackdesert.com": {
     methods: [
@@ -21652,8 +20030,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://proton.me/support/two-factor-authentication-2fa",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://proton.me/support/two-factor-authentication-2fa"
   },
   "pnc.com": {
     methods: [
@@ -21665,9 +20042,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Yubico OTP"
     ],
     documentation: "https://www.pobox.help/hc/en-us/sections/1500000033741"
   },
@@ -21694,8 +20068,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "poeditor.com": {
     methods: [
@@ -21742,12 +20115,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Postbank BestSign"
-    ],
-    "custom-hardware": [
-      "Seal One dongle"
-    ],
     documentation: "https://www.postbank.de/privatkunden/sicherheitsverfahren.html"
   },
   "postcrossing.com": {},
@@ -21755,9 +20122,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "PosteItaliane App"
     ],
     documentation: "https://www.poste.it/cosa-fare-sicurezza.html"
   },
@@ -21771,16 +20135,14 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://learning.postman.com/docs/getting-started/postman-account/#setting-up-two-factor-authentication",
-    notes: "Can only be used with username/password accounts, not SSO or Google login accounts"
+    documentation: "https://learning.postman.com/docs/getting-started/postman-account/#setting-up-two-factor-authentication"
   },
   "postmarkapp.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://postmarkapp.com/support/article/1081-how-do-i-use-two-factor-authentication-2fa",
-    notes: "Setup requires SMS verification."
+    documentation: "https://postmarkapp.com/support/article/1081-how-do-i-use-two-factor-authentication-2fa"
   },
   "postmates.com": {},
   "postnl.nl": {},
@@ -21789,8 +20151,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.postype.com/hc/ko/articles/21876052282009",
-    recovery: "https://help.postype.com/hc/ko/articles/21876052282009#01H8NMJNY1KWFB5H5YZ49HBC0J"
+    documentation: "https://help.postype.com/hc/ko/articles/21876052282009"
   },
   "povo.jp": {},
   "powerreviews.com": {
@@ -21855,9 +20216,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Entrust Identity"
-    ],
     documentation: "https://www.produbanco.com.ec/media/677613/manual-activaci%C3%B3n-token-digital2021.pdf"
   },
   "product.gree.net": {
@@ -21895,24 +20253,21 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://proton.me/support/two-factor-authentication-2fa",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://proton.me/support/two-factor-authentication-2fa"
   },
   "protonmail.com": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://proton.me/support/two-factor-authentication-2fa",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://proton.me/support/two-factor-authentication-2fa"
   },
   "protonvpn.com": {
     methods: [
       "totp",
       "u2f"
     ],
-    documentation: "https://proton.me/support/two-factor-authentication-2fa",
-    notes: "TOTP must be enabled to use a hardware token."
+    documentation: "https://proton.me/support/two-factor-authentication-2fa"
   },
   "providentmetals.com": {},
   "prowrestlingtees.com": {},
@@ -21924,8 +20279,7 @@ var sites_default = {
   "psnprofiles.com": {
     methods: [
       "totp"
-    ],
-    notes: "2FA is configured via your linked PSNProfiles forum profile settings."
+    ]
   },
   "psu.edu": {
     methods: [
@@ -21934,12 +20288,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://get2fa.psu.edu"
   },
@@ -21961,12 +20309,6 @@ var sites_default = {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "BoilerKey Hardware OTP"
     ],
     documentation: "https://www.it.purdue.edu/login/"
   },
@@ -21994,8 +20336,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.put.io/en/articles/4783180-two-factor-authentication-2fa",
-    recovery: "https://help.put.io/en/articles/4783180-two-factor-authentication-2fa#h_634b28a1c9"
+    documentation: "https://help.put.io/en/articles/4783180-two-factor-authentication-2fa"
   },
   "puter.com": {
     methods: [
@@ -22025,9 +20366,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "mObywatel app"
     ],
     documentation: "https://pz.gov.pl/Instrukcja_Uzytkownika_PZ.pdf"
   },
@@ -22091,8 +20429,7 @@ var sites_default = {
       "totp",
       "email"
     ],
-    documentation: "https://quickbooks.intuit.com/learn-support/en-us/manage-passwords/verify-your-account-with-multi-factor-authentication/00/186340",
-    notes: "TOTP 2FA only available after enabling SMS or phone 2FA."
+    documentation: "https://quickbooks.intuit.com/learn-support/en-us/manage-passwords/verify-your-account-with-multi-factor-authentication/00/186340"
   },
   "quicken.com": {
     methods: [
@@ -22126,18 +20463,11 @@ var sites_default = {
     methods: [
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Digipass"
-    ],
-    documentation: "https://www.rabobank.com.au/help-and-support/digipass#how-to-set-up-your-digipass-for-the-first-time",
-    recovery: "https://www.rabobank.com.au/help-and-support/digipass#i-have-lost-my-digipass-how-do-i-get-a-new-one"
+    documentation: "https://www.rabobank.com.au/help-and-support/digipass#how-to-set-up-your-digipass-for-the-first-time"
   },
   "rabobank.nl": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "Rabo Scanner"
     ],
     documentation: "https://www.rabobank.nl/bedrijven/betalen/zelf-betalingen-doen/rabo-scanner/"
   },
@@ -22290,11 +20620,7 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "RBC App Push Notification"
-    ],
-    documentation: "https://www.rbcroyalbank.com/ways-to-bank/tutorials/general/2-step-verification.html",
-    notes: "2FA can only be enabled via the app"
+    documentation: "https://www.rbcroyalbank.com/ways-to-bank/tutorials/general/2-step-verification.html"
   },
   "rbs.co.uk": {
     methods: [
@@ -22335,8 +20661,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.rebel.com/hc/en-us/articles/360039417613",
-    notes: "You must contact customer support to enable 2FA."
+    documentation: "https://support.rebel.com/hc/en-us/articles/360039417613"
   },
   "rebrandly.com": {
     methods: [
@@ -22355,9 +20680,6 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://docs.recurly.com/docs/two-factor-authentication"
   },
@@ -22380,16 +20702,14 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://docs.redis.com/latest/rc/security/access-control/multi-factor-authentication/",
-    notes: "SMS 2FA must be enabled before TOTP 2FA can be enabled. SMS 2FA cannot be disabled even when TOTP is enabled."
+    documentation: "https://docs.redis.com/latest/rc/security/access-control/multi-factor-authentication/"
   },
   "redislabs.com": {
     methods: [
       "totp",
       "sms"
     ],
-    documentation: "https://docs.redis.com/latest/rc/security/access-control/multi-factor-authentication/",
-    notes: "SMS 2FA must be enabled before TOTP 2FA can be enabled. SMS 2FA cannot be disabled even when TOTP is enabled."
+    documentation: "https://docs.redis.com/latest/rc/security/access-control/multi-factor-authentication/"
   },
   "redshelf.com": {
     methods: [
@@ -22402,8 +20722,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://support.refersion.com/en/articles/2989703",
-    notes: "SMS 2FA is not available in all regions."
+    documentation: "https://support.refersion.com/en/articles/2989703"
   },
   "regions.com": {},
   "register365.com": {
@@ -22445,17 +20764,13 @@ var sites_default = {
       "call",
       "custom-software"
     ],
-    "custom-software": [
-      "Remitly app"
-    ],
     documentation: "https://help.remitly.com/s/article/two-factor-authentication-verification"
   },
   "remotedesktopmanager.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.remotedesktopmanager.com/howto_googleauthenticator.htm",
-    notes: "2FA is only available on the Enterprise Edition"
+    documentation: "https://help.remotedesktopmanager.com/howto_googleauthenticator.htm"
   },
   "render.com": {
     methods: [
@@ -22467,8 +20782,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://feedback.repairshopr.com/knowledgebase/articles/928266",
-    notes: "SMS only available as a backup to Google Authenticator."
+    documentation: "https://feedback.repairshopr.com/knowledgebase/articles/928266"
   },
   "repl.it": {},
   "replicon.com": {
@@ -22540,9 +20854,6 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Revolut App"
     ],
     documentation: "https://www.revolut.com/en-US/help/more/revolut-web-app/accessing-the-retail-web-app"
   },
@@ -22625,9 +20936,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://www.rmit.edu.au/students/support-and-facilities/it-services-for-students/cyber-safety/multi-factor-authentication"
   },
   "robertsspaceindustries.com": {
@@ -22642,9 +20950,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Robinhood app"
-    ],
     documentation: "https://robinhood.com/support/articles/verifying-its-you/"
   },
   "roblox.com": {
@@ -22653,8 +20958,7 @@ var sites_default = {
       "email",
       "u2f"
     ],
-    documentation: "https://en.help.roblox.com/hc/en-us/articles/212459863",
-    notes: "U2F requires TOTP to be setup. U2F is currently only supported in web browsers."
+    documentation: "https://en.help.roblox.com/hc/en-us/articles/212459863"
   },
   "roboform.com": {
     methods: [
@@ -22678,10 +20982,6 @@ var sites_default = {
       "email",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Epic Games app",
-      "Epic Games Store app"
     ],
     documentation: "https://www.epicgames.com/help/c74/c112/a3218"
   },
@@ -22774,22 +21074,13 @@ var sites_default = {
       "email",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "RSA SecurID",
-      "Symantec VIP"
-    ],
-    notes: "Applies to IdentityIQ and IdentityNow."
+    ]
   },
   "sailthru.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://getstarted.sailthru.com/mfa/mfa-hub/login-mfa/",
-    notes: "You must contact Sailthru support to enable 2FA."
+    documentation: "https://getstarted.sailthru.com/mfa/mfa-hub/login-mfa/"
   },
   "salesforce.com": {
     methods: [
@@ -22798,9 +21089,6 @@ var sites_default = {
       "totp",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Salesforce Authenticator"
     ],
     documentation: "https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/add_time-based_token.htm"
   },
@@ -22832,18 +21120,12 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "SantanderSign"
-    ],
     documentation: "https://www.santander.de/privatkunden/service-kontakt/information/faq/psd2/"
   },
   "santander.pl": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Santander mobile app"
     ],
     documentation: "https://www.santander.pl/klient-indywidualny/kontakt/pytania-i-odpowiedzi-bankowosc-internetowa"
   },
@@ -22866,27 +21148,18 @@ var sites_default = {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Saxo app"
     ]
   },
   "saxotrader.com": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Saxo app"
     ]
   },
   "sbishinseibank.co.jp": {},
   "scalable.capital": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "Scalable Capital app"
     ],
     documentation: "https://de.scalable.capital/faq#sicherheit-datenschutz"
   },
@@ -22895,8 +21168,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://help.mobilock.in/article/6j7ps7cw8x",
-    notes: "Only account owners and co-account owners can enable 2FA."
+    documentation: "https://help.mobilock.in/article/6j7ps7cw8x"
   },
   "scalegrid.io": {
     methods: [
@@ -22922,40 +21194,35 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "schibsted.dk": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "schibsted.fi": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "schibsted.no": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "schibsted.se": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "schneider-electric.cn": {
     methods: [
@@ -22982,12 +21249,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Symantec VIP"
-    ],
-    "custom-hardware": [
-      "Symantec VIP token"
-    ],
     documentation: "https://www.schwab.com/help/two-factor-authentication"
   },
   "schwabplan.com": {
@@ -22995,12 +21256,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Symantec VIP"
-    ],
-    "custom-hardware": [
-      "Symantec VIP token"
     ],
     documentation: "https://www.schwab.com/help/two-factor-authentication"
   },
@@ -23010,9 +21265,6 @@ var sites_default = {
       "call",
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Scotiabank App"
     ],
     documentation: "https://www.scotiabank.com/ca/en/personal/bank-your-way/digital-banking-guide/banking-basics/two-step-verification.html"
   },
@@ -23036,9 +21288,6 @@ var sites_default = {
       "u2f",
       "call"
     ],
-    "custom-software": [
-      "Duo"
-    ],
     documentation: "https://scu.edu/technology/get-connected/duo/learn-more-about-2fa/"
   },
   "sdccd.edu": {
@@ -23047,12 +21296,6 @@ var sites_default = {
       "call",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
     ],
     documentation: "https://www.sdccd.edu/students/student-email.aspx"
   },
@@ -23063,12 +21306,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
-    ],
     documentation: "https://www.sdccd.edu/students/student-email.aspx"
   },
   "sdccu.com": {},
@@ -23078,12 +21315,6 @@ var sites_default = {
       "call",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
     ],
     documentation: "https://www.sdccd.edu/students/student-email.aspx"
   },
@@ -23111,12 +21342,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
-    ],
     documentation: "https://www.sdccd.edu/students/student-email.aspx"
   },
   "sdmiramar.edu": {
@@ -23125,12 +21350,6 @@ var sites_default = {
       "call",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
     ],
     documentation: "https://www.sdccd.edu/students/student-email.aspx"
   },
@@ -23152,9 +21371,6 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "BankID"
-    ],
     documentation: "https://seb.se/privat/digitala-tjanster"
   },
   "section.io": {
@@ -23175,8 +21391,7 @@ var sites_default = {
     methods: [
       "sms"
     ],
-    documentation: "https://www.securesafe.com/en/faq/general-questions/how-can-i-activate-2-factor-authentication/",
-    notes: "2FA is only available on paid plans."
+    documentation: "https://www.securesafe.com/en/faq/general-questions/how-can-i-activate-2-factor-authentication/"
   },
   "securitytrails.com": {
     methods: [
@@ -23198,16 +21413,14 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://segment.com/docs/iam/mfa/",
-    notes: "SMS 2FA is only available for US and Canada phone numbers."
+    documentation: "https://segment.com/docs/iam/mfa/"
   },
   "segment.io": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://segment.com/docs/iam/mfa/",
-    notes: "SMS 2FA is only available for US and Canada phone numbers."
+    documentation: "https://segment.com/docs/iam/mfa/"
   },
   "selfwealth.com.au": {
     methods: [
@@ -23238,9 +21451,6 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
     documentation: "https://sendgrid.com/docs/ui/account-and-settings/two-factor-authentication/"
   },
   "sendinblue.com": {
@@ -23261,16 +21471,14 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://blog.sendsafely.com/authenticator-app",
-    notes: "TOTP 2FA requires SMS as a backup option"
+    documentation: "https://blog.sendsafely.com/authenticator-app"
   },
   "senecalearning.com": {},
   "senko.digital": {
     methods: [
       "totp"
     ],
-    documentation: "https://wiki.senko.digital/personal-area/two-factor-authentication",
-    notes: "While both the main client area and game panel support 2FA, each system is separate and requires its own setup."
+    documentation: "https://wiki.senko.digital/personal-area/two-factor-authentication"
   },
   "sentry.io": {
     methods: [
@@ -23326,9 +21534,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Service NSW app"
-    ],
     documentation: "https://www.service.nsw.gov.au/services/myservicensw-account/multi-factor-authentication"
   },
   "service.vic.gov.au": {
@@ -23342,9 +21547,6 @@ var sites_default = {
   "serviceportal.hamburg.de": {
     methods: [
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "National identity card"
     ],
     documentation: "https://serviceportal.hamburg.de/HamburgGateway/FVP/FV/BasisHilfe/HilfeA-Z.aspx#Wie_kann_ich_die_Funktion_%E2%80%9EAnmelden_mit_Online-Ausweisfunktion%E2%80%9C_einrichten?"
   },
@@ -23371,17 +21573,13 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Seznam.cz mobile app"
-    ],
     documentation: "https://napoveda.seznam.cz/cz/login/dvoufazove-overeni/"
   },
   "sezzle.com": {
     methods: [
       "sms"
     ],
-    documentation: "https://merchant-help.sezzle.com/hc/en-us/articles/16960335317908",
-    notes: "MFA is available for merchants only."
+    documentation: "https://merchant-help.sezzle.com/hc/en-us/articles/16960335317908"
   },
   "sffirecu.org": {
     methods: [
@@ -23396,9 +21594,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-hardware"
-    ],
-    "custom-hardware": [
-      "HyperOTP"
     ],
     documentation: "https://www.sfu.ca/information-systems/services/mfa/"
   },
@@ -23456,8 +21651,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.shopify.com/manual/your-account/account-security/two-step-authentication",
-    notes: "U2F requires using a Shopify ID. U2F can't be used on the Shopify mobile app, the Shopify POS app, or the Shopify Inbox app."
+    documentation: "https://help.shopify.com/manual/your-account/account-security/two-step-authentication"
   },
   "short.io": {
     methods: [
@@ -23483,9 +21677,6 @@ var sites_default = {
       "call",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://tech-shu-edu.refined.site/space/PUBLICKBA/2096431118/Guide%20to%20Enrolling%20a%20Device%20in%20Duo"
   },
@@ -23555,9 +21746,6 @@ var sites_default = {
       "call",
       "custom-software"
     ],
-    "custom-software": [
-      "Simplii App Push Notification"
-    ],
     documentation: "https://simplii.intelliresponse.com/index.jsp?requestType=NormalRequest&source=3&id=2453&sessionId=98d8d6f6-50df-11ed-bb3e-d1cbac750b11&question=Why+can+I+no+longer+receive+my+one-time+verification+code+%28OTVC%29+by+email"
   },
   "simplisafe.com": {
@@ -23570,8 +21758,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.simplybook.me/index.php/Google_Authenticator_custom_feature",
-    notes: "2FA is only available as a 'custom feature' and must be enabled by an admin before use."
+    documentation: "https://help.simplybook.me/index.php/Google_Authenticator_custom_feature"
   },
   "simyo.nl": {},
   "sinch.com": {
@@ -23592,12 +21779,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Singpass app"
-    ],
-    "custom-hardware": [
-      "Biometrics"
     ],
     documentation: "https://www.singpass.gov.sg/main/html/faq.html"
   },
@@ -23637,12 +21818,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://sjsu.edu/it/security/multi-factor/duo-setup.php"
   },
   "sjsu.okta.com": {
@@ -23650,20 +21825,11 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://sjsu.edu/it/security/multi-factor/duo-setup.php"
   },
   "skandia.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.skandia.se/kontakta-skandia/kundservice/bankid-logga-in/"
   },
@@ -23672,8 +21838,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.sketch.com/docs/workspaces/managing-your-sketch-account/",
-    recovery: "https://help.sketch.com/manage-account/two-factor-auth"
+    documentation: "https://www.sketch.com/docs/workspaces/managing-your-sketch-account/"
   },
   "sketchup.com": {
     methods: [
@@ -23694,11 +21859,7 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Skrill App Push Notification"
-    ],
-    documentation: "https://skrill.com/en-us/support#/path/1753623122",
-    notes: "Email method requires an additional PIN"
+    documentation: "https://skrill.com/en-us/support#/path/1753623122"
   },
   "skype.com": {
     methods: [
@@ -23707,11 +21868,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/help/12408",
-    notes: "2FA phone calls may not be available in all regions."
+    documentation: "https://support.microsoft.com/help/12408"
   },
   "sl.se": {},
   "slack.com": {
@@ -23741,9 +21898,6 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "RSA token"
-    ],
     documentation: "https://wiki.smartsimple.com/wiki/Two-Factor_Authentication"
   },
   "smartsurvey.co.uk": {
@@ -23751,8 +21905,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.smartsurvey.co.uk/article/two-factor-authentication",
-    notes: "SMS 2FA is only available for Enterprise users."
+    documentation: "https://help.smartsurvey.co.uk/article/two-factor-authentication"
   },
   "smartthings.com": {
     methods: [
@@ -23920,12 +22073,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "SpardaSecureApp"
-    ],
-    "custom-hardware": [
-      "chipTAN card reader"
-    ],
     documentation: "https://www.sparda.de/online-sicherheit-psd2/"
   },
   "sparkasse.de": {
@@ -23933,12 +22080,6 @@ var sites_default = {
       "sms",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "S-pushTAN"
-    ],
-    "custom-hardware": [
-      "chipTAN card reader"
     ],
     documentation: "https://www.sparkasse.de/service/sicherheit-im-internet/tan-verfahren.html"
   },
@@ -24006,14 +22147,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "SQUARE ENIX Software Token"
-    ],
-    "custom-hardware": [
-      "SQUARE ENIX Security Token"
-    ],
-    documentation: "https://square-enix-games.com/en_US/seaccount/otp",
-    notes: "The proprietary software implementation requires you to have purchased either Final Fantasy XI or Final Fantasy XIV and registered the game. Only one method is allowed at a time."
+    documentation: "https://square-enix-games.com/en_US/seaccount/otp"
   },
   "square-enix.com": {
     methods: [
@@ -24021,49 +22155,35 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "SQUARE ENIX Software Token"
-    ],
-    "custom-hardware": [
-      "SQUARE ENIX Security Token"
-    ],
-    documentation: "https://square-enix-games.com/en_US/seaccount/otp",
-    notes: "The proprietary software implementation requires you to have purchased either Final Fantasy XI or Final Fantasy XIV and registered the game. Only one method is allowed at a time."
+    documentation: "https://square-enix-games.com/en_US/seaccount/otp"
   },
   "square.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://squareup.com/help/us/en/article/5593",
-    notes: "SMS only supported in US and Canada. Only Square-linked Weebly have 2FA.",
-    recovery: "https://squareup.com/help/gb/en/article/5594"
+    documentation: "https://squareup.com/help/us/en/article/5593"
   },
   "square.site": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://squareup.com/help/us/en/article/5593",
-    notes: "SMS only supported in US and Canada. Only Square-linked Weebly have 2FA.",
-    recovery: "https://squareup.com/help/gb/en/article/5594"
+    documentation: "https://squareup.com/help/us/en/article/5593"
   },
   "squarespace.com": {
     methods: [
       "totp",
       "sms"
     ],
-    documentation: "https://support.squarespace.com/hc/en-us/articles/360000044827",
-    recovery: "https://support.squarespace.com/hc/en-us/articles/360023033671"
+    documentation: "https://support.squarespace.com/hc/en-us/articles/360000044827"
   },
   "squareup.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://squareup.com/help/us/en/article/5593",
-    notes: "SMS only supported in US and Canada. Only Square-linked Weebly have 2FA.",
-    recovery: "https://squareup.com/help/gb/en/article/5594"
+    documentation: "https://squareup.com/help/us/en/article/5593"
   },
   "ssa.gov": {
     methods: [
@@ -24112,9 +22232,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://standardnotes.com/help/25",
-    notes: "Professional Subscription required to use hardware security key.",
-    recovery: "https://standardnotes.com/help/22"
+    documentation: "https://standardnotes.com/help/25"
   },
   "stanford.edu": {
     methods: [
@@ -24123,12 +22241,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Fortitoken"
     ],
     documentation: "https://uit.stanford.edu/service/webauth/twostep"
   },
@@ -24194,9 +22306,6 @@ var sites_default = {
     methods: [
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://kb.status.io/security/yubikey/"
   },
   "statuscake.com": {
@@ -24233,12 +22342,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Steam Mobile"
-    ],
-    documentation: "https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C",
-    notes: "A phone number is required as a fallback for Steam Mobile 2FA.",
-    recovery: "https://help.steampowered.com/en/wizard/HelpWithSteamIssue/?issueid=809"
+    documentation: "https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C"
   },
   "stormgain.com": {
     methods: [
@@ -24286,8 +22390,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://support.stripe.com/questions/enable-two-step-authentication",
-    recovery: "https://support.stripe.com/questions/can-t-complete-two-step-authentication"
+    documentation: "https://support.stripe.com/questions/enable-two-step-authentication"
   },
   "strongvpn.com": {},
   "stubhub.com": {
@@ -24312,8 +22415,7 @@ var sites_default = {
   "subito.it": {
     methods: [
       "email"
-    ],
-    recovery: "https://assistenza.subito.it/hc/articles/11599185074077"
+    ]
   },
   "subscribestar.com": {
     methods: [
@@ -24326,8 +22428,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.substack.com/hc/en-us/articles/4785929336980",
-    recovery: "https://support.substack.com/hc/en-us/articles/5742110666132"
+    documentation: "https://support.substack.com/hc/en-us/articles/4785929336980"
   },
   "sucuri.net": {
     methods: [
@@ -24338,9 +22439,6 @@ var sites_default = {
   "sugarsync.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "SugarSync App"
     ],
     documentation: "https://support.sugarsync.com/hc/en-us/articles/1260802041509"
   },
@@ -24403,15 +22501,11 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "swedbank.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.swedbank.se/foretag/digitala-tjanster/mobilt-bankid/fragor-och-svar-om-mobilt-bankid.html"
   },
@@ -24423,18 +22517,12 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://www.swinburne.edu.au/privacy/cybersecurity-hub/"
   },
   "swisscom.ch": {
     methods: [
       "sms",
       "custom-software"
-    ],
-    "custom-software": [
-      "Mobile ID"
     ],
     documentation: "https://www.swisscom.ch/de/privatkunden/hilfe/daten-und-rechnungen/das-swisscom-login.html#Login_Methoden"
   },
@@ -24454,33 +22542,25 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "The Old Republic Security Key App"
-    ],
     documentation: "https://www.swtor.com/info/security-key"
   },
   "swyftx.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.swyftx.com/hc/articles/12807078449305",
-    recovery: "https://support.swyftx.com/hc/articles/12836682944153"
+    documentation: "https://support.swyftx.com/hc/articles/12807078449305"
   },
   "swyftx.com.au": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.swyftx.com/hc/articles/12807078449305",
-    recovery: "https://support.swyftx.com/hc/articles/12836682944153"
+    documentation: "https://support.swyftx.com/hc/articles/12807078449305"
   },
   "sydney.edu.au": {
     methods: [
       "u2f",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Okta Verify"
     ],
     documentation: "https://www.sydney.edu.au/students/log-in-to-university-systems.html"
   },
@@ -24533,28 +22613,20 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Biometrics via T-Mobile App"
-    ],
-    documentation: "https://www.t-mobile.com/support/account/set-up-and-manage-your-t-mobile-id#heading4",
-    notes: "Backup methods of SMS or recovery questions can't be disabled."
+    documentation: "https://www.t-mobile.com/support/account/set-up-and-manage-your-t-mobile-id#heading4"
   },
   "t-online.de": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://www.telekom.de/hilfe/vertrag-rechnung/login-daten-passwoerter/mehr-faktor-authentifizierung",
-    notes: "SMS 2FA is always required"
+    documentation: "https://www.telekom.de/hilfe/vertrag-rechnung/login-daten-passwoerter/mehr-faktor-authentifizierung"
   },
   "tab.com.au": {},
   "tableau.com": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Salesforce Authenticator"
     ],
     documentation: "https://help.tableau.com/current/online/en-us/to_signin.htm#register-for-multifactor-authentication"
   },
@@ -24608,13 +22680,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
-    ],
     documentation: "https://it.tamu.edu/duo/"
   },
   "tangerine.ca": {
@@ -24642,12 +22707,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "TARGOBANK Mobile Banking"
-    ],
-    "custom-hardware": [
-      "photoTAN card reader"
-    ],
     documentation: "https://www.targobank.de/de/service/tan-verfahren/index.html"
   },
   "tax.service.gov.uk": {
@@ -24657,11 +22716,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "HMRC App"
-    ],
-    documentation: "https://www.gov.uk/guidance/keeping-your-hmrc-login-details-safe#multi-factor-authentication",
-    recovery: "https://www.gov.uk/log-in-register-hmrc-online-services/problems-signing-in"
+    documentation: "https://www.gov.uk/guidance/keeping-your-hmrc-login-details-safe#multi-factor-authentication"
   },
   "taxact.com": {
     methods: [
@@ -24690,9 +22745,6 @@ var sites_default = {
       "call",
       "custom-software"
     ],
-    "custom-software": [
-      "TD Authenticate"
-    ],
     documentation: "https://www.td.com/privacy-and-security/privacy-and-security/how-we-protect-you/online-security/2fa.jsp"
   },
   "teachable.com": {},
@@ -24704,11 +22756,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/help/12408",
-    notes: "2FA phone calls may not be available in all regions."
+    documentation: "https://support.microsoft.com/help/12408"
   },
   "teamsnap.com": {},
   "teamspeak.com": {},
@@ -24729,14 +22777,12 @@ var sites_default = {
       "sms",
       "email",
       "totp"
-    ],
-    notes: "SMS is only a backup for TOTP 2FA."
+    ]
   },
   "technicpack.net": {
     methods: [
       "totp"
-    ],
-    recovery: "https://www.technicpack.net/tfa/remove"
+    ]
   },
   "techsmith.co.jp": {},
   "techsmith.com": {},
@@ -24754,15 +22800,11 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "tele2.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "telegram.org": {
@@ -24777,24 +22819,17 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.telekom.de/hilfe/vertrag-rechnung/login-daten-passwoerter/mehr-faktor-authentifizierung",
-    notes: "Software 2FA requires setting up SMS 2FA as a fallback."
+    documentation: "https://www.telekom.de/hilfe/vertrag-rechnung/login-daten-passwoerter/mehr-faktor-authentifizierung"
   },
   "telemach.hr": {},
   "telenor.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "telia.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ],
     documentation: "https://www.telia.se/privat/support/info/logga-in-med-bankid-och-eleg-pa-mitt-telia"
   },
@@ -24817,9 +22852,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "My Telstra app"
-    ],
     documentation: "https://www.telstra.com.au/mytelstra/my-telstra-security"
   },
   "telstra.com.au": {
@@ -24828,17 +22860,11 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "My Telstra app"
-    ],
     documentation: "https://www.telstra.com.au/mytelstra/my-telstra-security"
   },
   "telus.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "My TELUS App"
     ],
     documentation: "https://www.telus.com/en/support/article/my-telus-2-step-verification"
   },
@@ -24855,21 +22881,12 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://its.temple.edu/two-step-verification"
   },
   "termius.com": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.termius.com/hc/en-us/articles/4402191604505#2fa"
   },
@@ -24933,8 +22950,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://nimbusweb.me/guides/settings/account-settings-2-step-verification-for-sign-in/",
-    notes: "Available for Pro and Business users only."
+    documentation: "https://nimbusweb.me/guides/settings/account-settings-2-step-verification-for-sign-in/"
   },
   "theiconic.co.nz": {
     methods: [
@@ -24990,9 +23006,6 @@ var sites_default = {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
     ],
     documentation: "https://threatlocker.kb.help/login-settings/"
   },
@@ -25087,9 +23100,6 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://support.tilaa.com/hc/en-us/articles/360020167352"
   },
   "tim.it": {},
@@ -25138,9 +23148,6 @@ var sites_default = {
     methods: [
       "custom-software"
     ],
-    "custom-software": [
-      "TK-App"
-    ],
     documentation: "https://www.tk.de/techniker/unternehmensseiten/unternehmen/die-tk-app/2023678"
   },
   "tmbank.com.au": {},
@@ -25152,11 +23159,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "to-do.office.com": {
     methods: [
@@ -25166,11 +23169,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "todoist.com": {
     methods: [
@@ -25218,8 +23217,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "torontomu.ca": {
     methods: [
@@ -25272,8 +23270,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://helpcentre.trading212.com/hc/en-us/articles/360012452237",
-    recovery: "https://helpcentre.trading212.com/hc/en-us/articles/360012493998"
+    documentation: "https://helpcentre.trading212.com/hc/en-us/articles/360012452237"
   },
   "tradingview.com": {
     methods: [
@@ -25289,11 +23286,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Wise App"
-    ],
-    documentation: "https://wise.com/help/articles/2932125",
-    notes: "SMS 2FA must be enabled before software methods can be enabled."
+    documentation: "https://wise.com/help/articles/2932125"
   },
   "transifex.com": {
     methods: [
@@ -25305,17 +23298,13 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://www.transip.nl/knowledgebase/artikel/162",
-    notes: "While both the main control panel and STACK support 2FA, each system is separate and requires its own setup."
+    documentation: "https://www.transip.nl/knowledgebase/artikel/162"
   },
   "transperth.wa.gov.au": {
     methods: [
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Transperth app"
     ]
   },
   "transport.vic.gov.au": {
@@ -25357,9 +23346,6 @@ var sites_default = {
   "tre.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "treasurydirect.gov": {
@@ -25390,8 +23376,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://support.tresorit.com/hc/en-us/articles/216114527",
-    notes: "Requires enabling at least two 2FA methods."
+    documentation: "https://support.tresorit.com/hc/en-us/articles/216114527"
   },
   "trimble.com": {
     methods: [
@@ -25405,9 +23390,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Glyph Auth"
-    ],
     documentation: "https://support.trionworlds.com/hc/en-us/articles/204183357"
   },
   "tripadvisor.com": {},
@@ -25417,8 +23399,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "trovi.sk": {
     methods: [
@@ -25449,12 +23430,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "True Key Push Notification"
-    ],
-    "custom-hardware": [
-      "Biometrics"
-    ],
     documentation: "https://service.mcafee.com/?page=shell&shell=article-view&articleId=TS102352"
   },
   "truist.com": {
@@ -25462,8 +23437,7 @@ var sites_default = {
       "sms",
       "call",
       "email"
-    ],
-    notes: "They have a custom app, but users on both iOS and Android report that it doesn't work."
+    ]
   },
   "trumf.no": {
     methods: [
@@ -25505,8 +23479,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.campusmanagement.tu-berlin.de/menue/dienste/konto_karte/tan_verfahren/",
-    notes: "2FA is only available for selected services"
+    documentation: "https://www.campusmanagement.tu-berlin.de/menue/dienste/konto_karte/tan_verfahren/"
   },
   "tu-darmstadt.de": {
     methods: [
@@ -25514,19 +23487,14 @@ var sites_default = {
       "u2f",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "HOTP"
-    ],
-    documentation: "https://www.hrz.tu-darmstadt.de/tuid-2fa",
-    notes: "Only protects services that use the Identity Provider"
+    documentation: "https://www.hrz.tu-darmstadt.de/tuid-2fa"
   },
   "tu.berlin": {
     methods: [
       "totp",
       "sms"
     ],
-    documentation: "https://www.campusmanagement.tu-berlin.de/menue/dienste/konto_karte/tan_verfahren/",
-    notes: "2FA is only available for selected services"
+    documentation: "https://www.campusmanagement.tu-berlin.de/menue/dienste/konto_karte/tan_verfahren/"
   },
   "tumblr.com": {
     methods: [
@@ -25602,8 +23570,7 @@ var sites_default = {
     methods: [
       "email",
       "sms"
-    ],
-    notes: "2FA is only available with a verified email address"
+    ]
   },
   "turbotax.intuit.com": {
     methods: [
@@ -25611,8 +23578,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://ttlc.intuit.com/questions/2902682",
-    notes: "Software 2FA requires enabling SMS or phone call as a back-up."
+    documentation: "https://ttlc.intuit.com/questions/2902682"
   },
   "turnitin.com": {},
   "turo.com": {
@@ -25640,8 +23606,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "tvtropes.org": {},
   "tweakers.net": {
@@ -25656,9 +23621,6 @@ var sites_default = {
       "call",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Authy"
     ],
     documentation: "https://support.twilio.com/hc/en-us/sections/360008377353"
   },
@@ -25675,11 +23637,7 @@ var sites_default = {
       "custom-software",
       "totp"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://help.twitch.tv/s/article/two-factor-authentication",
-    notes: "To activate two factor authentication, you must provide a mobile phone number."
+    documentation: "https://help.twitch.tv/s/article/two-factor-authentication"
   },
   "twitter.com": {
     methods: [
@@ -25687,9 +23645,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.x.com/en/managing-your-account/two-factor-authentication",
-    notes: "SMS only available on select providers and for X Premium members only.",
-    recovery: "https://help.x.com/en/managing-your-account/issues-with-login-authentication"
+    documentation: "https://help.x.com/en/managing-your-account/two-factor-authentication"
   },
   "typeform.com": {
     methods: [
@@ -25704,8 +23660,7 @@ var sites_default = {
       "call",
       "totp"
     ],
-    documentation: "https://www.ub.edu/portal/web/iub/2fa",
-    notes: "VPNT\xE8cnic only supports TOTP."
+    documentation: "https://www.ub.edu/portal/web/iub/2fa"
   },
   "ubank.com.au": {},
   "ubc.ca": {
@@ -25716,30 +23671,21 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token"
-    ],
-    documentation: "https://it.ubc.ca/mfa",
-    recovery: "https://ubc.service-now.com/kb_view.do?sysparm_article=KB0018759"
+    documentation: "https://it.ubc.ca/mfa"
   },
   "uber.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://help.uber.com/riders/article/turn-on-2-step-verification?nodeId=b8bb9152-8c91-4f49-83c4-35cf2e1dcf72",
-    notes: "2FA can only be enabled via the app"
+    documentation: "https://help.uber.com/riders/article/turn-on-2-step-verification?nodeId=b8bb9152-8c91-4f49-83c4-35cf2e1dcf72"
   },
   "ubereats.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://help.uber.com/h/b8bb9152-8c91-4f49-83c4-35cf2e1dcf72",
-    notes: "2FA must be enabled via the Uber app, not the Uber Eats app."
+    documentation: "https://help.uber.com/h/b8bb9152-8c91-4f49-83c4-35cf2e1dcf72"
   },
   "ubi.com": {
     methods: [
@@ -25747,9 +23693,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.ubisoft.com/help?article=000065723",
-    notes: "SMS and TOTP 2FA require adding a phone number as a fallback. SMS 2FA is not available in all regions.",
-    recovery: "https://www.ubisoft.com/help?article=000063351"
+    documentation: "https://www.ubisoft.com/help?article=000065723"
   },
   "ubisoft.com": {
     methods: [
@@ -25757,9 +23701,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.ubisoft.com/help?article=000065723",
-    notes: "SMS and TOTP 2FA require adding a phone number as a fallback. SMS 2FA is not available in all regions.",
-    recovery: "https://www.ubisoft.com/help?article=000063351"
+    documentation: "https://www.ubisoft.com/help?article=000065723"
   },
   "ubisoftconnect.com": {
     methods: [
@@ -25767,9 +23709,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://www.ubisoft.com/help?article=000065723",
-    notes: "SMS and TOTP 2FA require adding a phone number as a fallback. SMS 2FA is not available in all regions.",
-    recovery: "https://www.ubisoft.com/help?article=000063351"
+    documentation: "https://www.ubisoft.com/help?article=000065723"
   },
   "ubnt.com": {
     methods: [
@@ -25777,22 +23717,12 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "UI Verify"
-    ],
     documentation: "https://help.ui.com/hc/en-us/articles/115012986607"
   },
   "ubs.com": {
     methods: [
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "UBS Access app"
-    ],
-    "custom-hardware": [
-      "Card Reader",
-      "Access Card display"
     ],
     documentation: "https://www.ubs.com/ch/en/help/e-banking/process.html"
   },
@@ -25811,9 +23741,6 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://it.ucalgary.ca/mfa/gettingstarted"
   },
   "ucas.com": {},
@@ -25822,22 +23749,12 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
     documentation: "https://movetoduo.ucdavis.edu"
   },
   "uci.edu": {
     methods: [
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
     ],
     documentation: "https://www.oit.uci.edu/services/accounts-passwords/duo/"
   },
@@ -25848,13 +23765,6 @@ var sites_default = {
       "u2f",
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
     ],
     documentation: "https://dts.ucla.edu/products-services/security/multi-factor-authentication/activate-ucla-logon-mfa"
   },
@@ -25872,12 +23782,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://it.ucmerced.edu/2FA"
   },
   "ucr.edu": {
@@ -25886,12 +23790,6 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://its.ucr.edu/mfa"
   },
   "ucsb.edu": {
@@ -25899,25 +23797,12 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://it.ucsb.edu/mfa"
   },
   "ucsc.edu": {
     methods: [
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
     ],
     documentation: "https://slughub.ucsc.edu/its?id=kb_article&sysparm_article=KB0021200"
   },
@@ -25927,25 +23812,12 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://blink.ucsd.edu/technology/security/services/two-step-login/"
   },
   "ucsf.edu": {
     methods: [
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
     ],
     documentation: "https://it.ucsf.edu/service/multi-factor-authentication-duo"
   },
@@ -25963,9 +23835,6 @@ var sites_default = {
       "sms",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://www1.udel.edu/it/help/2fa/main.html"
   },
   "udemy.com": {
@@ -25982,9 +23851,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "UI Verify"
-    ],
     documentation: "https://help.ui.com/hc/en-us/articles/115012986607"
   },
   "uidaho.edu": {
@@ -25994,12 +23860,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
     ],
     documentation: "https://support.uidaho.edu/TDClient/KB/ArticleDet?ID=109"
   },
@@ -26016,9 +23876,6 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://github.com/2factorauth/twofactorauth/pull/997#issuecomment-77708501"
   },
   "ukpostbox.com": {
@@ -26032,9 +23889,6 @@ var sites_default = {
       "call",
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Telegram Bot"
     ],
     documentation: "https://www.ukraine.com.ua/wiki/account/security/otp/"
   },
@@ -26052,12 +23906,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware",
       "u2f"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token"
     ],
     documentation: "https://www.safecomputing.umich.edu/two-factor-authentication"
   },
@@ -26085,9 +23933,6 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://www.uni-marburg.de/de/hrz/dienste/2fa"
   },
   "unifyfcu.com": {
@@ -26103,9 +23948,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://studentit.unimelb.edu.au/cybersecurity/multifactor-authentication-mfa"
   },
   "unionbank.co.il": {},
@@ -26119,15 +23961,13 @@ var sites_default = {
     methods: [
       "sms",
       "email"
-    ],
-    recovery: "https://www.unisuper.com.au/contact-us/accessing-online-accounts"
+    ]
   },
   "united-domains.de": {
     methods: [
       "totp"
     ],
-    documentation: "https://help.united-domains.de/faq-article/wie-aktiviere-ich-die-zweistufige-verifizierung-und-mache-mein-portfolio-login-sicherer",
-    notes: "A phone number is required to enable two-factor authentication."
+    documentation: "https://help.united-domains.de/faq-article/wie-aktiviere-ich-die-zweistufige-verifizierung-und-mache-mein-portfolio-login-sicherer"
   },
   "united.com": {
     methods: [
@@ -26135,9 +23975,6 @@ var sites_default = {
       "sms",
       "call",
       "custom-software"
-    ],
-    "custom-software": [
-      "United App"
     ]
   },
   "uniteddomains.com": {
@@ -26151,16 +23988,14 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.unity.com/hc/en-us/articles/208764976",
-    recovery: "https://support.unity.com/hc/en-us/articles/360034757251"
+    documentation: "https://support.unity.com/hc/en-us/articles/208764976"
   },
   "unity3d.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://support.unity.com/hc/en-us/articles/208764976",
-    recovery: "https://support.unity.com/hc/en-us/articles/360034757251"
+    documentation: "https://support.unity.com/hc/en-us/articles/208764976"
   },
   "universe.com": {},
   "unleashedsoftware.com": {
@@ -26181,9 +24016,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://www.myit.unsw.edu.au/cyber-security/multi-factor-authentication-mfa"
   },
   "uottawa.ca": {
@@ -26191,32 +24023,23 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    "custom-hardware": [
-      "SafeID token"
-    ],
     documentation: "https://it.uottawa.ca/security/mfa"
   },
   "up.com.au": {
     methods: [
       "sms"
-    ],
-    recovery: "https://up.com.au/how-to/recover-your-account/"
+    ]
   },
   "up.me": {
     methods: [
       "sms"
-    ],
-    recovery: "https://up.com.au/how-to/recover-your-account/"
+    ]
   },
   "upcloud.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://upcloud.com/resources/tutorials/two-factor-authentication",
-    notes: "SMS is required for password recovery."
+    documentation: "https://upcloud.com/resources/tutorials/two-factor-authentication"
   },
   "updraftplus.com": {
     methods: [
@@ -26232,20 +24055,13 @@ var sites_default = {
       "call",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "SafeID token"
-    ],
     documentation: "https://www.isc.upenn.edu/how-to/two-step-verification-getting-started"
   },
   "uphold.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.uphold.com/hc/en-us/articles/360023791072",
-    recovery: "https://support.uphold.com/hc/en-us/articles/360043633751"
+    documentation: "https://support.uphold.com/hc/en-us/articles/360023791072"
   },
   "ups.com": {
     methods: [
@@ -26275,12 +24091,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://my.uq.edu.au/information-and-services/information-technology/uq-accounts-and-passwords/multi-factor-authentication-mfa"
   },
   "us.hsbc.com": {},
@@ -26289,9 +24099,6 @@ var sites_default = {
       "sms",
       "email",
       "custom-software"
-    ],
-    "custom-software": [
-      "Symantec VIP"
     ],
     documentation: "https://www.usaa.com/inet/pages/security_token_logon_options"
   },
@@ -26356,12 +24163,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token"
-    ],
     documentation: "https://isea.utoronto.ca/services/utormfa/"
   },
   "uts.edu.au": {
@@ -26369,21 +24170,12 @@ var sites_default = {
       "sms",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://www.uts.edu.au/current-students/managing-your-course/using-uts-systems/student-forms-apps-and-systems/multi-factor-authentication"
   },
   "uvic.ca": {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token"
     ],
     documentation: "https://www.uvic.ca/systems/services/loginspasswords/uvicmfa/"
   },
@@ -26394,12 +24186,6 @@ var sites_default = {
       "custom-hardware",
       "sms",
       "call"
-    ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token"
     ],
     documentation: "https://uwaterloo.ca/two-factor-authentication/"
   },
@@ -26418,9 +24204,6 @@ var sites_default = {
       "totp",
       "u2f",
       "custom-software"
-    ],
-    "custom-software": [
-      "ID.me Authenticator"
     ],
     documentation: "https://www.va.gov/resources/verifying-your-identity-on-vagov"
   },
@@ -26452,11 +24235,7 @@ var sites_default = {
       "u2f",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Voice Verification"
-    ],
-    documentation: "https://investor.vanguard.com/security/security-keys",
-    notes: "Security keys can not be used to log in to mobile app or mobile website."
+    documentation: "https://investor.vanguard.com/security/security-keys"
   },
   "vanguard.com.au": {
     methods: [
@@ -26485,12 +24264,6 @@ var sites_default = {
       "custom-hardware",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token"
-    ],
     documentation: "https://ts.vcu.edu/askit/essential-computing/information-security/2factor/"
   },
   "veeam.com": {
@@ -26504,48 +24277,42 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.veem.com/hc/en-us/articles/360033419474-two-factor-authentication-2fa-",
-    notes: "2FA via sms is available for US only."
+    documentation: "https://help.veem.com/hc/en-us/articles/360033419474-two-factor-authentication-2fa-"
   },
   "vend.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "vend.dk": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "vend.fi": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "vend.no": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "vend.se": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://account.vend.no/faq#how-to-activate-and-deactivate-2fa"
   },
   "venmo.com": {
     methods: [
@@ -26575,9 +24342,6 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "My Verizon App"
-    ],
     documentation: "https://www.verizon.com/support/keeping-your-account-safe-faqs/"
   },
   "verkkokauppa.com": {},
@@ -26597,8 +24361,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa",
-    recovery: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa:~:text=Mistet%20autentiseringsenhet%3F"
+    documentation: "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
   },
   "vgen.co": {
     methods: [
@@ -26644,9 +24407,6 @@ var sites_default = {
   "vimla.se": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "BankID"
     ]
   },
   "vinted.at": {
@@ -26811,9 +24571,6 @@ var sites_default = {
       "custom-software",
       "sms"
     ],
-    "custom-software": [
-      "Virgin Money Mobile Banking App"
-    ],
     documentation: "https://uk.virginmoney.com/sca"
   },
   "virginplus.ca": {
@@ -26835,9 +24592,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
@@ -26867,8 +24621,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://vk.com/page-777107_53677752",
-    notes: "SMS is required for TOTP"
+    documentation: "https://vk.com/page-777107_53677752"
   },
   "vmware.com": {
     methods: [
@@ -26877,12 +24630,7 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify",
-      "Symantec VIP"
-    ],
-    documentation: "https://knowledge.broadcom.com/external/article?articleId=216428",
-    recovery: "https://knowledge.broadcom.com/external/article/213025"
+    documentation: "https://knowledge.broadcom.com/external/article?articleId=216428"
   },
   "vodafone.co.nz": {},
   "vodafone.co.uk": {
@@ -26906,8 +24654,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://wiki.voip.ms/article/TOTP_Authentication",
-    notes: "Only one of the 2FA methods can be enabled at the same time."
+    documentation: "https://wiki.voip.ms/article/TOTP_Authentication"
   },
   "vpsserver.com": {
     methods: [
@@ -26920,14 +24667,7 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "VR-SecureGo"
-    ],
-    "custom-hardware": [
-      "TAN generator"
-    ],
-    documentation: "https://www.vr.de/privatkunden/unsere-produkte/was-ist-ein-girokonto/tan-verfahren.html",
-    notes: "Support for 2FA types depends on regional V&R banks."
+    documentation: "https://www.vr.de/privatkunden/unsere-produkte/was-ist-ein-girokonto/tan-verfahren.html"
   },
   "vr.fi": {},
   "vrbo.com": {
@@ -26944,9 +24684,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
     documentation: "https://ci.vse.cz/english/support/procedures/multi-factor-authentication-in-microsoft-365/"
   },
   "vt.edu": {
@@ -26956,13 +24693,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token",
-      "Yubico OTP"
-    ],
     documentation: "https://www.tech.it.vt.edu/2factor/"
   },
   "vudu.com": {},
@@ -26971,21 +24701,12 @@ var sites_default = {
       "totp",
       "custom-hardware"
     ],
-    "custom-hardware": [
-      "Yubico OTP"
-    ],
     documentation: "https://www.vultr.com/docs/using-two-factor-authentication-to-login-to-vultr-control-panel"
   },
   "vwfs.de": {
     methods: [
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "VW FS app"
-    ],
-    "custom-hardware": [
-      "photoTAN reader"
     ],
     documentation: "https://www.vwfs.de/online-banking/phototan.html"
   },
@@ -27002,8 +24723,7 @@ var sites_default = {
     methods: [
       "sms",
       "email"
-    ],
-    notes: "Employer/plan sponsor may opt to not offer 2FA."
+    ]
   },
   "wakatime.com": {},
   "walgreens.com": {},
@@ -27051,21 +24771,11 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Feitian OTP c100 Token",
-      "Yubico OTP"
-    ],
     documentation: "https://itconnect.uw.edu/security/uw-netids/2fa/"
   },
   "watchguard.com": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "AuthPoint App"
     ],
     documentation: "https://www.watchguard.com/help/docs/help-center/en-US/Content/en-US/my_products/portal_users-manage-mfa.html"
   },
@@ -27096,8 +24806,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://support.wealthfront.com/hc/en-us/articles/211004563",
-    recovery: "https://support.wealthfront.com/hc/en-us/articles/211004603"
+    documentation: "https://support.wealthfront.com/hc/en-us/articles/211004563"
   },
   "wealthify.com": {
     methods: [
@@ -27117,8 +24826,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://hilfe.web.de/sicherheit/2fa/index.html",
-    notes: "Setup requires SMS verification."
+    documentation: "https://hilfe.web.de/sicherheit/2fa/index.html"
   },
   "web.iit.edu": {},
   "web.mit.edu": {
@@ -27127,13 +24835,6 @@ var sites_default = {
       "call",
       "custom-software",
       "custom-hardware"
-    ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Yubico OTP",
-      "Duo D100 Token"
     ],
     documentation: "https://kb.mit.edu/confluence/display/istcontrib/Duo+Authentication+Landing+Page"
   },
@@ -27157,13 +24858,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "EU Login mobile app"
-    ],
-    "custom-hardware": [
-      "VASCO Token",
-      "DigiPass Token"
-    ],
     documentation: "https://webgate.ec.europa.eu/cas/manuals/EU_Login_Tutorial.pdf"
   },
   "webmail.pt.lu": {
@@ -27179,8 +24873,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476",
-    recovery: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3508"
+    documentation: "https://answers.webroot.com/Webroot/ukp.aspx?vw=1&solid=3476"
   },
   "weclapp.com": {
     methods: [
@@ -27200,9 +24893,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://squareup.com/help/us/en/article/5593",
-    notes: "SMS only supported in US and Canada. Only Square-linked Weebly have 2FA.",
-    recovery: "https://squareup.com/help/gb/en/article/5594"
+    documentation: "https://squareup.com/help/us/en/article/5593"
   },
   "wefunder.com": {
     methods: [
@@ -27210,8 +24901,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.wefunder.com/getting-started-for-investors/how-secure-is-my-account",
-    notes: "Setting up 2FA with TOTP or Security Key requires adding a phone number."
+    documentation: "https://help.wefunder.com/getting-started-for-investors/how-secure-is-my-account"
   },
   "weibo.com": {},
   "wellfound.com": {
@@ -27219,8 +24909,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://help.wellfound.com/article/1064--",
-    recovery: "https://help.wellfound.com/article/817--"
+    documentation: "https://help.wellfound.com/article/1064--"
   },
   "wellsfargo.com": {
     methods: [
@@ -27228,12 +24917,6 @@ var sites_default = {
       "call",
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Wells Fargo App"
-    ],
-    "custom-hardware": [
-      "RSA SecurID Device"
     ],
     documentation: "https://www.wellsfargo.com/privacy-security/advanced-access"
   },
@@ -27243,12 +24926,6 @@ var sites_default = {
       "call",
       "custom-hardware",
       "custom-software"
-    ],
-    "custom-software": [
-      "Wells Fargo App"
-    ],
-    "custom-hardware": [
-      "RSA SecurID Device"
     ],
     documentation: "https://www.wellsfargo.com/privacy-security/advanced-access"
   },
@@ -27267,11 +24944,7 @@ var sites_default = {
       "call",
       "custom-software"
     ],
-    "custom-software": [
-      "Authy"
-    ],
-    documentation: "https://business.westernunion.com/en-pl/product-documents/psd2-overview/Set-up-two-Factor",
-    notes: "2FA is only available for business accounts."
+    documentation: "https://business.westernunion.com/en-pl/product-documents/psd2-overview/Set-up-two-Factor"
   },
   "westjet.com": {},
   "westpac.com.au": {},
@@ -27279,16 +24952,14 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.wetransfer.com/hc/en-us/articles/360056666872",
-    recovery: "https://help.wetransfer.com/hc/en-us/articles/360056666872#h_01EXEFX7G5DKD2GHYDGWH1S0C7"
+    documentation: "https://help.wetransfer.com/hc/en-us/articles/360056666872"
   },
   "wetravel.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://help.wetravel.com/articles/3601445",
-    recovery: "https://help.wetravel.com/articles/5828372#h_7d45ccc474"
+    documentation: "https://help.wetravel.com/articles/3601445"
   },
   "wf.com": {
     methods: [
@@ -27297,20 +24968,13 @@ var sites_default = {
       "custom-hardware",
       "custom-software"
     ],
-    "custom-software": [
-      "Wells Fargo App"
-    ],
-    "custom-hardware": [
-      "RSA SecurID Device"
-    ],
     documentation: "https://www.wellsfargo.com/privacy-security/advanced-access"
   },
   "whalefin.com": {
     methods: [
       "totp"
     ],
-    documentation: "https://support.whalefin.com/hc/en-us/articles/8911053323417",
-    recovery: "https://support.whalefin.com/hc/en-us/articles/8939906306073"
+    documentation: "https://support.whalefin.com/hc/en-us/articles/8911053323417"
   },
   "whatsapp.com": {
     methods: [
@@ -27344,8 +25008,7 @@ var sites_default = {
       "sms",
       "totp"
     ],
-    documentation: "https://manage.whois.com/kb/node/2690",
-    notes: "TOTP 2FA is only available for resellers."
+    documentation: "https://manage.whois.com/kb/node/2690"
   },
   "widiba.it": {},
   "wiggle.cn": {
@@ -27437,8 +25100,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://meta.wikimedia.org/wiki/Help:Two-factor_authentication",
-    notes: "Currently limited to administrators (and users with admin-like permissions like interface editors), bureaucrats, checkusers, oversighters, stewards, edit filter managers and the OATH-testers global group."
+    documentation: "https://meta.wikimedia.org/wiki/Help:Two-factor_authentication"
   },
   "willer-travel.com": {},
   "wilobank.com": {},
@@ -27472,13 +25134,6 @@ var sites_default = {
       "custom-hardware",
       "u2f"
     ],
-    "custom-software": [
-      "Duo"
-    ],
-    "custom-hardware": [
-      "Duo D100 Token",
-      "Feitian OTP c100 Token"
-    ],
     documentation: "https://it.wisc.edu/services/duo-multi-factor-authentication-mfa/"
   },
   "wise.com": {
@@ -27488,19 +25143,14 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Wise App"
-    ],
-    documentation: "https://wise.com/help/articles/2932125",
-    notes: "SMS 2FA must be enabled before software methods can be enabled."
+    documentation: "https://wise.com/help/articles/2932125"
   },
   "withings.com": {
     methods: [
       "sms",
       "totp"
     ],
-    documentation: "https://support.withings.com/hc/articles/21866853734545",
-    notes: "The following apps do not support 2FA: Thermo, WithBaby, Withings Home Security Camera, WiScale."
+    documentation: "https://support.withings.com/hc/articles/21866853734545"
   },
   "wix.com": {
     methods: [
@@ -27508,8 +25158,7 @@ var sites_default = {
       "email",
       "sms"
     ],
-    documentation: "https://support.wix.com/en/article/using-2-step-verification-for-your-wix-account",
-    notes: "SMS is only available with Premium plans; email is restricted to selected providers."
+    documentation: "https://support.wix.com/en/article/using-2-step-verification-for-your-wix-account"
   },
   "wizard101.com": {},
   "wolf.bet": {
@@ -27585,9 +25234,6 @@ var sites_default = {
       "u2f",
       "custom-software"
     ],
-    "custom-software": [
-      "1login od WP"
-    ],
     documentation: "https://pomoc.wp.pl/1login/jak-wlaczyc-i-wylaczyc-logowanie-dwustopniowe"
   },
   "wpengine.com": {
@@ -27596,9 +25242,6 @@ var sites_default = {
       "totp",
       "custom-software"
     ],
-    "custom-software": [
-      "Okta Verify"
-    ],
     documentation: "https://wpengine.com/support/2-factor-authentication/"
   },
   "wpscan.com": {},
@@ -27606,8 +25249,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://help.wrike.com/hc/en-us/articles/210324445",
-    notes: "Only accessible to Enterprise accounts and users may need to contact their account administrator to enable 2FA."
+    documentation: "https://help.wrike.com/hc/en-us/articles/210324445"
   },
   "wwe.com": {},
   "wykop.pl": {
@@ -27622,8 +25264,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://support.wyze.com/hc/en-us/articles/360024402052",
-    notes: "2FA via SMS is only available for USA and Canada."
+    documentation: "https://support.wyze.com/hc/en-us/articles/360024402052"
   },
   "x.com": {
     methods: [
@@ -27631,9 +25272,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.x.com/en/managing-your-account/two-factor-authentication",
-    notes: "SMS only available on select providers and for X Premium members only.",
-    recovery: "https://help.x.com/en/managing-your-account/issues-with-login-authentication"
+    documentation: "https://help.x.com/en/managing-your-account/two-factor-authentication"
   },
   "xapo.com": {
     methods: [
@@ -27649,19 +25288,12 @@ var sites_default = {
       "call",
       "totp"
     ],
-    "custom-software": [
-      "Microsoft Authenticator"
-    ],
-    documentation: "https://support.microsoft.com/en-us/help/12408/",
-    notes: "2FA phone calls may not be available in all regions"
+    documentation: "https://support.microsoft.com/en-us/help/12408/"
   },
   "xero.com": {
     methods: [
       "totp",
       "custom-software"
-    ],
-    "custom-software": [
-      "Xero Verify"
     ],
     documentation: "https://help.xero.com/nz/MyXero_Two-Step_About"
   },
@@ -27671,11 +25303,7 @@ var sites_default = {
       "email",
       "custom-software"
     ],
-    "custom-software": [
-      "Xfinity Authenticator"
-    ],
-    documentation: "https://www.xfinity.com/support/articles/two-step-verification-xfinity-app-setup/",
-    notes: "Email 2FA requires the use of a non-Comcast.net email address."
+    documentation: "https://www.xfinity.com/support/articles/two-step-verification-xfinity-app-setup/"
   },
   "xing.com": {
     methods: [
@@ -27711,8 +25339,7 @@ var sites_default = {
       "totp",
       "u2f"
     ],
-    documentation: "https://help.yahoo.com/kb/SLN5013.html",
-    notes: "A recovery email or phone number is required for 2FA setup."
+    documentation: "https://help.yahoo.com/kb/SLN5013.html"
   },
   "yammer.com": {
     methods: [
@@ -27721,9 +25348,6 @@ var sites_default = {
       "email",
       "custom-software",
       "totp"
-    ],
-    "custom-software": [
-      "Microsoft Authenticator"
     ],
     documentation: "https://support.microsoft.com/account-billing/c7910146-672f-01e9-50a0-93b4585e7eb4"
   },
@@ -27738,8 +25362,7 @@ var sites_default = {
       "totp",
       "sms"
     ],
-    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297",
-    notes: "SMS is required as a backup method"
+    documentation: "https://help.mail.163.com/faq.do?m=list&categoryID=297"
   },
   "yelp.com": {},
   "yle.fi": {},
@@ -27748,8 +25371,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.ynab.com/rkKHuLlRc",
-    recovery: "https://support.ynab.com/rkKHuLlRc#troubleshoot"
+    documentation: "https://support.ynab.com/rkKHuLlRc"
   },
   "yoomoney.ru": {
     methods: [
@@ -27765,15 +25387,7 @@ var sites_default = {
       "sms",
       "call"
     ],
-    "custom-software": [
-      "Duo Mobile"
-    ],
-    "custom-hardware": [
-      "Duo token",
-      "Touch ID"
-    ],
-    documentation: "https://infosec.yorku.ca/2FA",
-    notes: "2FA via SMS or phone call can only be enabled by the support team."
+    documentation: "https://infosec.yorku.ca/2FA"
   },
   "youhodler.com": {
     methods: [
@@ -27797,8 +25411,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://support.ynab.com/rkKHuLlRc",
-    recovery: "https://support.ynab.com/rkKHuLlRc#troubleshoot"
+    documentation: "https://support.ynab.com/rkKHuLlRc"
   },
   "youtube.com": {
     methods: [
@@ -27808,12 +25421,7 @@ var sites_default = {
       "custom-software",
       "u2f"
     ],
-    "custom-software": [
-      "Google Prompts",
-      "Google Smart Lock"
-    ],
-    documentation: "https://safety.google/authentication/",
-    recovery: "https://support.google.com/accounts/answer/185834"
+    documentation: "https://safety.google/authentication/"
   },
   "yoyogames.com": {
     methods: [
@@ -27825,9 +25433,6 @@ var sites_default = {
   "zaba.hr": {
     methods: [
       "custom-software"
-    ],
-    "custom-software": [
-      "m-zaba app"
     ],
     documentation: "https://www.zaba.hr/home/token#pan3"
   },
@@ -27883,8 +25488,7 @@ var sites_default = {
     methods: [
       "totp"
     ],
-    documentation: "https://blog.zimbra.com/2016/02/zimbra-collaboration-8-7-two-factor-authentication-2fa-technical-preview/",
-    notes: "Available in Zimbra Collaboration 8.7 and above, Network Edition only"
+    documentation: "https://blog.zimbra.com/2016/02/zimbra-collaboration-8-7-two-factor-authentication-2fa-technical-preview/"
   },
   "zip.co": {
     methods: [
@@ -27897,12 +25501,6 @@ var sites_default = {
       "custom-software",
       "custom-hardware"
     ],
-    "custom-software": [
-      "ZKB Access"
-    ],
-    "custom-hardware": [
-      "photoTAN reader"
-    ],
     documentation: "https://www.zkb.ch/de/pr/pk/efinance/ebanking/login-verfahren.html"
   },
   "zocdoc.com": {},
@@ -27912,9 +25510,6 @@ var sites_default = {
       "custom-software",
       "totp",
       "u2f"
-    ],
-    "custom-software": [
-      "Zoho OneAuth"
     ],
     documentation: "https://help.zoho.com/portal/kb/articles/mfa-introduction"
   },
@@ -27930,8 +25525,7 @@ var sites_default = {
       "email",
       "totp"
     ],
-    documentation: "https://zondaglobal.com/en/helpdesk/zonda-exchange/my-account/how-to-use-two-factor-authentication-provided-by-google-authenticator",
-    recovery: "https://zondaglobal.com/en/helpdesk/zonda-exchange/my-account/what-can-be-done-if-google-authenticator-app-is-lost"
+    documentation: "https://zondaglobal.com/en/helpdesk/zonda-exchange/my-account/how-to-use-two-factor-authentication-provided-by-google-authenticator"
   },
   "zoom.us": {
     methods: [
@@ -28360,8 +25954,12 @@ var App_default = {
       window.parent.postMessage({ type: "OPEN_URL", url }, "*");
     };
     onMounted(() => {
+      const extensionOrigin = new URL(window.location.href).origin;
       window.addEventListener("message", (event) => {
-        if (!event.origin.startsWith("chrome-extension://")) {
+        if (event.origin !== extensionOrigin || event.source !== window.parent) {
+          return;
+        }
+        if (!event.data || typeof event.data !== "object") {
           return;
         }
         if (event.data.type === "TAB_URL") {

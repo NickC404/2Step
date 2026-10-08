@@ -8,6 +8,12 @@ window.addEventListener("message", async (event) => {
   if (event.origin !== "null") {
     return;
   }
+  if (event.source !== sandboxFrame.contentWindow) {
+    return;
+  }
+  if (!event.data || typeof event.data !== "object") {
+    return;
+  }
   if (event.data.type === "GET_TAB_URL") {
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
