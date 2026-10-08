@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+  <div class="bg-surface rounded-xl shadow-sm border border-gray-100 overflow-hidden">
 
     <!-- Status Banner -->
     <div
@@ -10,7 +10,7 @@
     >
       <div
         :class="[
-          'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0',
+          'w-8 h-8 rounded-full flex items-center justify-center shrink-0',
           site.has2FA ? 'bg-emerald-200 text-emerald-600' : 'bg-amber-200 text-amber-600'
         ]"
         aria-hidden="true"
@@ -43,7 +43,7 @@
     <div class="px-6 py-4 flex items-center gap-3 border-b border-gray-100">
       <div
         :class="[
-          'w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0 select-none',
+          'w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg shrink-0 select-none',
           site.has2FA ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'
         ]"
         aria-hidden="true"
@@ -70,15 +70,15 @@
           class="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100"
         >
           <div
-            :class="['w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0', method.colorClass]"
+            :class="['w-8 h-8 rounded-lg flex items-center justify-center shrink-0', method.colorClass]"
             aria-hidden="true"
           >
             <component :is="method.icon" class="w-4 h-4" />
           </div>
-          <div class="flex-grow min-w-0">
+          <div class="grow min-w-0">
             <div class="flex items-center justify-between gap-2 flex-wrap">
               <span class="text-[13px] font-semibold text-gray-800">{{ method.label }}</span>
-              <span :class="['text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full flex-shrink-0', method.strengthBadgeClass]">
+              <span :class="['text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full shrink-0', method.strengthBadgeClass]">
                 {{ method.strength }}
               </span>
             </div>
@@ -94,7 +94,7 @@
           target="_blank"
           rel="noopener noreferrer"
           :aria-label="`Open 2FA setup guide for ${site.domain} (opens in new tab)`"
-          class="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+          class="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Open Setup Guide
@@ -107,7 +107,7 @@
       <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">What you can do</h3>
       <div class="space-y-2">
         <div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
-          <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 text-link flex items-center justify-center shrink-0" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <div>
@@ -122,7 +122,7 @@
 </template>
 
 <script setup>
-import { computed, defineComponent, h } from 'vue';
+import { computed, h } from 'vue';
 import { getMethod } from '../methodConfig.js';
 
 const props = defineProps({
@@ -142,51 +142,37 @@ const domainInitial = computed(() => {
 });
 
 // SVG icon components keyed by method strength group
-const IconHardwareKey = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconHardwareKey = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('path', { d: 'M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4' }),
-  ])
-});
+  ]);
 
-const IconPhone = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconPhone = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('rect', { x: '5', y: '2', width: '14', height: '20', rx: '2', ry: '2' }),
     h('line', { x1: '12', y1: '18', x2: '12.01', y2: '18' }),
-  ])
-});
+  ]);
 
-const IconClock = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconClock = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('circle', { cx: '12', cy: '12', r: '10' }),
     h('polyline', { points: '12 6 12 12 16 14' }),
-  ])
-});
+  ]);
 
-const IconMail = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconMail = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('path', { d: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' }),
     h('polyline', { points: '22,6 12,13 2,6' }),
-  ])
-});
+  ]);
 
-const IconVoice = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconVoice = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('path', { d: 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z' }),
-  ])
-});
+  ]);
 
-const IconLock = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconLock = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('rect', { x: '3', y: '11', width: '18', height: '11', rx: '2', ry: '2' }),
     h('path', { d: 'M7 11V7a5 5 0 0 1 10 0v4' }),
-  ])
-});
+  ]);
 
-const IconMessage = defineComponent({
-  render: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const IconMessage = () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
     h('path', { d: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' }),
-  ])
-});
+  ]);
 
 // Map method IDs to SVG icon components (mirrors methodConfig.js).
 // Unknown IDs fall back to IconLock below.

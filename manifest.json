@@ -3,8 +3,10 @@
     "name": "2Step",
     "version": "1.0.0",
     "description": "See whether the site you're on supports two-factor authentication, which methods it offers, and how to turn it on.",
+    "minimum_chrome_version": "123",
     "permissions": [
-        "tabs"
+        "tabs",
+        "storage"
     ],
     "content_security_policy": {
         "extension_pages": "script-src 'self'; object-src 'none';",

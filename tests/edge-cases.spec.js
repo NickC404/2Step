@@ -188,7 +188,7 @@ test.describe('Edge Cases and Error Handling', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await result.click();
 
         await page.close();
@@ -211,12 +211,11 @@ test.describe('Edge Cases and Error Handling', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
 
         // Click multiple times rapidly
-        await result.click();
-        await result.click();
-        await result.click();
+        // The row is replaced by the details view after the first click
+        await result.click({ clickCount: 3 });
 
         // Should still show site details correctly
         await expect(page.locator('h2', { hasText: 'github.com' })).toBeVisible();
@@ -231,7 +230,7 @@ test.describe('Edge Cases and Error Handling', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await result.click();
 
         const setupGuide = page.locator('a:has-text("Setup Guide")');
@@ -252,7 +251,7 @@ test.describe('Edge Cases and Error Handling', () => {
 
         await page.click('button:has-text("FAQ")');
 
-        const firstFaq = page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
+        const firstFaq = page.locator('summary').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
 
         // Toggle multiple times — odd number of clicks leaves it open
         for (let i = 0; i < 5; i++) {

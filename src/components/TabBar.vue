@@ -15,10 +15,10 @@
       :tabindex="modelValue === tab.id ? 0 : -1"
       @click="$emit('update:modelValue', tab.id)"
       :class="[
-        'relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold transition-all duration-200 cursor-pointer uppercase tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-blue-700',
+        'relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold transition-all duration-200 cursor-pointer uppercase tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
         modelValue === tab.id
           ? 'bg-white/15 text-white font-bold'
-          : 'text-blue-50 hover:bg-white/10 hover:text-white'
+          : 'text-white/80 hover:bg-white/10 hover:text-white'
       ]"
     >
       {{ tab.label }}

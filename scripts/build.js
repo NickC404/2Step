@@ -9,7 +9,7 @@ const isDev = process.argv.includes('--dev');
 const watch = isDev;
 
 const define = {
-    '__VUE_OPTIONS_API__': 'true',
+    '__VUE_OPTIONS_API__': 'false',
     '__VUE_PROD_DEVTOOLS__': 'false',
     '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': 'false',
     'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production')
@@ -17,6 +17,7 @@ const define = {
 
 const commonConfig = {
     bundle: true,
+    minify: !isDev,
     format: 'esm',
     define,
     loader: {
@@ -38,7 +39,7 @@ async function build() {
             ...commonConfig,
             entryPoints: ['src/wrapper.js'],
             outfile: 'popup/wrapper.js',
-        })
+        }),
     ];
 
     if (watch) {

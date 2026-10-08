@@ -82,18 +82,21 @@ async function createIconImageData(has2FA) {
     return ctx.getImageData(0, 0, size, size);
 }
 
-async function setTabIcon(tabId, imageData) {
-    try {
-        await chrome.action.setIcon({ tabId, imageData });
-        // Clear badge as we are now using the icon itself
-        await chrome.action.setBadgeText({ tabId, text: '' });
-    } catch (e) {
-        // Tab was closed before the icon could be set
-    }
+// The tab can close while its icon is being worked out. The callback form is
+// used so that reading lastError marks that failure as handled: with a promise,
+// Chrome still logs "Unchecked runtime.lastError" for setIcon even when the
+// rejection is caught.
+function setTabIcon(tabId, imageData) {
+    return new Promise((resolve) => {
+        chrome.action.setIcon({ tabId, imageData }, () => {
+            void chrome.runtime.lastError;
+            resolve();
+        });
+    });
 }
 
 async function updateAction(tabId, url) {
-    if (!url || !url.startsWith('http')) {
+    if (!url || !/^https?:\/\//i.test(url)) {
         await setTabIcon(tabId, await createIconImageData(null));
         return;
     }

@@ -202,7 +202,7 @@ test.describe('Accessibility and User Experience', () => {
         await page.click('button:has-text("Directory")');
         await page.fill('input[placeholder*="Search domains"]', 'github');
 
-        const result = page.locator('div', { hasText: 'github.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
         await result.click();
 
         // Should have SVG shield icon
@@ -234,7 +234,7 @@ test.describe('Accessibility and User Experience', () => {
 
         await page.click('button:has-text("FAQ")');
 
-        const faqButtons = page.locator('button').filter({ hasText: /\?$/ });
+        const faqButtons = page.locator('summary').filter({ hasText: /\?$/ });
         const buttonCount = await faqButtons.count();
 
         if (buttonCount >= 2) {

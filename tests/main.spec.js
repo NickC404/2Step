@@ -113,7 +113,6 @@ test.describe('2Step Extension', () => {
 
     test('should load the popup and show current site status', async () => {
         const page = await context.newPage();
-        // Load via index.html so the sandbox iframe gets the extension origin and shows site data
         await page.goto(`chrome-extension://${extensionId}/popup/index.html`);
 
         const frame = page.frameLocator('#sandbox-frame');
@@ -154,7 +153,7 @@ test.describe('2Step Extension', () => {
         await page.fill('input[placeholder*="Search domains"]', 'google.com');
 
         // Check if google.com result appears
-        const result = page.locator('div', { hasText: 'google.com' }).first();
+        const result = page.locator('#directory-results button', { hasText: 'google.com' }).first();
         await expect(result).toBeVisible();
 
         // Click on the result
@@ -172,7 +171,7 @@ test.describe('2Step Extension', () => {
         await page.click('button:has-text("FAQ")');
 
         // Find the first FAQ question and click it
-        const firstFaq = page.locator('button').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
+        const firstFaq = page.locator('summary').filter({ hasText: 'What is two-factor authentication (2FA)?' }).first();
         await firstFaq.click();
 
         // Check if answer is visible — use leading-relaxed to distinguish from loading text
@@ -190,14 +189,13 @@ test.describe('2Step Extension', () => {
         await expect(page.locator('[data-priority="high"]').first()).toBeVisible();
     });
 
-    test('should load the main index.html and render the iframe contents', async () => {
+    test('should load the popup wrapper and render the app inside its frame', async () => {
         const page = await context.newPage();
         await page.goto(`chrome-extension://${extensionId}/popup/index.html`);
 
-        // The iframe has ID sandbox-frame
         const frame = page.frameLocator('#sandbox-frame');
 
-        // Wait for the iframe content to load (App.vue mounts or ui.html title)
+        // Wait for the app to mount
         await expect(frame.locator('h1')).toContainText('2Step', { timeout: 10000 });
 
         // Verify the Current panel renders — either a 2FA verdict or, for the

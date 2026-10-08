@@ -48,9 +48,9 @@ const SHOTS = [
     body: 'Work through practical tips in order of importance and tick them off as you go. Nothing you do leaves your browser.',
     steps: async (frame) => {
       await frame.getByRole('tab', { name: 'Tips' }).click();
-      const boxes = frame.locator('#tabpanel-tips button[aria-pressed]');
-      await boxes.nth(0).click();
-      await boxes.nth(1).click();
+      const boxes = frame.locator('#tabpanel-tips input[type="checkbox"]');
+      await boxes.nth(0).check();
+      await boxes.nth(1).check();
     },
   },
 ];

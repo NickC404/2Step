@@ -5,7 +5,7 @@
       :id="id"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-base px-3 py-2 border"
+      class="block w-full rounded-md border-gray-300 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-500 text-base px-3 py-2 border"
       v-bind="$attrs"
     />
   </div>
