@@ -43,7 +43,7 @@
         aria-labelledby="tab-allSites"
         tabindex="0"
         v-show="currentTab === 'allSites'"
-        class="space-y-4 focus:outline-none"
+        class="space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
       >
         <!-- Site detail view -->
         <div v-if="selectedDirectorySite" class="space-y-4">
@@ -69,9 +69,21 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </div>
               <h2 class="text-sm font-bold text-gray-900">Directory Search</h2>
-              <p class="text-xs text-gray-500 mt-1">Search {{ Object.keys(sitesData).length.toLocaleString() }} sites in the 2FA Directory.</p>
             </div>
-            <Input ref="searchInputRef" v-model="settings.search" placeholder="Search domains (e.g. google.com)..." aria-label="Search sites" />
+            <search>
+              <Input
+                ref="searchInputRef"
+                id="directory-search"
+                type="search"
+                v-model="settings.search"
+                :label="`Search ${Object.keys(sitesData).length.toLocaleString()} sites in the 2FA Directory`"
+                placeholder="Search domains (e.g. google.com)..."
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                enterkeyhint="search"
+              />
+            </search>
             <!-- Screen-reader-only announcement of search results -->
             <p class="sr-only" role="status" aria-live="polite">{{ searchStatus }}</p>
           </div>
@@ -81,17 +93,12 @@
             <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-6 mb-2">
               {{ filteredCount }} result{{ filteredCount !== 1 ? 's' : '' }} for "{{ settings.search }}"<span v-if="filteredCount > filteredSites.length"> · showing first {{ filteredSites.length }}</span>
             </p>
-            <div class="space-y-1 max-h-[300px] overflow-y-auto px-3 custom-scrollbar">
-              <div
-                v-for="site in filteredSites"
-                :key="site.domain"
+            <ul id="directory-results" class="space-y-1 max-h-[300px] overflow-y-auto px-3 py-1 custom-scrollbar">
+              <li v-for="site in filteredSites" :key="site.domain">
+              <button
+                type="button"
                 @click="selectedDirectorySite = getSiteData(site.domain)"
-                @keydown.enter="selectedDirectorySite = getSiteData(site.domain)"
-                @keydown.space.prevent="selectedDirectorySite = getSiteData(site.domain)"
-                role="button"
-                tabindex="0"
-                :aria-label="`${site.domain}, 2FA ${site.has2FA ? 'supported' : 'not supported'}`"
-                class="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                class="w-full text-left flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
               >
                 <div class="flex items-center gap-3">
                   <div :class="[
@@ -126,8 +133,9 @@
                 <div class="opacity-0 group-hover:opacity-100 p-2 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100 flex-shrink-0" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
-              </div>
-            </div>
+              </button>
+              </li>
+            </ul>
           </div>
 
           <!-- No results -->
@@ -139,19 +147,20 @@
           <!-- Empty state: popular sites -->
           <div v-else class="px-6 pb-6">
             <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Popular sites</p>
-            <div class="grid grid-cols-2 gap-2">
+            <ul class="grid grid-cols-2 gap-2">
+              <li v-for="popular in popularSites" :key="popular.domain">
               <button
-                v-for="popular in popularSites"
-                :key="popular.domain"
+                type="button"
                 @click="selectedDirectorySite = getSiteData(popular.domain)"
-                class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                class="w-full flex items-center gap-2 p-2.5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
               >
                 <div class="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
                   {{ popular.label.charAt(0) }}
                 </div>
                 <span class="text-xs font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">{{ popular.label }}</span>
               </button>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -163,7 +172,7 @@
         aria-labelledby="tab-currentSite"
         tabindex="0"
         v-show="currentTab === 'currentSite'"
-        class="space-y-4 focus:outline-none"
+        class="space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
       >
         <div v-if="currentSite.loading" class="flex flex-col items-center justify-center p-12 space-y-4">
           <div class="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" role="status" aria-label="Checking site security"></div>
@@ -189,7 +198,7 @@
         aria-labelledby="tab-faqs"
         tabindex="0"
         v-show="currentTab === 'faqs'"
-        class="space-y-4 focus:outline-none"
+        class="space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
       >
         <div v-if="faqs.loading" class="flex flex-col items-center justify-center p-12 space-y-4">
           <div class="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading FAQs"></div>
@@ -229,8 +238,8 @@
           </div>
 
           <!-- FAQ Accordion -->
-          <div class="space-y-2">
-            <div
+          <ul class="space-y-2">
+            <li
               v-for="faq in filteredFaqsByCategory"
               :key="faq.id"
               class="bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
@@ -263,8 +272,8 @@
                 <div class="h-px bg-gray-50 mb-3"></div>
                 <p class="text-sm text-gray-500 leading-relaxed">{{ faq.answer }}</p>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -275,7 +284,7 @@
         aria-labelledby="tab-tips"
         tabindex="0"
         v-show="currentTab === 'tips'"
-        class="space-y-4 focus:outline-none"
+        class="space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
       >
         <!-- Header + Progress -->
         <div class="bg-white rounded-xl p-5 border border-gray-100">
@@ -297,8 +306,8 @@
         </div>
 
         <!-- Tip cards -->
-        <div class="space-y-2">
-          <div
+        <ul class="space-y-2">
+          <li
             v-for="tip in orderedTips"
             :key="tip.id"
             :class="[
@@ -311,7 +320,7 @@
               <div :class="[
                 'w-2 h-2 rounded-full mt-1.5 flex-shrink-0',
                 tip.priority === 'high' ? 'bg-red-300' : tip.priority === 'medium' ? 'bg-amber-200' : 'bg-emerald-200'
-              ]" :aria-label="`${tip.priority} priority`"></div>
+              ]" :data-priority="tip.priority" aria-hidden="true"></div>
 
               <div class="flex-grow">
                 <div class="flex items-start justify-between gap-3">
@@ -331,7 +340,7 @@
                   <button
                     type="button"
                     class="flex-shrink-0 p-1.5 -m-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 rounded-lg"
-                    :aria-label="isTipDone(tip.id) ? `Mark '${tip.text}' as not done` : `Mark '${tip.text}' as done`"
+                    :aria-label="`Mark '${tip.text}' as done`"
                     :aria-pressed="isTipDone(tip.id)"
                     @click="toggleTip(tip.id)"
                   >
@@ -347,14 +356,14 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </main>
 
     <footer class="px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
-      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
-      <p>Data sourced from <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-blue-600 hover:text-blue-700 transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
+      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-blue-600 hover:text-blue-700 underline transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
+      <p>Data sourced from <a class="text-blue-600 hover:text-blue-700 underline transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-blue-600 hover:text-blue-700 underline transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
     </footer>
   </div>
 </template>
@@ -367,11 +376,11 @@
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: var(--color-gray-200);
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: var(--color-gray-300);
 }
 </style>
 

@@ -7,6 +7,10 @@
     --color-brand: #4257AC;
 }
 
+:root {
+    color-scheme: light dark;
+}
+
 html,
 body {
     width: 100%;
@@ -37,5 +41,88 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* Dark scheme. The components use Tailwind's palette, so the neutral and tint
+   scales are remapped here rather than adding a dark: variant to every class. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-surface: #172030;
+
+        --color-gray-50: #0b111e;
+        --color-gray-100: #2a3547;
+        --color-gray-200: #364153;
+        --color-gray-300: #4a5565;
+        --color-gray-400: #8690a0;
+        --color-gray-500: #a3abb8;
+        --color-gray-600: #b6bcc8;
+        --color-gray-700: #d1d5dc;
+        --color-gray-800: #e5e7eb;
+        --color-gray-900: #f3f4f6;
+
+        --color-blue-50: #14274a;
+        --color-blue-100: #1b3564;
+        --color-blue-200: #2a4c96;
+
+        --color-emerald-50: #0a2a21;
+        --color-emerald-100: #0d3b2e;
+        --color-emerald-200: #14523f;
+        --color-emerald-600: #34d399;
+        --color-emerald-700: #5ee9b5;
+        --color-emerald-800: #a4f4cf;
+
+        --color-amber-100: #45310b;
+        --color-amber-200: #5c4310;
+        --color-amber-600: #fcbb00;
+        --color-amber-700: #ffd230;
+        --color-amber-800: #fee685;
+
+        --color-red-100: #4a1518;
+        --color-red-700: #ffa2a2;
+
+        --color-sky-100: #0c3a52;
+        --color-sky-700: #74d4ff;
+    }
+
+    /* White is both a surface and the text colour on blue, so only the
+       surface uses are switched. */
+    .bg-white,
+    .hover\:bg-white:hover {
+        background-color: var(--color-surface);
+    }
+
+    .border-t-white {
+        border-top-color: var(--color-surface);
+    }
+
+    /* The header keeps its blue gradient, so its pale text must stay pale. */
+    .text-blue-50 {
+        color: #eff6ff;
+    }
+
+    /* Blue 600 stays as the button fill; as text on a dark surface it is too dim. */
+    .text-blue-600,
+    .hover\:text-blue-600:hover,
+    .hover\:text-blue-700:hover,
+    .group:hover .group-hover\:text-blue-500,
+    .group:hover .group-hover\:text-blue-600,
+    .group:hover .group-hover\:text-blue-700 {
+        color: #8ab4ff;
+    }
+}
+
+/* Forced colours (Windows High Contrast) drops box-shadows and backgrounds,
+   which is how focus rings and the selected tab are drawn. */
+@media (forced-colors: active) {
+    :focus-visible {
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
+    }
+
+    [role="tab"][aria-selected="true"] {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
     }
 }

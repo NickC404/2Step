@@ -103,7 +103,7 @@ test.describe('Site Details Component', () => {
         await page.waitForTimeout(1000);
 
         // Get all search result items - exact selector from App.vue
-        const allResults = page.locator('div.flex.items-center.justify-between.p-3.rounded-xl.border');
+        const allResults = page.locator('#directory-results button');
         const totalCount = await allResults.count();
 
         // Skip test if no results at all

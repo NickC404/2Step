@@ -26,7 +26,7 @@
       <!-- Active underline indicator -->
       <span
         v-if="modelValue === tab.id"
-        class="absolute bottom-0 left-2 right-2 h-0.5 bg-white rounded-full"
+        class="absolute bottom-0 left-2 right-2 h-0.5 bg-current rounded-full"
         aria-hidden="true"
       ></span>
     </button>
@@ -34,6 +34,8 @@
 </template>
 
 <script setup>
+import { nextTick } from 'vue';
+
 const props = defineProps({
   tabs: {
     type: Array,
@@ -47,24 +49,28 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
+// Select a tab and move keyboard focus to it, so focus follows selection.
+const selectTab = (id) => {
+  emit('update:modelValue', id);
+  nextTick(() => document.getElementById(`tab-${id}`)?.focus());
+};
+
 const handleKeydown = (e) => {
   const tabIds = props.tabs.map(t => t.id);
   const currentIndex = tabIds.indexOf(props.modelValue);
 
   if (e.key === 'ArrowRight') {
     e.preventDefault();
-    const nextIndex = (currentIndex + 1) % tabIds.length;
-    emit('update:modelValue', tabIds[nextIndex]);
+    selectTab(tabIds[(currentIndex + 1) % tabIds.length]);
   } else if (e.key === 'ArrowLeft') {
     e.preventDefault();
-    const prevIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-    emit('update:modelValue', tabIds[prevIndex]);
+    selectTab(tabIds[(currentIndex - 1 + tabIds.length) % tabIds.length]);
   } else if (e.key === 'Home') {
     e.preventDefault();
-    emit('update:modelValue', tabIds[0]);
+    selectTab(tabIds[0]);
   } else if (e.key === 'End') {
     e.preventDefault();
-    emit('update:modelValue', tabIds[tabIds.length - 1]);
+    selectTab(tabIds[tabIds.length - 1]);
   }
 };
 </script>

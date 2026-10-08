@@ -63,8 +63,8 @@
     <!-- Methods (if 2FA supported) -->
     <div v-if="site.has2FA && site.methods && site.methods.length" class="px-6 py-4 border-b border-gray-100">
       <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Authentication Methods</h3>
-      <div class="space-y-2">
-        <div
+      <ul class="space-y-2">
+        <li
           v-for="method in rankedMethods"
           :key="method.id"
           class="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100"
@@ -84,8 +84,8 @@
             </div>
             <p class="text-[11px] text-gray-500 mt-0.5 leading-snug">{{ method.description }}</p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <div v-if="site.documentation" class="mt-4">
         <a

@@ -82,11 +82,19 @@ async function createIconImageData(has2FA) {
     return ctx.getImageData(0, 0, size, size);
 }
 
+async function setTabIcon(tabId, imageData) {
+    try {
+        await chrome.action.setIcon({ tabId, imageData });
+        // Clear badge as we are now using the icon itself
+        await chrome.action.setBadgeText({ tabId, text: '' });
+    } catch (e) {
+        // Tab was closed before the icon could be set
+    }
+}
+
 async function updateAction(tabId, url) {
     if (!url || !url.startsWith('http')) {
-        const imageData = await createIconImageData(null);
-        chrome.action.setIcon({ tabId, imageData });
-        chrome.action.setBadgeText({ tabId, text: '' });
+        await setTabIcon(tabId, await createIconImageData(null));
         return;
     }
 
@@ -105,11 +113,7 @@ async function updateAction(tabId, url) {
         }
     }
 
-    const imageData = await createIconImageData(has2FA);
-    chrome.action.setIcon({ tabId, imageData });
-
-    // Clear badge as we are now using the icon itself
-    chrome.action.setBadgeText({ tabId, text: '' });
+    await setTabIcon(tabId, await createIconImageData(has2FA));
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {

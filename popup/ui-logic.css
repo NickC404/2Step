@@ -6,9 +6,9 @@
   background: transparent;
 }
 .custom-scrollbar[data-v-ea994a51]::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: var(--color-gray-200);
   border-radius: 10px;
 }
 .custom-scrollbar[data-v-ea994a51]::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: var(--color-gray-300);
 }

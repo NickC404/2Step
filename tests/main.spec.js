@@ -187,7 +187,7 @@ test.describe('2Step Extension', () => {
 
         // Check for a specific tip
         await expect(page.locator('text=Start with your email').first()).toBeVisible();
-        await expect(page.locator('[aria-label="high priority"]').first()).toBeVisible();
+        await expect(page.locator('[data-priority="high"]').first()).toBeVisible();
     });
 
     test('should load the main index.html and render the iframe contents', async () => {

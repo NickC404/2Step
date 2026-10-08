@@ -89,7 +89,7 @@ test.describe('Data Loading and Integration', () => {
         await expect(page.locator('text=Security Tips')).toBeVisible();
 
         // Should have tip items with priority indicators
-        const tips = page.locator('[aria-label*="priority"]');
+        const tips = page.locator('[data-priority]');
         const count = await tips.count();
 
         expect(count).toBeGreaterThan(0);
@@ -108,7 +108,7 @@ test.describe('Data Loading and Integration', () => {
         await result.click();
 
         // Should display multiple method rows (each method in its own card)
-        const methodRows = page.locator('div.flex.items-start.gap-3.p-3.rounded-xl.bg-gray-50');
+        const methodRows = page.locator('li.flex.items-start.gap-3.p-3.rounded-xl.bg-gray-50');
         const badgeCount = await methodRows.count();
 
         expect(badgeCount).toBeGreaterThan(1);
@@ -188,7 +188,7 @@ test.describe('Data Loading and Integration', () => {
         await page.waitForTimeout(500);
 
         // Count the clickable site result divs - they have specific structure
-        const results = page.locator('div.flex.items-center.justify-between.p-3.rounded-xl');
+        const results = page.locator('#directory-results button');
         const count = await results.count();
 
         // Should be limited to 50 or fewer

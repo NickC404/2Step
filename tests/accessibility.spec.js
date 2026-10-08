@@ -160,8 +160,8 @@ test.describe('Accessibility and User Experience', () => {
         await expect(page.locator('text=Security Tips')).toBeVisible();
 
         // Priority dots have aria-label attributes — use those to detect them
-        const highPriority = page.locator('[aria-label="high priority"]');
-        const mediumPriority = page.locator('[aria-label="medium priority"]');
+        const highPriority = page.locator('[data-priority="high"]');
+        const mediumPriority = page.locator('[data-priority="medium"]');
 
         const hasHighPriority = await highPriority.count() > 0;
         const hasMediumPriority = await mediumPriority.count() > 0;

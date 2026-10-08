@@ -302,10 +302,10 @@ test.describe('Component Functionality', () => {
         await expect(page.locator('text=Quick wins')).toBeVisible();
 
         // Priority dots have aria-label="high priority" / "medium priority"
-        const highPriorityElements = page.locator('[aria-label="high priority"]');
+        const highPriorityElements = page.locator('[data-priority="high"]');
         const highCount = await highPriorityElements.count();
 
-        const mediumPriorityElements = page.locator('[aria-label="medium priority"]');
+        const mediumPriorityElements = page.locator('[data-priority="medium"]');
         const mediumCount = await mediumPriorityElements.count();
 
         const totalCount = highCount + mediumCount;
@@ -323,10 +323,10 @@ test.describe('Component Functionality', () => {
         await page.waitForTimeout(500);
 
         // Priority dots use aria-label for accessibility
-        const highPriorityDots = page.locator('[aria-label="high priority"]');
+        const highPriorityDots = page.locator('[data-priority="high"]');
         const highCount = await highPriorityDots.count();
 
-        const mediumPriorityDots = page.locator('[aria-label="medium priority"]');
+        const mediumPriorityDots = page.locator('[data-priority="medium"]');
         const mediumCount = await mediumPriorityDots.count();
 
         expect(highCount + mediumCount).toBeGreaterThan(0);

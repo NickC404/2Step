@@ -58,7 +58,7 @@ test.describe('Edge Cases and Error Handling', () => {
 
             // Should either show results or "no results" message without errors
             // (target the visible, quoted message — not the sr-only live region).
-            const hasResults = await page.locator('div[role="button"]').count() > 0;
+            const hasResults = await page.locator('#directory-results button').count() > 0;
             const hasNoResults = await page.locator('text=/No sites found matching "/i').isVisible();
 
             expect(hasResults || hasNoResults).toBe(true);

@@ -39,7 +39,7 @@ const SHOTS = [
     body: 'Look up any service before you sign up. The data comes from the community-maintained 2FA Directory and ships with the extension.',
     steps: async (frame) => {
       await frame.getByRole('tab', { name: 'Directory' }).click();
-      await frame.getByRole('textbox').first().fill('bank');
+      await frame.getByRole('searchbox').first().fill('bank');
     },
   },
   {

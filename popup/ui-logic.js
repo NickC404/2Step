@@ -2763,6 +2763,9 @@ function onErrorCaptured(hook, target = currentInstance) {
   injectHook("ec", hook, target);
 }
 var COMPONENTS = "components";
+function resolveComponent(name, maybeSelfReference) {
+  return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;
+}
 var NULL_DYNAMIC_COMPONENT = /* @__PURE__ */ Symbol.for("v-ndc");
 function resolveDynamicComponent(component) {
   if (isString(component)) {
@@ -7448,11 +7451,12 @@ if (false) {
 }
 
 // sfc-script:/private/var/www/apps/2Step/src/components/Input.vue?type=script
-var Input_default = {
+var Input_default = /* @__PURE__ */ Object.assign({ inheritAttrs: false }, {
   __name: "Input",
   props: {
     modelValue: String,
-    label: String
+    label: String,
+    id: String
   },
   emits: ["update:modelValue"],
   setup(__props, { expose: __expose }) {
@@ -7461,28 +7465,24 @@ var Input_default = {
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
-};
+});
 
 // sfc-template:/private/var/www/apps/2Step/src/components/Input.vue?type=template
 var _hoisted_1 = { class: "space-y-1" };
-var _hoisted_2 = {
-  key: 0,
-  class: "block text-sm font-medium text-gray-700"
-};
-var _hoisted_3 = ["value"];
+var _hoisted_2 = ["for"];
+var _hoisted_3 = ["id", "value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1, [
-    $props.label ? (openBlock(), createElementBlock(
-      "label",
-      _hoisted_2,
-      toDisplayString($props.label),
-      1
-      /* TEXT */
-    )) : createCommentVNode("v-if", true),
+    $props.label ? (openBlock(), createElementBlock("label", {
+      key: 0,
+      for: $props.id,
+      class: "block text-xs font-medium text-gray-500"
+    }, toDisplayString($props.label), 9, _hoisted_2)) : createCommentVNode("v-if", true),
     createBaseVNode("input", mergeProps({
+      id: $props.id,
       value: $props.modelValue,
       onInput: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("update:modelValue", $event.target.value)),
-      class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
+      class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-base px-3 py-2 border"
     }, _ctx.$attrs), null, 16, _hoisted_3)
   ]);
 }
@@ -7510,26 +7510,28 @@ var TabBar_default = {
     __expose();
     const props = __props;
     const emit2 = __emit;
+    const selectTab = (id) => {
+      emit2("update:modelValue", id);
+      nextTick(() => document.getElementById(`tab-${id}`)?.focus());
+    };
     const handleKeydown = (e) => {
       const tabIds = props.tabs.map((t) => t.id);
       const currentIndex = tabIds.indexOf(props.modelValue);
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        const nextIndex = (currentIndex + 1) % tabIds.length;
-        emit2("update:modelValue", tabIds[nextIndex]);
+        selectTab(tabIds[(currentIndex + 1) % tabIds.length]);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
-        const prevIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-        emit2("update:modelValue", tabIds[prevIndex]);
+        selectTab(tabIds[(currentIndex - 1 + tabIds.length) % tabIds.length]);
       } else if (e.key === "Home") {
         e.preventDefault();
-        emit2("update:modelValue", tabIds[0]);
+        selectTab(tabIds[0]);
       } else if (e.key === "End") {
         e.preventDefault();
-        emit2("update:modelValue", tabIds[tabIds.length - 1]);
+        selectTab(tabIds[tabIds.length - 1]);
       }
     };
-    const __returned__ = { props, emit: emit2, handleKeydown };
+    const __returned__ = { props, emit: emit2, selectTab, handleKeydown, nextTick };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
@@ -7539,7 +7541,7 @@ var TabBar_default = {
 var _hoisted_12 = ["aria-selected", "aria-controls", "id", "tabindex", "onClick"];
 var _hoisted_22 = {
   key: 0,
-  class: "absolute bottom-0 left-2 right-2 h-0.5 bg-white rounded-full",
+  class: "absolute bottom-0 left-2 right-2 h-0.5 bg-current rounded-full",
   "aria-hidden": "true"
 };
 function render2(_ctx, _cache, $props, $setup, $data, $options) {
@@ -7928,12 +7930,12 @@ function render3(_ctx, _cache, $props, $setup, $data, $options) {
         -1
         /* CACHED */
       )),
-      createBaseVNode("div", _hoisted_8, [
+      createBaseVNode("ul", _hoisted_8, [
         (openBlock(true), createElementBlock(
           Fragment,
           null,
           renderList($setup.rankedMethods, (method) => {
-            return openBlock(), createElementBlock("div", {
+            return openBlock(), createElementBlock("li", {
               key: method.id,
               class: "flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100"
             }, [
@@ -26014,7 +26016,7 @@ var _hoisted_82 = {
   role: "tabpanel",
   "aria-labelledby": "tab-allSites",
   tabindex: "0",
-  class: "space-y-4 focus:outline-none"
+  class: "space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
 };
 var _hoisted_92 = {
   key: 0,
@@ -26022,23 +26024,24 @@ var _hoisted_92 = {
 };
 var _hoisted_102 = { class: "bg-white rounded-xl shadow-sm border border-gray-100" };
 var _hoisted_112 = { class: "p-6 pb-4" };
-var _hoisted_123 = { class: "text-center mb-5" };
-var _hoisted_133 = { class: "text-xs text-gray-500 mt-1" };
-var _hoisted_142 = {
+var _hoisted_123 = {
   class: "sr-only",
   role: "status",
   "aria-live": "polite"
 };
-var _hoisted_152 = {
+var _hoisted_133 = {
   key: 0,
   class: "pb-4"
 };
-var _hoisted_162 = { class: "text-[10px] font-bold text-gray-500 uppercase tracking-widest px-6 mb-2" };
-var _hoisted_172 = { key: 0 };
-var _hoisted_18 = { class: "space-y-1 max-h-[300px] overflow-y-auto px-3 custom-scrollbar" };
-var _hoisted_19 = ["onClick", "onKeydown", "aria-label"];
-var _hoisted_20 = { class: "flex items-center gap-3" };
-var _hoisted_21 = {
+var _hoisted_142 = { class: "text-[10px] font-bold text-gray-500 uppercase tracking-widest px-6 mb-2" };
+var _hoisted_152 = { key: 0 };
+var _hoisted_162 = {
+  id: "directory-results",
+  class: "space-y-1 max-h-[300px] overflow-y-auto px-3 py-1 custom-scrollbar"
+};
+var _hoisted_172 = ["onClick"];
+var _hoisted_18 = { class: "flex items-center gap-3" };
+var _hoisted_19 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   class: "w-4 h-4",
@@ -26049,7 +26052,7 @@ var _hoisted_21 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_222 = {
+var _hoisted_20 = {
   key: 1,
   xmlns: "http://www.w3.org/2000/svg",
   class: "w-4 h-4",
@@ -26060,81 +26063,81 @@ var _hoisted_222 = {
   "stroke-linecap": "round",
   "stroke-linejoin": "round"
 };
-var _hoisted_232 = { class: "text-[14px] font-semibold text-gray-900 tracking-tight" };
-var _hoisted_242 = {
+var _hoisted_21 = { class: "text-[14px] font-semibold text-gray-900 tracking-tight" };
+var _hoisted_222 = {
   key: 0,
   class: "flex gap-1 mt-1 flex-wrap"
 };
-var _hoisted_252 = {
+var _hoisted_232 = {
   key: 0,
   class: "text-[10px] px-2 py-0.5 bg-gray-50 border border-gray-100 text-gray-500 rounded-lg font-bold"
 };
-var _hoisted_26 = {
+var _hoisted_242 = {
   key: 1,
   class: "text-[10px] text-gray-500 mt-0.5"
 };
-var _hoisted_27 = { class: "text-center py-8 px-6" };
-var _hoisted_28 = { class: "text-sm text-gray-500" };
-var _hoisted_29 = { class: "px-6 pb-6" };
-var _hoisted_30 = { class: "grid grid-cols-2 gap-2" };
-var _hoisted_31 = ["onClick"];
-var _hoisted_322 = { class: "w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors" };
-var _hoisted_332 = { class: "text-xs font-semibold text-gray-700 group-hover:text-blue-600 transition-colors" };
-var _hoisted_342 = {
+var _hoisted_252 = { class: "text-center py-8 px-6" };
+var _hoisted_26 = { class: "text-sm text-gray-500" };
+var _hoisted_27 = { class: "px-6 pb-6" };
+var _hoisted_28 = { class: "grid grid-cols-2 gap-2" };
+var _hoisted_29 = ["onClick"];
+var _hoisted_30 = { class: "w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors" };
+var _hoisted_31 = { class: "text-xs font-semibold text-gray-700 group-hover:text-blue-600 transition-colors" };
+var _hoisted_322 = {
   id: "tabpanel-currentSite",
   role: "tabpanel",
   "aria-labelledby": "tab-currentSite",
   tabindex: "0",
-  class: "space-y-4 focus:outline-none"
+  class: "space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+};
+var _hoisted_332 = {
+  key: 0,
+  class: "flex flex-col items-center justify-center p-12 space-y-4"
+};
+var _hoisted_342 = {
+  id: "tabpanel-faqs",
+  role: "tabpanel",
+  "aria-labelledby": "tab-faqs",
+  tabindex: "0",
+  class: "space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
 };
 var _hoisted_35 = {
   key: 0,
   class: "flex flex-col items-center justify-center p-12 space-y-4"
 };
 var _hoisted_36 = {
-  id: "tabpanel-faqs",
-  role: "tabpanel",
-  "aria-labelledby": "tab-faqs",
-  tabindex: "0",
-  class: "space-y-4 focus:outline-none"
-};
-var _hoisted_37 = {
-  key: 0,
-  class: "flex flex-col items-center justify-center p-12 space-y-4"
-};
-var _hoisted_38 = {
   key: 1,
   class: "space-y-5"
 };
-var _hoisted_39 = {
+var _hoisted_37 = {
   class: "flex gap-2 flex-wrap",
   role: "group",
   "aria-label": "Filter FAQs by category"
 };
-var _hoisted_40 = ["aria-pressed"];
-var _hoisted_41 = ["onClick", "aria-pressed"];
-var _hoisted_422 = { class: "space-y-2" };
-var _hoisted_432 = ["id", "onClick", "aria-expanded", "aria-controls"];
-var _hoisted_44 = { class: "text-[14px] font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
-var _hoisted_45 = ["id", "aria-labelledby"];
-var _hoisted_46 = { class: "text-sm text-gray-500 leading-relaxed" };
-var _hoisted_47 = {
+var _hoisted_38 = ["aria-pressed"];
+var _hoisted_39 = ["onClick", "aria-pressed"];
+var _hoisted_40 = { class: "space-y-2" };
+var _hoisted_41 = ["id", "onClick", "aria-expanded", "aria-controls"];
+var _hoisted_422 = { class: "text-[14px] font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-snug pr-4" };
+var _hoisted_432 = ["id", "aria-labelledby"];
+var _hoisted_44 = { class: "text-sm text-gray-500 leading-relaxed" };
+var _hoisted_45 = {
   id: "tabpanel-tips",
   role: "tabpanel",
   "aria-labelledby": "tab-tips",
   tabindex: "0",
-  class: "space-y-4 focus:outline-none"
+  class: "space-y-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
 };
-var _hoisted_48 = { class: "bg-white rounded-xl p-5 border border-gray-100" };
-var _hoisted_49 = { class: "flex items-center justify-between text-[11px] font-bold mb-2" };
-var _hoisted_50 = ["aria-valuenow", "aria-valuemax", "aria-label"];
-var _hoisted_51 = { class: "space-y-2" };
-var _hoisted_522 = { class: "flex gap-3 items-start" };
-var _hoisted_532 = ["aria-label"];
-var _hoisted_54 = { class: "flex-grow" };
-var _hoisted_55 = { class: "flex items-start justify-between gap-3" };
-var _hoisted_56 = ["aria-label", "aria-pressed", "onClick"];
-var _hoisted_57 = {
+var _hoisted_46 = { class: "bg-white rounded-xl p-5 border border-gray-100" };
+var _hoisted_47 = { class: "flex items-center justify-between text-[11px] font-bold mb-2" };
+var _hoisted_48 = ["aria-valuenow", "aria-valuemax", "aria-label"];
+var _hoisted_49 = { class: "space-y-2" };
+var _hoisted_50 = { class: "flex gap-3 items-start" };
+var _hoisted_51 = ["data-priority"];
+var _hoisted_522 = { class: "flex-grow" };
+var _hoisted_532 = { class: "flex items-start justify-between gap-3" };
+var _hoisted_54 = ["aria-label", "aria-pressed", "onClick"];
+var _hoisted_55 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   class: "w-3 h-3 text-white",
@@ -26146,9 +26149,10 @@ var _hoisted_57 = {
   "stroke-linejoin": "round",
   "aria-hidden": "true"
 };
-var _hoisted_58 = { class: "px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" };
-var _hoisted_59 = { class: "pb-1.5 font-medium" };
+var _hoisted_56 = { class: "px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50" };
+var _hoisted_57 = { class: "pb-1.5 font-medium" };
 function render5(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_search = resolveComponent("search");
   return openBlock(), createElementBlock("div", _hoisted_17, [
     createCommentVNode(" Header "),
     createBaseVNode("header", _hoisted_25, [
@@ -26247,35 +26251,38 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
               createCommentVNode(" Search + directory list "),
               createBaseVNode("div", _hoisted_102, [
                 createBaseVNode("div", _hoisted_112, [
-                  createBaseVNode("div", _hoisted_123, [
-                    _cache[8] || (_cache[8] = createStaticVNode('<div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" aria-hidden="true" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h2 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h2>', 2)),
-                    createBaseVNode(
-                      "p",
-                      _hoisted_133,
-                      "Search " + toDisplayString(Object.keys($setup.sitesData).length.toLocaleString()) + " sites in the 2FA Directory.",
-                      1
-                      /* TEXT */
-                    )
-                  ]),
-                  createVNode($setup["Input"], {
-                    ref: "searchInputRef",
-                    modelValue: $setup.settings.search,
-                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.settings.search = $event),
-                    placeholder: "Search domains (e.g. google.com)...",
-                    "aria-label": "Search sites"
-                  }, null, 8, ["modelValue"]),
+                  _cache[8] || (_cache[8] = createStaticVNode('<div class="text-center mb-5" data-v-ea994a51><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3" aria-hidden="true" data-v-ea994a51><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-v-ea994a51><circle cx="11" cy="11" r="8" data-v-ea994a51></circle><line x1="21" y1="21" x2="16.65" y2="16.65" data-v-ea994a51></line></svg></div><h2 class="text-sm font-bold text-gray-900" data-v-ea994a51>Directory Search</h2></div>', 1)),
+                  createVNode(_component_search, null, {
+                    default: withCtx(() => [
+                      createVNode($setup["Input"], {
+                        ref: "searchInputRef",
+                        id: "directory-search",
+                        type: "search",
+                        modelValue: $setup.settings.search,
+                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $setup.settings.search = $event),
+                        label: `Search ${Object.keys($setup.sitesData).length.toLocaleString()} sites in the 2FA Directory`,
+                        placeholder: "Search domains (e.g. google.com)...",
+                        autocorrect: "off",
+                        autocapitalize: "off",
+                        spellcheck: "false",
+                        enterkeyhint: "search"
+                      }, null, 8, ["modelValue", "label"])
+                    ]),
+                    _: 1
+                    /* STABLE */
+                  }),
                   createCommentVNode(" Screen-reader-only announcement of search results "),
                   createBaseVNode(
                     "p",
-                    _hoisted_142,
+                    _hoisted_123,
                     toDisplayString($setup.searchStatus),
                     1
                     /* TEXT */
                   )
                 ]),
                 createCommentVNode(" Results with count "),
-                $setup.settings.search && $setup.filteredSites.length ? (openBlock(), createElementBlock("div", _hoisted_152, [
-                  createBaseVNode("p", _hoisted_162, [
+                $setup.settings.search && $setup.filteredSites.length ? (openBlock(), createElementBlock("div", _hoisted_133, [
+                  createBaseVNode("p", _hoisted_142, [
                     createTextVNode(
                       toDisplayString($setup.filteredCount) + " result" + toDisplayString($setup.filteredCount !== 1 ? "s" : "") + ' for "' + toDisplayString($setup.settings.search) + '"',
                       1
@@ -26283,150 +26290,147 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                     ),
                     $setup.filteredCount > $setup.filteredSites.length ? (openBlock(), createElementBlock(
                       "span",
-                      _hoisted_172,
+                      _hoisted_152,
                       " \xB7 showing first " + toDisplayString($setup.filteredSites.length),
                       1
                       /* TEXT */
                     )) : createCommentVNode("v-if", true)
                   ]),
-                  createBaseVNode("div", _hoisted_18, [
+                  createBaseVNode("ul", _hoisted_162, [
                     (openBlock(true), createElementBlock(
                       Fragment,
                       null,
                       renderList($setup.filteredSites, (site) => {
-                        return openBlock(), createElementBlock("div", {
-                          key: site.domain,
-                          onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
-                          onKeydown: [
-                            withKeys(($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain), ["enter"]),
-                            withKeys(withModifiers(($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain), ["prevent"]), ["space"])
-                          ],
-                          role: "button",
-                          tabindex: "0",
-                          "aria-label": `${site.domain}, 2FA ${site.has2FA ? "supported" : "not supported"}`,
-                          class: "flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                        return openBlock(), createElementBlock("li", {
+                          key: site.domain
                         }, [
-                          createBaseVNode("div", _hoisted_20, [
-                            createBaseVNode(
+                          createBaseVNode("button", {
+                            type: "button",
+                            onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(site.domain),
+                            class: "w-full text-left flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 transition-all cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                          }, [
+                            createBaseVNode("div", _hoisted_18, [
+                              createBaseVNode(
+                                "div",
+                                {
+                                  class: normalizeClass([
+                                    "w-8 h-8 rounded-xl flex items-center justify-center transition-colors shadow-sm flex-shrink-0",
+                                    site.has2FA ? "bg-emerald-100 text-emerald-500" : "bg-gray-100 text-gray-400"
+                                  ]),
+                                  "aria-hidden": "true"
+                                },
+                                [
+                                  site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_19, [..._cache[9] || (_cache[9] = [
+                                    createBaseVNode(
+                                      "path",
+                                      { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                                      null,
+                                      -1
+                                      /* CACHED */
+                                    ),
+                                    createBaseVNode(
+                                      "polyline",
+                                      { points: "9 11 11 13 15 9" },
+                                      null,
+                                      -1
+                                      /* CACHED */
+                                    )
+                                  ])])) : (openBlock(), createElementBlock("svg", _hoisted_20, [..._cache[10] || (_cache[10] = [
+                                    createBaseVNode(
+                                      "path",
+                                      { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                                      null,
+                                      -1
+                                      /* CACHED */
+                                    ),
+                                    createBaseVNode(
+                                      "line",
+                                      {
+                                        x1: "15",
+                                        y1: "9",
+                                        x2: "9",
+                                        y2: "15"
+                                      },
+                                      null,
+                                      -1
+                                      /* CACHED */
+                                    ),
+                                    createBaseVNode(
+                                      "line",
+                                      {
+                                        x1: "9",
+                                        y1: "9",
+                                        x2: "15",
+                                        y2: "15"
+                                      },
+                                      null,
+                                      -1
+                                      /* CACHED */
+                                    )
+                                  ])]))
+                                ],
+                                2
+                                /* CLASS */
+                              ),
+                              createBaseVNode("div", null, [
+                                createBaseVNode(
+                                  "div",
+                                  _hoisted_21,
+                                  toDisplayString(site.domain),
+                                  1
+                                  /* TEXT */
+                                ),
+                                site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_222, [
+                                  (openBlock(true), createElementBlock(
+                                    Fragment,
+                                    null,
+                                    renderList(site.methods.slice(0, 2), (m) => {
+                                      return openBlock(), createBlock($setup["MethodBadge"], {
+                                        key: m,
+                                        method: m,
+                                        compact: "",
+                                        presentational: "",
+                                        side: "bottom"
+                                      }, null, 8, ["method"]);
+                                    }),
+                                    128
+                                    /* KEYED_FRAGMENT */
+                                  )),
+                                  site.methods.length > 2 ? (openBlock(), createElementBlock(
+                                    "span",
+                                    _hoisted_232,
+                                    " +" + toDisplayString(site.methods.length - 2),
+                                    1
+                                    /* TEXT */
+                                  )) : createCommentVNode("v-if", true)
+                                ])) : (openBlock(), createElementBlock("div", _hoisted_242, "No 2FA"))
+                              ])
+                            ]),
+                            _cache[11] || (_cache[11] = createBaseVNode(
                               "div",
                               {
-                                class: normalizeClass([
-                                  "w-8 h-8 rounded-xl flex items-center justify-center transition-colors shadow-sm flex-shrink-0",
-                                  site.has2FA ? "bg-emerald-100 text-emerald-500" : "bg-gray-100 text-gray-400"
-                                ]),
+                                class: "opacity-0 group-hover:opacity-100 p-2 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100 flex-shrink-0",
                                 "aria-hidden": "true"
                               },
                               [
-                                site.has2FA ? (openBlock(), createElementBlock("svg", _hoisted_21, [..._cache[9] || (_cache[9] = [
-                                  createBaseVNode(
-                                    "path",
-                                    { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                                    null,
-                                    -1
-                                    /* CACHED */
-                                  ),
-                                  createBaseVNode(
-                                    "polyline",
-                                    { points: "9 11 11 13 15 9" },
-                                    null,
-                                    -1
-                                    /* CACHED */
-                                  )
-                                ])])) : (openBlock(), createElementBlock("svg", _hoisted_222, [..._cache[10] || (_cache[10] = [
-                                  createBaseVNode(
-                                    "path",
-                                    { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-                                    null,
-                                    -1
-                                    /* CACHED */
-                                  ),
-                                  createBaseVNode(
-                                    "line",
-                                    {
-                                      x1: "15",
-                                      y1: "9",
-                                      x2: "9",
-                                      y2: "15"
-                                    },
-                                    null,
-                                    -1
-                                    /* CACHED */
-                                  ),
-                                  createBaseVNode(
-                                    "line",
-                                    {
-                                      x1: "9",
-                                      y1: "9",
-                                      x2: "15",
-                                      y2: "15"
-                                    },
-                                    null,
-                                    -1
-                                    /* CACHED */
-                                  )
-                                ])]))
+                                createBaseVNode("svg", {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  class: "w-4 h-4",
+                                  viewBox: "0 0 24 24",
+                                  fill: "none",
+                                  stroke: "currentColor",
+                                  "stroke-width": "2.5",
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round"
+                                }, [
+                                  createBaseVNode("path", { d: "M5 12h14M12 5l7 7-7 7" })
+                                ])
                               ],
-                              2
-                              /* CLASS */
-                            ),
-                            createBaseVNode("div", null, [
-                              createBaseVNode(
-                                "div",
-                                _hoisted_232,
-                                toDisplayString(site.domain),
-                                1
-                                /* TEXT */
-                              ),
-                              site.has2FA ? (openBlock(), createElementBlock("div", _hoisted_242, [
-                                (openBlock(true), createElementBlock(
-                                  Fragment,
-                                  null,
-                                  renderList(site.methods.slice(0, 2), (m) => {
-                                    return openBlock(), createBlock($setup["MethodBadge"], {
-                                      key: m,
-                                      method: m,
-                                      compact: "",
-                                      presentational: "",
-                                      side: "bottom"
-                                    }, null, 8, ["method"]);
-                                  }),
-                                  128
-                                  /* KEYED_FRAGMENT */
-                                )),
-                                site.methods.length > 2 ? (openBlock(), createElementBlock(
-                                  "span",
-                                  _hoisted_252,
-                                  " +" + toDisplayString(site.methods.length - 2),
-                                  1
-                                  /* TEXT */
-                                )) : createCommentVNode("v-if", true)
-                              ])) : (openBlock(), createElementBlock("div", _hoisted_26, "No 2FA"))
-                            ])
-                          ]),
-                          _cache[11] || (_cache[11] = createBaseVNode(
-                            "div",
-                            {
-                              class: "opacity-0 group-hover:opacity-100 p-2 text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-blue-100 flex-shrink-0",
-                              "aria-hidden": "true"
-                            },
-                            [
-                              createBaseVNode("svg", {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                class: "w-4 h-4",
-                                viewBox: "0 0 24 24",
-                                fill: "none",
-                                stroke: "currentColor",
-                                "stroke-width": "2.5",
-                                "stroke-linecap": "round",
-                                "stroke-linejoin": "round"
-                              }, [
-                                createBaseVNode("path", { d: "M5 12h14M12 5l7 7-7 7" })
-                              ])
-                            ],
-                            -1
-                            /* CACHED */
-                          ))
-                        ], 40, _hoisted_19);
+                              -1
+                              /* CACHED */
+                            ))
+                          ], 8, _hoisted_172)
+                        ]);
                       }),
                       128
                       /* KEYED_FRAGMENT */
@@ -26437,10 +26441,10 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                   { key: 1 },
                   [
                     createCommentVNode(" No results "),
-                    createBaseVNode("div", _hoisted_27, [
+                    createBaseVNode("div", _hoisted_252, [
                       createBaseVNode(
                         "p",
-                        _hoisted_28,
+                        _hoisted_26,
                         'No sites found matching "' + toDisplayString($setup.settings.search) + '"',
                         1
                         /* TEXT */
@@ -26461,7 +26465,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                   { key: 2 },
                   [
                     createCommentVNode(" Empty state: popular sites "),
-                    createBaseVNode("div", _hoisted_29, [
+                    createBaseVNode("div", _hoisted_27, [
                       _cache[13] || (_cache[13] = createBaseVNode(
                         "p",
                         { class: "text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3" },
@@ -26469,31 +26473,35 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                         -1
                         /* CACHED */
                       )),
-                      createBaseVNode("div", _hoisted_30, [
+                      createBaseVNode("ul", _hoisted_28, [
                         (openBlock(), createElementBlock(
                           Fragment,
                           null,
                           renderList($setup.popularSites, (popular) => {
-                            return createBaseVNode("button", {
-                              key: popular.domain,
-                              onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(popular.domain),
-                              class: "flex items-center gap-2 p-2.5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                            return createBaseVNode("li", {
+                              key: popular.domain
                             }, [
-                              createBaseVNode(
-                                "div",
-                                _hoisted_322,
-                                toDisplayString(popular.label.charAt(0)),
-                                1
-                                /* TEXT */
-                              ),
-                              createBaseVNode(
-                                "span",
-                                _hoisted_332,
-                                toDisplayString(popular.label),
-                                1
-                                /* TEXT */
-                              )
-                            ], 8, _hoisted_31);
+                              createBaseVNode("button", {
+                                type: "button",
+                                onClick: ($event) => $setup.selectedDirectorySite = $setup.getSiteData(popular.domain),
+                                class: "w-full flex items-center gap-2 p-2.5 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+                              }, [
+                                createBaseVNode(
+                                  "div",
+                                  _hoisted_30,
+                                  toDisplayString(popular.label.charAt(0)),
+                                  1
+                                  /* TEXT */
+                                ),
+                                createBaseVNode(
+                                  "span",
+                                  _hoisted_31,
+                                  toDisplayString(popular.label),
+                                  1
+                                  /* TEXT */
+                                )
+                              ], 8, _hoisted_29)
+                            ]);
                           }),
                           64
                           /* STABLE_FRAGMENT */
@@ -26518,9 +26526,9 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       createCommentVNode(" Current Site Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_342,
+        _hoisted_322,
         [
-          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_35, [..._cache[14] || (_cache[14] = [
+          $setup.currentSite.loading ? (openBlock(), createElementBlock("div", _hoisted_332, [..._cache[14] || (_cache[14] = [
             createBaseVNode(
               "div",
               {
@@ -26561,9 +26569,9 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       createCommentVNode(" FAQ Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_36,
+        _hoisted_342,
         [
-          $setup.faqs.loading ? (openBlock(), createElementBlock("div", _hoisted_37, [..._cache[16] || (_cache[16] = [
+          $setup.faqs.loading ? (openBlock(), createElementBlock("div", _hoisted_35, [..._cache[16] || (_cache[16] = [
             createBaseVNode(
               "div",
               {
@@ -26582,7 +26590,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
               -1
               /* CACHED */
             )
-          ])])) : (openBlock(), createElementBlock("div", _hoisted_38, [
+          ])])) : (openBlock(), createElementBlock("div", _hoisted_36, [
             _cache[19] || (_cache[19] = createBaseVNode(
               "h2",
               { class: "sr-only" },
@@ -26591,7 +26599,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
               /* CACHED */
             )),
             createCommentVNode(" Category pill filters "),
-            createBaseVNode("div", _hoisted_39, [
+            createBaseVNode("div", _hoisted_37, [
               createBaseVNode("button", {
                 onClick: _cache[2] || (_cache[2] = ($event) => $setup.selectedFaqCategory = null),
                 class: normalizeClass([
@@ -26599,7 +26607,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                   $setup.selectedFaqCategory === null ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600"
                 ]),
                 "aria-pressed": $setup.selectedFaqCategory === null
-              }, " All ", 10, _hoisted_40),
+              }, " All ", 10, _hoisted_38),
               (openBlock(true), createElementBlock(
                 Fragment,
                 null,
@@ -26612,19 +26620,19 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                       $setup.selectedFaqCategory === catId ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-blue-200 hover:text-blue-600"
                     ]),
                     "aria-pressed": $setup.selectedFaqCategory === catId
-                  }, toDisplayString(cat.name), 11, _hoisted_41);
+                  }, toDisplayString(cat.name), 11, _hoisted_39);
                 }),
                 128
                 /* KEYED_FRAGMENT */
               ))
             ]),
             createCommentVNode(" FAQ Accordion "),
-            createBaseVNode("div", _hoisted_422, [
+            createBaseVNode("ul", _hoisted_40, [
               (openBlock(true), createElementBlock(
                 Fragment,
                 null,
                 renderList($setup.filteredFaqsByCategory, (faq) => {
-                  return openBlock(), createElementBlock("div", {
+                  return openBlock(), createElementBlock("li", {
                     key: faq.id,
                     class: "bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md"
                   }, [
@@ -26637,7 +26645,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                     }, [
                       createBaseVNode(
                         "span",
-                        _hoisted_44,
+                        _hoisted_422,
                         toDisplayString(faq.question),
                         1
                         /* TEXT */
@@ -26674,7 +26682,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                         2
                         /* CLASS */
                       )
-                    ], 8, _hoisted_432),
+                    ], 8, _hoisted_41),
                     withDirectives(createBaseVNode("div", {
                       id: `faq-panel-${faq.id}`,
                       role: "region",
@@ -26690,12 +26698,12 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                       )),
                       createBaseVNode(
                         "p",
-                        _hoisted_46,
+                        _hoisted_44,
                         toDisplayString(faq.answer),
                         1
                         /* TEXT */
                       )
-                    ], 8, _hoisted_45), [
+                    ], 8, _hoisted_432), [
                       [vShow, $setup.itemsOpen[faq.id]]
                     ])
                   ]);
@@ -26714,10 +26722,10 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
       createCommentVNode(" Tips Tab "),
       withDirectives(createBaseVNode(
         "div",
-        _hoisted_47,
+        _hoisted_45,
         [
           createCommentVNode(" Header + Progress "),
-          createBaseVNode("div", _hoisted_48, [
+          createBaseVNode("div", _hoisted_46, [
             _cache[21] || (_cache[21] = createBaseVNode(
               "h2",
               { class: "text-sm font-bold text-gray-900 mb-1" },
@@ -26732,7 +26740,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
               -1
               /* CACHED */
             )),
-            createBaseVNode("div", _hoisted_49, [
+            createBaseVNode("div", _hoisted_47, [
               _cache[20] || (_cache[20] = createBaseVNode(
                 "span",
                 { class: "text-gray-500" },
@@ -26768,16 +26776,16 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                 6
                 /* CLASS, STYLE */
               )
-            ], 8, _hoisted_50)
+            ], 8, _hoisted_48)
           ]),
           createCommentVNode(" Tip cards "),
-          createBaseVNode("div", _hoisted_51, [
+          createBaseVNode("ul", _hoisted_49, [
             (openBlock(true), createElementBlock(
               Fragment,
               null,
               renderList($setup.orderedTips, (tip) => {
                 return openBlock(), createElementBlock(
-                  "div",
+                  "li",
                   {
                     key: tip.id,
                     class: normalizeClass([
@@ -26786,17 +26794,18 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                     ])
                   },
                   [
-                    createBaseVNode("div", _hoisted_522, [
+                    createBaseVNode("div", _hoisted_50, [
                       createCommentVNode(" Priority dot "),
                       createBaseVNode("div", {
                         class: normalizeClass([
                           "w-2 h-2 rounded-full mt-1.5 flex-shrink-0",
                           tip.priority === "high" ? "bg-red-300" : tip.priority === "medium" ? "bg-amber-200" : "bg-emerald-200"
                         ]),
-                        "aria-label": `${tip.priority} priority`
-                      }, null, 10, _hoisted_532),
-                      createBaseVNode("div", _hoisted_54, [
-                        createBaseVNode("div", _hoisted_55, [
+                        "data-priority": tip.priority,
+                        "aria-hidden": "true"
+                      }, null, 10, _hoisted_51),
+                      createBaseVNode("div", _hoisted_522, [
+                        createBaseVNode("div", _hoisted_532, [
                           createBaseVNode("div", null, [
                             createBaseVNode(
                               "span",
@@ -26824,7 +26833,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                           createBaseVNode("button", {
                             type: "button",
                             class: "flex-shrink-0 p-1.5 -m-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 rounded-lg",
-                            "aria-label": $setup.isTipDone(tip.id) ? `Mark '${tip.text}' as not done` : `Mark '${tip.text}' as done`,
+                            "aria-label": `Mark '${tip.text}' as done`,
                             "aria-pressed": $setup.isTipDone(tip.id),
                             onClick: ($event) => $setup.toggleTip(tip.id)
                           }, [
@@ -26837,7 +26846,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                                 ])
                               },
                               [
-                                $setup.isTipDone(tip.id) ? (openBlock(), createElementBlock("svg", _hoisted_57, [..._cache[23] || (_cache[23] = [
+                                $setup.isTipDone(tip.id) ? (openBlock(), createElementBlock("svg", _hoisted_55, [..._cache[23] || (_cache[23] = [
                                   createBaseVNode(
                                     "polyline",
                                     { points: "20 6 9 17 4 12" },
@@ -26850,7 +26859,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
                               2
                               /* CLASS */
                             )
-                          ], 8, _hoisted_56)
+                          ], 8, _hoisted_54)
                         ])
                       ])
                     ])
@@ -26870,15 +26879,15 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
         [vShow, $setup.currentTab === "tips"]
       ])
     ]),
-    createBaseVNode("footer", _hoisted_58, [
-      createBaseVNode("p", _hoisted_59, [
+    createBaseVNode("footer", _hoisted_56, [
+      createBaseVNode("p", _hoisted_57, [
         _cache[24] || (_cache[24] = createTextVNode(
           "Made with \u2764\uFE0F by ",
           -1
           /* CACHED */
         )),
         createBaseVNode("a", {
-          class: "text-blue-600 hover:text-blue-700 transition-colors",
+          class: "text-blue-600 hover:text-blue-700 underline transition-colors",
           href: "https://nickcotterill.co.uk",
           onClick: _cache[3] || (_cache[3] = withModifiers(($event) => $setup.openExternal("https://nickcotterill.co.uk"), ["prevent"])),
           target: "_blank",
@@ -26892,7 +26901,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
           /* CACHED */
         )),
         createBaseVNode("a", {
-          class: "text-blue-600 hover:text-blue-700 transition-colors",
+          class: "text-blue-600 hover:text-blue-700 underline transition-colors",
           href: "https://2fa.directory/gb/",
           onClick: _cache[4] || (_cache[4] = withModifiers(($event) => $setup.openExternal("https://2fa.directory/gb/"), ["prevent"])),
           target: "_blank",
@@ -26904,7 +26913,7 @@ function render5(_ctx, _cache, $props, $setup, $data, $options) {
           /* CACHED */
         )),
         createBaseVNode("a", {
-          class: "text-blue-600 hover:text-blue-700 transition-colors",
+          class: "text-blue-600 hover:text-blue-700 underline transition-colors",
           href: "https://2factorauth-org.pages.dev/",
           onClick: _cache[5] || (_cache[5] = withModifiers(($event) => $setup.openExternal("https://2factorauth-org.pages.dev/"), ["prevent"])),
           target: "_blank",
