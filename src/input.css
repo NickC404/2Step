@@ -96,7 +96,20 @@ body {
         border-top-color: var(--color-surface);
     }
 
-    /* The header keeps its blue gradient, so its pale text must stay pale. */
+    /* The header stays blue but deeper, so it doesn't outshine the content. */
+    .from-blue-800 {
+        --tw-gradient-from: #0f1a3f;
+    }
+
+    .via-blue-700 {
+        --tw-gradient-via: #162456;
+    }
+
+    .to-blue-600 {
+        --tw-gradient-to: #1c398e;
+    }
+
+    /* Its pale text must stay pale. */
     .text-blue-50 {
         color: #eff6ff;
     }

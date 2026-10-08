@@ -1390,6 +1390,15 @@ html, body {
   .border-t-white {
     border-top-color: var(--color-surface);
   }
+  .from-blue-800 {
+    --tw-gradient-from: #0f1a3f;
+  }
+  .via-blue-700 {
+    --tw-gradient-via: #162456;
+  }
+  .to-blue-600 {
+    --tw-gradient-to: #1c398e;
+  }
   .text-blue-50 {
     color: #eff6ff;
   }
