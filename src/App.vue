@@ -395,16 +395,39 @@
   // because the sandboxed UI has no storage of its own.
   const doneTipIds = ref([]);
 
+  // Ticks made before the saved list arrives are replayed on top of it, so
+  // the stored list doesn't overwrite them.
+  let tipsLoaded = false;
+  const pendingTipToggles = [];
+
   const isTipDone = (id) => doneTipIds.value.includes(id);
 
-  const toggleTip = (id) => {
+  const flipTip = (id) => {
     const idx = doneTipIds.value.indexOf(id);
     if (idx >= 0) {
       doneTipIds.value.splice(idx, 1);
     } else {
       doneTipIds.value.push(id);
     }
+  };
+
+  const saveTips = () => {
     window.parent.postMessage({ type: 'SAVE_TIPS', ids: [...doneTipIds.value] }, '*');
+  };
+
+  const toggleTip = (id) => {
+    flipTip(id);
+    if (!tipsLoaded) pendingTipToggles.push(id);
+    saveTips();
+  };
+
+  const applySavedTips = (ids) => {
+    tipsLoaded = true;
+    doneTipIds.value = Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : [];
+    if (pendingTipToggles.length) {
+      pendingTipToggles.splice(0).forEach(flipTip);
+      saveTips();
+    }
   };
 
   const orderedTips = computed(() => {
@@ -546,12 +569,19 @@
       }
 
       if (event.data.type === 'TIPS_DATA') {
-        doneTipIds.value = Array.isArray(event.data.ids) ? event.data.ids : [];
+        applySavedTips(event.data.ids);
       }
     });
 
     // Use '*' as target — parent is always the extension popup page.
     window.parent.postMessage({ type: 'GET_TAB_URL' }, '*');
     window.parent.postMessage({ type: 'GET_TIPS' }, '*');
+
+    // The wrapper always answers, but if its reply never arrives (it failed to
+    // load, or the reply was dropped) don't leave the spinner up for good.
+    // A reply that turns up later still replaces this.
+    setTimeout(() => {
+      if (currentSite.value.loading) setUncheckable();
+    }, 1500);
   });
 </script>

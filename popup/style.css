@@ -1161,6 +1161,9 @@ html, body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .tips-progress::-webkit-progress-value {
+    transition-duration: 0.01ms !important;
+  }
 }
 @media (forced-colors: active) {
   [role="tab"][aria-selected="true"] {
