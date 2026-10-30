@@ -1,8 +1,12 @@
 # Chrome Web Store Listing — 2Step
 
-> Last Updated: 2026-10-08
+> Last Updated: 2026-10-30
 
 Everything needed to fill in the Chrome Developer Dashboard. Items marked **TODO** still need a decision or a value from you. This file is not shipped: the build only copies the extension's own files into `dist/`.
+
+## Package
+
+Run `npm run package` to build the extension and zip `dist/` into `2step-<version>.zip` in the repo root, with `manifest.json` at the top level. Upload that file in the dashboard.
 
 ## Store Listing
 
