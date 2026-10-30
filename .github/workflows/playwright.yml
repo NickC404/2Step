@@ -36,20 +36,14 @@ jobs:
 
     - name: Verify build output
       run: |
-        if [ -d "dist" ]; then
-          echo "✅ dist folder created"
-          ls -la dist/
-          echo ""
-          echo "Checking required files..."
-          test -f dist/manifest.json && echo "✅ manifest.json" || echo "❌ manifest.json missing"
-          test -f dist/background.js && echo "✅ background.js" || echo "❌ background.js missing"
-          test -d dist/popup && echo "✅ popup folder" || echo "❌ popup folder missing"
-          test -d dist/2fa.directory && echo "✅ 2fa.directory folder" || echo "❌ 2fa.directory folder missing"
-          test -d dist/faq && echo "✅ faq folder" || echo "❌ faq folder missing"
-        else
-          echo "❌ dist folder not created by build"
-          exit 1
-        fi
+        missing=0
+        for f in dist/manifest.json dist/background.js; do
+          test -f "$f" && echo "✅ $f" || { echo "❌ $f missing"; missing=1; }
+        done
+        for d in dist/popup dist/2fa.directory dist/faq; do
+          test -d "$d" && echo "✅ $d" || { echo "❌ $d missing"; missing=1; }
+        done
+        exit $missing
 
     - name: Run Playwright tests
       run: dbus-run-session -- xvfb-run --auto-servernum --server-args="-screen 0 1280x1024x24" npm test

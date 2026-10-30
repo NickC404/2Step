@@ -1,7 +1,14 @@
+import faqData from '../faq/tips-faq.json';
+
 const sandboxFrame = document.getElementById('sandbox-frame');
 sandboxFrame.src = 'ui.html';
 
 const TIPS_KEY = 'doneTips';
+
+// Only the IDs of real tips are ever stored, so the saved list can't grow
+// beyond the checklist itself.
+const TIP_IDS = new Set(faqData.tips.map(tip => tip.id));
+const isTipId = (id) => typeof id === 'string' && TIP_IDS.has(id);
 
 // Always read contentWindow at send time — the navigation from about:blank to the
 // sandboxed ui.html (null origin) creates a new Window object, so a reference
@@ -42,10 +49,10 @@ window.addEventListener('message', async (event) => {
 
     // Open external links on the app's behalf. The sandboxed iframe can't
     // navigate or open tabs itself, so it asks the wrapper to do it. Only
-    // http(s) URLs are honoured, to avoid javascript:/data: and similar.
+    // https URLs are honoured, to avoid plain http, javascript:, data: and similar.
     if (event.data.type === 'OPEN_URL') {
         const url = event.data.url;
-        if (typeof url === 'string' && /^https?:\/\//i.test(url)) {
+        if (typeof url === 'string' && /^https:\/\//i.test(url)) {
             chrome.tabs.create({ url });
         }
     }
@@ -55,7 +62,7 @@ window.addEventListener('message', async (event) => {
         try {
             const stored = await chrome.storage.local.get(TIPS_KEY);
             const ids = stored[TIPS_KEY];
-            postToSandbox({ type: 'TIPS_DATA', ids: Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : [] });
+            postToSandbox({ type: 'TIPS_DATA', ids: Array.isArray(ids) ? [...new Set(ids.filter(isTipId))] : [] });
         } catch {
             postToSandbox({ type: 'TIPS_DATA', ids: [] });
         }
@@ -63,9 +70,9 @@ window.addEventListener('message', async (event) => {
 
     if (event.data.type === 'SAVE_TIPS') {
         const ids = event.data.ids;
-        if (Array.isArray(ids) && ids.every(id => typeof id === 'string')) {
+        if (Array.isArray(ids) && ids.length <= TIP_IDS.size && ids.every(isTipId)) {
             try {
-                await chrome.storage.local.set({ [TIPS_KEY]: ids });
+                await chrome.storage.local.set({ [TIPS_KEY]: [...new Set(ids)] });
             } catch { /* ignore */ }
         }
     }

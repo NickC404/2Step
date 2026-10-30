@@ -488,8 +488,8 @@
         break;
       }
     }
-    // Directory data is third-party: only ever link to plain http(s) pages.
-    const documentation = /^https?:\/\//i.test(siteData?.documentation || '') ? siteData.documentation : '';
+    // Directory data is third-party: only ever link to https pages.
+    const documentation = /^https:\/\//i.test(siteData?.documentation || '') ? siteData.documentation : '';
     const has2FA = !!(siteData && (siteData.methods?.length || documentation));
 
     return {

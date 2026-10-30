@@ -7514,8 +7514,7 @@
     "improvmx.com": {
         "methods": [
             "totp"
-        ],
-        "documentation": "http://help.improvmx.com/en/articles/4892466"
+        ]
     },
     "inbox.lv": {
         "methods": [
@@ -9040,8 +9039,7 @@
             "call",
             "email",
             "totp"
-        ],
-        "documentation": "http://www.cc-onlinehelp.com/en/#index/administrati/users/authenticati/authenticati.html"
+        ]
     },
     "mbna.ca": {
         "methods": [
@@ -11125,8 +11123,7 @@
     "panorama9.com": {
         "methods": [
             "totp"
-        ],
-        "documentation": "http://support.panorama9.com/articles/1859601"
+        ]
     },
     "panther.com": {
         "methods": [
@@ -14887,8 +14884,7 @@
     "three.co.uk": {
         "methods": [
             "sms"
-        ],
-        "documentation": "http://www.three.co.uk/hub/stay-safe-from-fraudsters/"
+        ]
     },
     "thriva.co": {},
     "thrivecart.com": {
