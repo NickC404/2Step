@@ -71,6 +71,7 @@
         <a
           :href="site.documentation"
           @click.prevent="openUrl(site.documentation)"
+          @auxclick.middle.prevent="openUrl(site.documentation)"
           target="_blank"
           rel="noopener noreferrer"
           :aria-label="`Open 2FA setup guide for ${site.domain} (opens in new tab)`"

@@ -1,6 +1,6 @@
 # 2Step Privacy Policy
 
-Last updated: 8 October 2026
+Last updated: 30 October 2026
 
 2Step is a browser extension that shows whether the website you are visiting supports two-factor authentication. This policy explains what the extension does with your information.
 
@@ -10,7 +10,7 @@ Last updated: 8 October 2026
 
 ## Information the extension accesses
 
-**The address of your current tab.** 2Step reads the web address (URL) of the tab you are viewing so it can look up that site's domain in a list of sites bundled inside the extension. It uses the result to colour the toolbar icon and to fill in the popup. The address is used for that lookup only. It is not saved, logged or sent anywhere.
+**The addresses of your tabs.** 2Step reads the web address (URL) of each tab when a page finishes loading and when you switch to a tab, including tabs loading in the background. It looks up the site's domain in a list of sites bundled inside the extension and uses the result to colour the toolbar icon for that tab. When you open the popup, it reads the address of the tab you are viewing to show that site's details. The address is used for that lookup only. It is not saved, logged or sent anywhere.
 
 **Your tips checklist.** If you tick off items in the Tips tab, the list of ticked items is saved in the extension's own storage in your browser so it is still there next time. This stays on your device and is removed when you uninstall the extension.
 
@@ -24,7 +24,7 @@ None. 2Step makes no network requests. It has no accounts, no analytics, no adve
 
 2Step requests two browser permissions:
 
-- `tabs` allows it to read the address of the current tab as described above. Chrome describes this permission as "Read your browsing history" because it gives access to tab addresses. 2Step uses it only to check the site in the active tab against its bundled list.
+- `tabs` allows it to read the addresses of your tabs as described above. Chrome describes this permission as "Read your browsing history" because it gives access to tab addresses. 2Step uses it only to check the site in each tab against its bundled list.
 - `storage` allows it to save your ticked tips on your device. It is not synced or sent anywhere.
 
 ## Third parties

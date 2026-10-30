@@ -332,8 +332,8 @@
     </main>
 
     <footer class="px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
-      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-link hover:text-link underline transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
-      <p>Data sourced from <a class="text-link hover:text-link underline transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-link hover:text-link underline transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
+      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-link hover:text-link underline transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" @auxclick.middle.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
+      <p>Data sourced from <a class="text-link hover:text-link underline transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" @auxclick.middle.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-link hover:text-link underline transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" @auxclick.middle.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
     </footer>
   </div>
 </template>

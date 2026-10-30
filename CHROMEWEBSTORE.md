@@ -56,7 +56,7 @@ The popup in each image is captured from the real built extension; only the acti
 
 | Permission | Type | Justification |
 |------------|------|---------------|
-| `tabs` | permissions | Reads the address of the active tab so the extension can look up that site's domain in a list bundled with the extension, then colours the toolbar icon (green, red or grey) and fills in the popup with the result. The icon updates on every tab without a click, which `activeTab` cannot do. The address is never stored or transmitted. |
+| `tabs` | permissions | Reads the address of each tab when a page finishes loading or the tab is switched to, including tabs loading in the background, so the extension can look up that site's domain in a list bundled with the extension. It then colours that tab's toolbar icon (green, red or grey) and fills in the popup with the result. The icon updates on every tab without a click, which `activeTab` cannot do. The address is never stored or transmitted. |
 | `storage` | permissions | Saves which items the user has ticked in the Tips checklist, so their progress is still there the next time they open the popup. Stored on the device only. |
 
 There are no host permissions and no content scripts.
@@ -69,7 +69,7 @@ There are no host permissions and no content scripts.
 
 **Does the extension collect user data?** No
 
-The active tab's address is read on the device and compared with a bundled list. It is not saved, logged or sent anywhere, so nothing in the table below is collected.
+Tab addresses are read on the device and compared with a bundled list. It is not saved, logged or sent anywhere, so nothing in the table below is collected.
 
 | Data Type | Collected? | Transmitted Off-Device? | Purpose | Shared with Third Parties? |
 |-----------|-----------|------------------------|---------|---------------------------|
@@ -94,7 +94,7 @@ The active tab's address is read on the device and compared with a bundled list.
 **Privacy Policy URL**
 https://github.com/NickC404/2Step/blob/main/store-assets/privacy-policy.md
 
-The policy is required because the extension handles the active tab's address, even though nothing leaves the device. The link must open for a signed-out visitor, so the repository has to be public.
+The policy is required because the extension handles tab addresses, even though nothing leaves the device. The link must open for a signed-out visitor, so the repository has to be public.
 
 ## Distribution
 

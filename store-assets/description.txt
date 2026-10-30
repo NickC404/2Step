@@ -13,7 +13,7 @@ WHAT IT DOES
 
 PRIVATE BY DESIGN
 
-2Step works entirely on your device. The site list ships inside the extension, so checking a site never sends anything over the network. There are no accounts, no analytics and no tracking. The extension reads the address of the current tab only to look it up in that bundled list.
+2Step works entirely on your device. The site list ships inside the extension, so checking a site never sends anything over the network. There are no accounts, no analytics and no tracking. The extension reads tab addresses only to look them up in that bundled list.
 
 WHERE THE DATA COMES FROM
 
