@@ -88,7 +88,9 @@ The active tab's address is read on the device and compared with a bundled list.
 ## Privacy Policy
 
 **Privacy Policy URL**
-**TODO**: publish `store-assets/privacy-policy.md` on your site and put its address here. The policy is required because the extension handles the active tab's address, even though nothing leaves the device.
+https://github.com/NickC404/2Step/blob/main/store-assets/privacy-policy.md
+
+The policy is required because the extension handles the active tab's address, even though nothing leaves the device. The link must open for a signed-out visitor, so the repository has to be public.
 
 ## Distribution
 

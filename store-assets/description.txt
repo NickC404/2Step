@@ -4,7 +4,7 @@ Passwords get leaked, guessed and reused. A second step, such as a code from an 
 
 WHAT IT DOES
 
-• Toolbar icon at a glance: green when the current site supports two-factor authentication, red when it doesn't.
+• Toolbar icon at a glance: green when the current site supports two-factor authentication, red when it's known not to, and grey when the site isn't in the directory.
 • Methods, ranked by strength: see whether the site offers security keys, authenticator apps, email codes, voice calls or SMS, with the strongest options listed first.
 • Setup guide: one click opens the site's own instructions for turning it on, where available.
 • Directory search: look up any of more than 3,000 sites before you sign up.

@@ -2,61 +2,41 @@
   <div class="bg-surface rounded-xl shadow-sm border border-gray-100 overflow-hidden">
 
     <!-- Status Banner -->
-    <div
-      :class="[
-        'px-6 py-4 flex items-center gap-3',
-        site.has2FA ? 'bg-emerald-100' : 'bg-amber-100'
-      ]"
-    >
+    <div :class="['px-6 py-4 flex items-center gap-3', status.banner]">
       <div
-        :class="[
-          'w-8 h-8 rounded-full flex items-center justify-center shrink-0',
-          site.has2FA ? 'bg-emerald-200 text-emerald-600' : 'bg-amber-200 text-amber-600'
-        ]"
+        :class="['w-8 h-8 rounded-full flex items-center justify-center shrink-0', status.icon]"
         aria-hidden="true"
       >
         <svg v-if="site.has2FA" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 11 13 15 9"/>
         </svg>
-        <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg v-else-if="site.listed" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
           <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
         </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
       </div>
       <div>
-        <p
-          :class="['font-bold text-sm', site.has2FA ? 'text-emerald-800' : 'text-amber-800']"
-          role="status"
-          aria-live="polite"
-        >
-          {{ site.has2FA ? '2FA Supported' : '2FA Not Supported' }}
+        <p :class="['font-bold text-sm', status.title]" role="status" aria-live="polite">
+          {{ status.heading }}
         </p>
-        <p :class="['text-xs mt-0.5', site.has2FA ? 'text-emerald-700' : 'text-amber-700']">
-          {{ site.has2FA
-            ? 'This site can be secured with two-factor authentication.'
-            : 'This site does not currently support 2FA.' }}
-        </p>
+        <p :class="['text-xs mt-0.5', status.text]">{{ status.message }}</p>
       </div>
     </div>
 
     <!-- Site Identity -->
     <div class="px-6 py-4 flex items-center gap-3 border-b border-gray-100">
       <div
-        :class="[
-          'w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg shrink-0 select-none',
-          site.has2FA ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'
-        ]"
+        :class="['w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg shrink-0 select-none', status.avatar]"
         aria-hidden="true"
       >
         {{ domainInitial }}
       </div>
       <div>
         <h2 class="text-base font-bold text-gray-900 tracking-tight">{{ site.domain }}</h2>
-        <p class="text-xs text-gray-500 mt-0.5">
-          {{ site.has2FA
-            ? `${site.methods.length} authentication method${site.methods.length !== 1 ? 's' : ''} available`
-            : 'No 2FA methods available' }}
-        </p>
+        <p class="text-xs text-gray-500 mt-0.5">{{ status.summary }}</p>
       </div>
     </div>
 
@@ -112,7 +92,11 @@
           </div>
           <div>
             <p class="text-[13px] font-bold text-gray-800">Use a strong, unique password</p>
-            <p class="text-[11px] text-gray-500 mt-0.5 leading-snug">Since 2FA isn't available, a unique password is your best defence. Consider a password manager.</p>
+            <p class="text-[11px] text-gray-500 mt-0.5 leading-snug">
+              {{ site.listed
+                ? "Since 2FA isn't available, a unique password is your best defence. Consider a password manager."
+                : "Look for 2FA in the site's security settings. Either way, a unique password from a password manager is your best defence." }}
+            </p>
           </div>
         </div>
       </div>
@@ -136,6 +120,47 @@ const props = defineProps({
 const openUrl = (url) => {
   if (url) window.parent.postMessage({ type: 'OPEN_URL', url }, '*');
 };
+
+// Three states: supported, listed without 2FA, and not in the directory at all.
+// A site missing from the directory may still offer 2FA, so it's shown in
+// neutral grey rather than as unsupported.
+const status = computed(() => {
+  const count = props.site.methods?.length || 0;
+  if (props.site.has2FA) {
+    return {
+      banner: 'bg-emerald-100',
+      icon: 'bg-emerald-200 text-emerald-600',
+      title: 'text-emerald-800',
+      text: 'text-emerald-700',
+      avatar: 'bg-emerald-100 text-emerald-700',
+      heading: '2FA Supported',
+      message: 'This site can be secured with two-factor authentication.',
+      summary: `${count} authentication method${count !== 1 ? 's' : ''} available`
+    };
+  }
+  if (props.site.listed) {
+    return {
+      banner: 'bg-amber-100',
+      icon: 'bg-amber-200 text-amber-600',
+      title: 'text-amber-800',
+      text: 'text-amber-700',
+      avatar: 'bg-amber-100 text-amber-800',
+      heading: '2FA Not Supported',
+      message: 'This site does not currently support 2FA.',
+      summary: 'No 2FA methods available'
+    };
+  }
+  return {
+    banner: 'bg-gray-100',
+    icon: 'bg-gray-200 text-gray-600',
+    title: 'text-gray-800',
+    text: 'text-gray-700',
+    avatar: 'bg-gray-100 text-gray-700',
+    heading: 'Not in the 2FA Directory',
+    message: "2Step has no record for this site, so it can't say whether 2FA is offered.",
+    summary: 'No directory entry'
+  };
+});
 
 const domainInitial = computed(() => {
   return (props.site.domain || '?').charAt(0).toUpperCase();

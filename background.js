@@ -104,7 +104,9 @@ async function updateAction(tabId, url) {
     const data = await loadSitesData();
     const domain = getCleanDomain(url);
 
-    let has2FA = false;
+    // null (grey) when the site isn't in the directory: that doesn't mean it
+    // lacks 2FA, only that there's no record of it.
+    let has2FA = null;
     const parts = domain.split('.');
     for (let i = 0; i < parts.length - 1; i++) {
         const checkDomain = parts.slice(i).join('.');

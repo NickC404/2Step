@@ -16,10 +16,10 @@
         <div
           v-if="!currentSite.loading && currentSite.domain"
           class="flex items-center gap-1.5 bg-white/15 rounded-lg px-2.5 py-1 max-w-[160px]"
-          :aria-label="`Current site: ${currentSite.domain}, 2FA ${currentSite.has2FA ? 'supported' : 'not supported'}`"
+          :aria-label="`Current site: ${currentSite.domain}, ${currentSite.has2FA ? '2FA supported' : currentSite.listed ? '2FA not supported' : 'not in the 2FA Directory'}`"
         >
           <span
-            :class="['w-1.5 h-1.5 rounded-full shrink-0', currentSite.has2FA ? 'bg-emerald-400' : 'bg-amber-400']"
+            :class="['w-1.5 h-1.5 rounded-full shrink-0', currentSite.has2FA ? 'bg-emerald-400' : currentSite.listed ? 'bg-amber-400' : 'bg-white/60']"
             aria-hidden="true"
           ></span>
           <span class="text-xs font-medium text-white truncate">{{ currentSite.domain }}</span>
@@ -495,6 +495,7 @@
     return {
       domain: cleanDomain,
       has2FA,
+      listed: !!siteData,
       methods: siteData?.methods || [],
       documentation,
       loading: false,
