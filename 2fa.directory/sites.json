@@ -3009,6 +3009,12 @@
         ],
         "documentation": "https://docs.oracle.com/en/cloud/paas/identity-cloud/uaids/configure-authentication-factors.html"
     },
+    "cloud.qdrant.io": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://qdrant.tech/documentation/cloud-user-profile/#security"
+    },
     "cloud66.com": {
         "methods": [
             "totp",
@@ -6204,6 +6210,12 @@
         "documentation": "https://payment.schibsted.no/profile-pages/faq#how-to-activate-and-deactivate-2fa"
     },
     "fxhome.com": {},
+    "g2a.com": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://supporthub.g2a.com/marketplace/en/g2a-account/how-can-i-activate-an-additional-login-verification-on-my-g2a-account"
+    },
     "gaijin.net": {
         "methods": [
             "sms",
@@ -6356,6 +6368,12 @@
         "documentation": "https://getscreen.me/en/docs/dashboard#account-authentication"
     },
     "giac.org": {},
+    "gigaone.pl": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://www.gigaone.pl/wsparcie-techniczne/2fa"
+    },
     "gilt.com": {},
     "giphy.com": {},
     "gitguardian.com": {
@@ -7496,8 +7514,7 @@
     "improvmx.com": {
         "methods": [
             "totp"
-        ],
-        "documentation": "http://help.improvmx.com/en/articles/4892466"
+        ]
     },
     "inbox.lv": {
         "methods": [
@@ -8017,8 +8034,18 @@
         ],
         "documentation": "https://help.kagi.com/kagi/privacy/two-factor-authentication.html"
     },
-    "kahoot.com": {},
-    "kahoot.it": {},
+    "kahoot.com": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://support.kahoot.com/hc/articles/43448661146771"
+    },
+    "kahoot.it": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://support.kahoot.com/hc/articles/43448661146771"
+    },
     "kajabi.com": {
         "methods": [
             "totp"
@@ -8097,8 +8124,6 @@
     },
     "kickstarter.com": {
         "methods": [
-            "sms",
-            "call",
             "totp"
         ],
         "documentation": "https://help.kickstarter.com/hc/en-us/articles/115005127094"
@@ -8327,8 +8352,24 @@
             "email"
         ]
     },
-    "leetcode.cn": {},
-    "leetcode.com": {},
+    "leetcode.cn": {
+        "methods": [
+            "email",
+            "sms",
+            "totp",
+            "u2f",
+            "custom-software"
+        ]
+    },
+    "leetcode.com": {
+        "methods": [
+            "email",
+            "sms",
+            "totp",
+            "u2f",
+            "custom-software"
+        ]
+    },
     "legalmail.it": {},
     "lego.com": {
         "methods": [
@@ -8554,6 +8595,12 @@
             "sms"
         ],
         "documentation": "https://intl.cloud.baidu.com/doc/IAM/s/2jwvyc50i-en"
+    },
+    "login.cloud.qdrant.io": {
+        "methods": [
+            "totp"
+        ],
+        "documentation": "https://qdrant.tech/documentation/cloud-user-profile/#security"
     },
     "login.gov": {
         "methods": [
@@ -8992,8 +9039,7 @@
             "call",
             "email",
             "totp"
-        ],
-        "documentation": "http://www.cc-onlinehelp.com/en/#index/administrati/users/authenticati/authenticati.html"
+        ]
     },
     "mbna.ca": {
         "methods": [
@@ -11077,8 +11123,7 @@
     "panorama9.com": {
         "methods": [
             "totp"
-        ],
-        "documentation": "http://support.panorama9.com/articles/1859601"
+        ]
     },
     "panther.com": {
         "methods": [
@@ -11263,15 +11308,19 @@
     },
     "paypal-search.com": {
         "methods": [
+            "sms",
             "totp",
-            "u2f"
+            "u2f",
+            "custom-software"
         ],
         "documentation": "https://www.paypal.com/us/cshelp/article/help167"
     },
     "paypal.com": {
         "methods": [
+            "sms",
             "totp",
-            "u2f"
+            "u2f",
+            "custom-software"
         ],
         "documentation": "https://www.paypal.com/us/cshelp/article/help167"
     },
@@ -11432,6 +11481,11 @@
         "methods": [
             "totp",
             "email"
+        ]
+    },
+    "photon.codes": {
+        "methods": [
+            "totp"
         ]
     },
     "phrase.com": {
@@ -12490,7 +12544,8 @@
     "recurly.com": {
         "methods": [
             "sms",
-            "custom-software"
+            "email",
+            "totp"
         ],
         "documentation": "https://docs.recurly.com/docs/two-factor-authentication"
     },
@@ -14829,8 +14884,7 @@
     "three.co.uk": {
         "methods": [
             "sms"
-        ],
-        "documentation": "http://www.three.co.uk/hub/stay-safe-from-fraudsters/"
+        ]
     },
     "thriva.co": {},
     "thrivecart.com": {
@@ -16905,6 +16959,13 @@
             "totp"
         ],
         "documentation": "https://wiggle.egain.cloud/kb/Wiggle_EN/content/Prod-13378/"
+    },
+    "wikimedia.org": {
+        "methods": [
+            "totp",
+            "u2f"
+        ],
+        "documentation": "https://meta.wikimedia.org/wiki/Help:Two-factor_authentication"
     },
     "wikipedia.org": {
         "methods": [

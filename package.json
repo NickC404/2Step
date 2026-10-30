@@ -12,16 +12,17 @@
     "gen:icons": "node scripts/gen-icons.js",
     "gen:store-assets": "node scripts/gen-store-assets.js",
     "test": "playwright test",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "package": "npm run build && node scripts/package.js"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "@tailwindcss/cli": "^4.1.18",
-    "esbuild": "^0.27.2",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/cli": "^4.3.3",
+    "esbuild": "^0.28.2",
     "esbuild-plugin-vue3": "^0.5.1",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.3"
   },
   "dependencies": {
-    "vue": "^3.5.26"
+    "vue": "^3.5.44"
   }
 }

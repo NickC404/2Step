@@ -10,6 +10,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { methodConfig } from '../src/methodConfig.js';
+import { isDomain, VALID } from './site-validation.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, '../2fa.directory/sites.json');
@@ -22,15 +23,6 @@ const FIELDS = [
   ['tfa', 'methods'],
   ['documentation', 'documentation'],
 ];
-
-// The feed is third-party data, so each value is checked before it is kept.
-// Links are opened by the popup, so anything that isn't a plain http(s) URL is
-// dropped at import time rather than shipped in the bundle.
-const isHttpUrl = (v) => typeof v === 'string' && /^https?:\/\//i.test(v);
-const isMethodList = (v) => Array.isArray(v) && v.every((m) => typeof m === 'string' && /^[a-z0-9-]+$/.test(m));
-const VALID = { methods: isMethodList, documentation: isHttpUrl };
-
-const isDomain = (d) => typeof d === 'string' && /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(d);
 
 async function main() {
   console.log(`Fetching ${API} ...`);

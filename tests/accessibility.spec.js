@@ -239,16 +239,14 @@ test.describe('Accessibility and User Experience', () => {
 
         if (buttonCount >= 2) {
             await faqButtons.nth(0).click();
-            await page.waitForTimeout(300);
-
             await faqButtons.nth(1).click();
-            await page.waitForTimeout(300);
 
-            // FAQ answer paragraphs use leading-relaxed (distinct from loading state)
-            const visibleAnswers = page.locator('p.text-sm.text-gray-500.leading-relaxed');
-            const answerCount = await visibleAnswers.count();
-
-            expect(answerCount).toBeGreaterThanOrEqual(2);
+            // Closed <details> keep their answers in the DOM, so check that
+            // both items are open and their answers are actually shown.
+            const openItems = page.locator('details[open]');
+            await expect(openItems).toHaveCount(2);
+            await expect(openItems.nth(0).locator('p.leading-relaxed')).toBeVisible();
+            await expect(openItems.nth(1).locator('p.leading-relaxed')).toBeVisible();
         }
 
         await page.close();

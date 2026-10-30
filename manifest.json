@@ -9,7 +9,7 @@
         "storage"
     ],
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'none';",
+        "extension_pages": "script-src 'self'; object-src 'none'; frame-src 'self';",
         "sandbox": "sandbox allow-scripts; script-src 'self'; object-src 'none';"
     },
     "icons": {

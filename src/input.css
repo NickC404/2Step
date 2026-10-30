@@ -119,6 +119,11 @@ body {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+
+    /* Pseudo-elements like this one aren't matched by the rule above. */
+    .tips-progress::-webkit-progress-value {
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Forced colours (Windows High Contrast) drops backgrounds, which is how the

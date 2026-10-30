@@ -213,12 +213,19 @@ test.describe('Edge Cases and Error Handling', () => {
 
         const result = page.locator('#directory-results button', { hasText: 'github.com' }).first();
 
-        // Click multiple times rapidly
-        // The row is replaced by the details view after the first click
-        await result.click({ clickCount: 3 });
+        // Click the same row three times in one task, before Vue re-renders.
+        // A pointer click can't do this: the row is replaced by the details
+        // view after the first click, so later clicks would land elsewhere.
+        await result.evaluate((el) => {
+            el.click();
+            el.click();
+            el.click();
+        });
 
-        // Should still show site details correctly
+        // Should show the details view once, for the right site
+        await expect(page.locator('h2', { hasText: 'github.com' })).toHaveCount(1);
         await expect(page.locator('h2', { hasText: 'github.com' })).toBeVisible();
+        await expect(page.locator('#directory-results')).toHaveCount(0);
 
         await page.close();
     });

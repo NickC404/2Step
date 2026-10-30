@@ -16,10 +16,10 @@
         <div
           v-if="!currentSite.loading && currentSite.domain"
           class="flex items-center gap-1.5 bg-white/15 rounded-lg px-2.5 py-1 max-w-[160px]"
-          :aria-label="`Current site: ${currentSite.domain}, 2FA ${currentSite.has2FA ? 'supported' : 'not supported'}`"
+          :aria-label="`Current site: ${currentSite.domain}, ${currentSite.has2FA ? '2FA supported' : currentSite.listed ? '2FA not supported' : 'not in the 2FA Directory'}`"
         >
           <span
-            :class="['w-1.5 h-1.5 rounded-full shrink-0', currentSite.has2FA ? 'bg-emerald-400' : 'bg-amber-400']"
+            :class="['w-1.5 h-1.5 rounded-full shrink-0', currentSite.has2FA ? 'bg-emerald-400' : currentSite.listed ? 'bg-amber-400' : 'bg-white/60']"
             aria-hidden="true"
           ></span>
           <span class="text-xs font-medium text-white truncate">{{ currentSite.domain }}</span>
@@ -332,8 +332,8 @@
     </main>
 
     <footer class="px-4 py-4 text-center text-[10px] text-gray-500 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100/50">
-      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-link hover:text-link underline transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
-      <p>Data sourced from <a class="text-link hover:text-link underline transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-link hover:text-link underline transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
+      <p class="pb-1.5 font-medium">Made with ❤️ by <a class="text-link hover:text-link underline transition-colors" href="https://nickcotterill.co.uk" @click.prevent="openExternal('https://nickcotterill.co.uk')" @auxclick.middle.prevent="openExternal('https://nickcotterill.co.uk')" target="_blank" rel="noopener noreferrer">Nick Cotterill</a></p>
+      <p>Data sourced from <a class="text-link hover:text-link underline transition-colors" href="https://2fa.directory/gb/" @click.prevent="openExternal('https://2fa.directory/gb/')" @auxclick.middle.prevent="openExternal('https://2fa.directory/gb/')" target="_blank" rel="noopener noreferrer">2FA Directory</a> by <a class="text-link hover:text-link underline transition-colors" href="https://2factorauth-org.pages.dev/" @click.prevent="openExternal('https://2factorauth-org.pages.dev/')" @auxclick.middle.prevent="openExternal('https://2factorauth-org.pages.dev/')" target="_blank" rel="noopener noreferrer">2factorauth</a></p>
     </footer>
   </div>
 </template>
@@ -395,16 +395,39 @@
   // because the sandboxed UI has no storage of its own.
   const doneTipIds = ref([]);
 
+  // Ticks made before the saved list arrives are replayed on top of it, so
+  // the stored list doesn't overwrite them.
+  let tipsLoaded = false;
+  const pendingTipToggles = [];
+
   const isTipDone = (id) => doneTipIds.value.includes(id);
 
-  const toggleTip = (id) => {
+  const flipTip = (id) => {
     const idx = doneTipIds.value.indexOf(id);
     if (idx >= 0) {
       doneTipIds.value.splice(idx, 1);
     } else {
       doneTipIds.value.push(id);
     }
+  };
+
+  const saveTips = () => {
     window.parent.postMessage({ type: 'SAVE_TIPS', ids: [...doneTipIds.value] }, '*');
+  };
+
+  const toggleTip = (id) => {
+    flipTip(id);
+    if (!tipsLoaded) pendingTipToggles.push(id);
+    saveTips();
+  };
+
+  const applySavedTips = (ids) => {
+    tipsLoaded = true;
+    doneTipIds.value = Array.isArray(ids) ? ids.filter(id => typeof id === 'string') : [];
+    if (pendingTipToggles.length) {
+      pendingTipToggles.splice(0).forEach(flipTip);
+      saveTips();
+    }
   };
 
   const orderedTips = computed(() => {
@@ -465,13 +488,14 @@
         break;
       }
     }
-    // Directory data is third-party: only ever link to plain http(s) pages.
-    const documentation = /^https?:\/\//i.test(siteData?.documentation || '') ? siteData.documentation : '';
+    // Directory data is third-party: only ever link to https pages.
+    const documentation = /^https:\/\//i.test(siteData?.documentation || '') ? siteData.documentation : '';
     const has2FA = !!(siteData && (siteData.methods?.length || documentation));
 
     return {
       domain: cleanDomain,
       has2FA,
+      listed: !!siteData,
       methods: siteData?.methods || [],
       documentation,
       loading: false,
@@ -546,12 +570,19 @@
       }
 
       if (event.data.type === 'TIPS_DATA') {
-        doneTipIds.value = Array.isArray(event.data.ids) ? event.data.ids : [];
+        applySavedTips(event.data.ids);
       }
     });
 
     // Use '*' as target — parent is always the extension popup page.
     window.parent.postMessage({ type: 'GET_TAB_URL' }, '*');
     window.parent.postMessage({ type: 'GET_TIPS' }, '*');
+
+    // The wrapper always answers, but if its reply never arrives (it failed to
+    // load, or the reply was dropped) don't leave the spinner up for good.
+    // A reply that turns up later still replaces this.
+    setTimeout(() => {
+      if (currentSite.value.loading) setUncheckable();
+    }, 1500);
   });
 </script>
