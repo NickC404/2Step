@@ -20,7 +20,7 @@
     "@tailwindcss/cli": "^4.3.3",
     "esbuild": "^0.28.2",
     "esbuild-plugin-vue3": "^0.5.1",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.5"
   },
   "dependencies": {
     "vue": "^3.5.44"
